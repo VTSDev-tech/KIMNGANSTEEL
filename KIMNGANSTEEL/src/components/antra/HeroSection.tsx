@@ -120,7 +120,7 @@ export function HeroSection() {
                   animate={{ opacity: 1, y: 0 }} 
                   exit={{ opacity: 0, y: -10 }} 
                   transition={{ duration: 0.4, ease: "easeOut" }} 
-                  className="absolute font-sans font-extralight text-xl md:text-2xl tracking-[0.25em] text-white uppercase whitespace-nowrap drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)] ml-[0.25em]"
+                  className="absolute font-sans font-semibold text-xl md:text-2xl tracking-[0.15em] uppercase whitespace-nowrap text-transparent bg-clip-text bg-gradient-to-r from-white via-[#E8E4DB] to-[#A39A86] drop-shadow-[0_4px_12px_rgba(255,255,255,0.1)] ml-[0.15em]"
                 >
                   {activeMaterial.name}
                 </motion.h3>
@@ -131,7 +131,7 @@ export function HeroSection() {
               initial={{ scaleX: 0, opacity: 0 }} 
               animate={{ scaleX: 1, opacity: 1 }} 
               transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }} 
-              className="w-10 h-[1px] bg-white/50 mt-3 origin-center" 
+              className="w-12 h-[2px] bg-gradient-to-r from-transparent via-[#C99A5C] to-transparent mt-3 origin-center" 
             />
           </div>
 
