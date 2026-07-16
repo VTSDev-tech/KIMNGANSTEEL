@@ -127,7 +127,7 @@ export function ProductSection() {
           onMouseLeave={handleMouseLeave}
           onMouseUp={handleMouseUp}
           onMouseMove={handleMouseMove}
-          className={`flex overflow-x-auto hide-scrollbar pb-16 items-start gap-4 w-full pr-4 md:pr-8 ${
+          className={`flex overflow-x-auto scroll-auto hide-scrollbar pb-16 items-start gap-4 w-full pr-4 md:pr-8 ${
             isDragging ? "cursor-grabbing" : "cursor-grab"
           }`}
         >
