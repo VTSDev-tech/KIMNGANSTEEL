@@ -12,11 +12,12 @@ import { PartnerSection } from "./PartnerSection";
 
 import { HeroSection } from "./HeroSection";
 import { Factory3D } from "./Factory3D";
+import { ProductSection } from "./ProductSection";
+import { SteelCoilShowcase } from "./SteelCoilShowcase";
+import { ExpertiseSection, StatsBand } from "./StatsExpertise";
 import { PortfolioSection } from "./PortfolioSection";
 import { ProcessSection } from "./ProcessSection";
 import { ServicesSection } from "./ServicesSection";
-import { ExpertiseSection, StatsBand } from "./StatsExpertise";
-import { ProductSection } from "./ProductSection";
 import type { ProcessStep, ProjectCard, ServiceCard } from "@/types/antra";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -187,6 +188,7 @@ export function AntraClone() {
         <ServicesSection services={services} />
         <Factory3D />
         <ProductSection />
+        <SteelCoilShowcase />
         <ExpertiseSection />
         <PortfolioSection projects={projects} />
         <ProcessSection steps={steps} />
