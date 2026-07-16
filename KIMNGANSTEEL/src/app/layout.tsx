@@ -28,8 +28,8 @@ const dancingScript = Dancing_Script({
 });
 
 export const metadata: Metadata = {
-  title: "Antra - Architecture & Interior Design Clone",
-  description: "Responsive Antra-style architecture and interior design homepage clone.",
+  title: "Kim Ngân Steel",
+  description: "Nhà máy sản xuất, cung cấp tôn thép chất lượng cao Kim Ngân Steel.",
 };
 
 export default function RootLayout({
