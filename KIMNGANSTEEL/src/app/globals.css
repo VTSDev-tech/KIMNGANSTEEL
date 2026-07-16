@@ -501,8 +501,8 @@
 .antra-expertise-copy h2 {
   width: min(760px, 100%);
   margin: 0;
-  font-size: clamp(1.8rem, 3.8vw, 3.5rem);
-  font-weight: 900;
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 800;
   line-height: 1.4;
   text-transform: uppercase;
 }
