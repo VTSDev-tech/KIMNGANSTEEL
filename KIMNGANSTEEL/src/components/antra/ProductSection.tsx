@@ -108,9 +108,9 @@ export function ProductSection() {
   };
 
   return (
-    <section id="products" className="py-24 bg-[#F2F0EC] overflow-hidden">
-      <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-24">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 lg:mb-20 gap-8">
+    <section id="products" className="py-12 md:py-16 bg-[#F2F0EC] overflow-hidden flex flex-col justify-center min-h-[min(100vh,900px)]">
+      <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-24 w-full">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 md:mb-12 gap-6">
           <div>
             <p className="text-[10px] font-bold tracking-[0.15em] uppercase text-[#7a7570] mb-4">SẢN PHẨM</p>
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold uppercase tracking-tight leading-[1.2] text-[#2a2925]">
@@ -134,8 +134,8 @@ export function ProductSection() {
           {products.map((product, index) => (
             <article 
               key={product.id} 
-              className={`flex-none w-[75vw] sm:w-[45vw] md:w-[35vw] lg:w-[22vw] relative aspect-[3/4] overflow-hidden group cursor-pointer bg-black ${
-                index % 2 !== 0 ? 'mt-6 lg:mt-10' : ''
+              className={`flex-none w-[75vw] sm:w-[45vw] md:w-[35vw] lg:w-[20vw] relative aspect-[3/4] overflow-hidden group cursor-pointer bg-black ${
+                index % 2 !== 0 ? 'mt-4 lg:mt-6' : ''
               }`}
             >
               <img 
