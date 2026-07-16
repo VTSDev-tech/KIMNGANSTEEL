@@ -1,107 +1,227 @@
+"use client";
+
+import { motion } from "framer-motion";
 import Image from "next/image";
-import { ShieldCheck, Zap, Handshake, Target, Compass, Award } from "lucide-react";
+import { Award, Users, ShieldCheck, Factory } from "lucide-react";
 import { SiteFooter } from "@/components/antra/SiteFooter";
 
-export default function GioiThieuPage() {
+const STATS = [
+  { label: "Năm Kinh Nghiệm", value: "15+" },
+  { label: "Dự Án Đã Cấp", value: "2,500+" },
+  { label: "Công Suất (Tấn/Tháng)", value: "500+" },
+  { label: "Đại Lý Cấp 1", value: "3" },
+];
+
+const LEADERSHIP = [
+  { name: "Ông Trần Văn B", role: "Giám Đốc Điều Hành", exp: "15 năm kinh nghiệm ngành thép" },
+  { name: "Bà Nguyễn Thị C", role: "Trưởng Phòng Kinh Doanh", exp: "10 năm kinh nghiệm bán B2B" },
+  { name: "Ông Lê Văn D", role: "Giám Đốc Sản Xuất", exp: "12 năm quản lý nhà máy" },
+];
+
+const CERTIFICATES = [
+  { name: "Chứng nhận ISO 9001:2015", desc: "Hệ thống Quản lý Chất lượng" },
+  { name: "Đại lý Cấp 1 Hoa Sen", desc: "Phân phối chính hãng Tôn Hoa Sen" },
+  { name: "Đại lý Cấp 1 Hòa Phát", desc: "Phân phối chính hãng Thép Hòa Phát" },
+  { name: "Chứng chỉ CO/CQ", desc: "Đầy đủ cho mọi lô hàng xuất xưởng" },
+];
+
+const PROCESS_STEPS = [
+  { title: "Kiểm tra nguyên liệu", desc: "Kiểm định phôi thép, cuộn mạ nguyên bản 100% chính hãng trước khi nhập kho." },
+  { title: "Gia công chính xác", desc: "Cán sóng, cắt xả băng theo đúng kích thước bản vẽ bằng hệ thống máy CNC hiện đại." },
+  { title: "Kiểm định độ bền", desc: "Đo độ dày zem, kiểm tra độ bám dính mạ kẽm/màu trước khi đóng gói." },
+  { title: "Bàn giao & Chứng nhận", desc: "Cấp kèm giấy chứng nhận chất lượng (CO/CQ) lúc giao hàng tại công trình." },
+];
+
+export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-[#080808] pt-[100px]">
-      {/* Hero Section */}
-      <section className="relative h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden">
-        <div 
-          className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-40"
-          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1565514020179-026b92b84bb6?auto=format&fit=crop&w=2000&q=85')" }}
-        />
-        <div className="absolute inset-0 z-10 bg-gradient-to-b from-[#080808]/50 via-transparent to-[#080808]" />
-        
-        <div className="relative z-20 text-center px-6 max-w-4xl mx-auto">
-          <p className="text-[#B8AFA3] font-bold tracking-[0.2em] uppercase mb-4 text-sm">Về Kim Ngân Steel</p>
-          <h1 className="text-4xl md:text-6xl font-extrabold text-[#F2F0EC] uppercase tracking-tight leading-tight">
-            Nền tảng vững chắc <br className="hidden md:block" /> cho mọi công trình
-          </h1>
+    <main className="bg-[#080808] text-white min-h-screen pt-24 font-sans">
+      
+      {/* 1. Hero Section */}
+      <section className="relative py-20 md:py-32 overflow-hidden flex items-center justify-center min-h-[60vh]">
+        <div className="absolute inset-0 z-0 opacity-20">
+          <Image 
+            src="/nha_xuong.png" 
+            alt="Kim Ngân Steel Factory" 
+            fill 
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#080808]/80 via-[#080808]/60 to-[#080808]" />
+        </div>
+
+        <div className="container relative z-10 mx-auto px-4 md:px-8 max-w-5xl text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <h1 className="font-serif italic text-3xl md:text-5xl lg:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-white via-[#E8E4DB] to-[#A39A86] mb-6 drop-shadow-md">
+              Vững nền móng – Bền công trình
+            </h1>
+            <p className="text-gray-400 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
+              Kim Ngân Steel tự hào là đối tác cung ứng tôn thép hàng đầu, mang đến những giải pháp vật liệu xây dựng chất lượng, bền bỉ và tối ưu nhất cho mọi dự án.
+            </p>
+          </motion.div>
         </div>
       </section>
 
-      {/* Brand Story */}
-      <section className="py-24 px-6 md:px-12 max-w-[1400px] mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#F2F0EC] uppercase mb-8 leading-tight">
-              Hành trình kiến tạo <br /> chuẩn mực vật liệu
-            </h2>
-            <div className="space-y-6 text-[#999590] text-lg leading-relaxed">
-              <p>
-                Được thành lập với tầm nhìn trở thành đối tác cung ứng vật liệu xây dựng hàng đầu, Công ty TNHH Tôn Thép Kim Ngân đã không ngừng đầu tư vào hệ thống dây chuyền gia công hiện đại và đa dạng hóa nguồn sản phẩm.
-              </p>
-              <p>
-                Từ một nhà phân phối quy mô vừa, chúng tôi đã vươn lên thành đơn vị cung cấp toàn diện các dòng tôn cuộn, tôn cán sóng, thép hộp và xà gồ cho hàng ngàn dự án công nghiệp lẫn dân dụng khắp cả nước.
-              </p>
-              <p>
-                Sự thấu hiểu sâu sắc về đặc tính vật liệu cùng kinh nghiệm thực chiến giúp Kim Ngân Steel luôn đưa ra giải pháp tối ưu nhất, cân bằng giữa chi phí, kỹ thuật và độ bền công trình.
-              </p>
-            </div>
-          </div>
-          <div className="relative aspect-square md:aspect-[4/3] w-full">
-            <Image 
-              src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1000&q=85" 
-              alt="Kim Ngan Steel Factory" 
-              fill
-              className="object-cover rounded-sm grayscale hover:grayscale-0 transition-all duration-700"
-            />
-            <div className="absolute -bottom-8 -left-8 bg-[#121212] p-8 border border-[rgba(216,212,206,0.1)] hidden md:block">
-              <p className="text-5xl font-black text-[#F2F0EC] mb-2">15+</p>
-              <p className="text-[#B8AFA3] font-medium tracking-wide uppercase text-sm">Năm Kinh Nghiệm</p>
-            </div>
+      {/* 2. Năng lực & Con số thực tế */}
+      <section className="py-16 bg-[#111] border-y border-white/5">
+        <div className="container mx-auto px-4 md:px-8 max-w-6xl">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            {STATS.map((stat, i) => (
+              <motion.div 
+                key={i}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="flex flex-col items-center justify-center"
+              >
+                <div className="text-4xl md:text-5xl font-bold text-[#C99A5C] mb-2 tracking-tight">
+                  {stat.value}
+                </div>
+                <div className="text-sm md:text-base text-gray-400 uppercase tracking-widest font-semibold">
+                  {stat.label}
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Core Values */}
-      <section className="py-24 px-6 md:px-12 bg-[#121212] border-y border-[rgba(216,212,206,0.05)]">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#F2F0EC] uppercase">Giá trị cốt lõi</h2>
-            <p className="text-[#999590] mt-4 max-w-2xl mx-auto text-lg">Những nguyên tắc bất di bất dịch định hình cách chúng tôi vận hành và phục vụ khách hàng.</p>
+      {/* 3. Câu chuyện & Hành trình */}
+      <section className="py-24 relative">
+        <div className="container mx-auto px-4 md:px-8 max-w-5xl">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="flex flex-col items-center mb-16 text-center"
+          >
+            <h2 className="text-sm tracking-[0.2em] text-[#C99A5C] uppercase font-bold mb-4">Câu Chuyện Của Chúng Tôi</h2>
+            <h3 className="text-3xl md:text-4xl font-serif text-white">Hành trình kiến tạo sự vững chắc</h3>
+            <div className="w-16 h-[2px] bg-gradient-to-r from-transparent via-[#C99A5C] to-transparent mt-6" />
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <motion.div 
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="text-gray-300 space-y-6 leading-relaxed text-lg"
+            >
+              <p>
+                Được thành lập với tầm nhìn trở thành nhà cung cấp vật liệu xây dựng hàng đầu khu vực, <strong className="text-white font-semibold">Kim Ngân Steel</strong> đã không ngừng nỗ lực vươn lên, khẳng định vị thế vững chắc trong ngành công nghiệp tôn thép. Chúng tôi hiểu rằng, mỗi công trình đều bắt đầu từ một nền móng kiên cố và những vật liệu bền bỉ nhất.
+              </p>
+              <p>
+                Với hơn 15 năm kinh nghiệm, Kim Ngân Steel sở hữu hệ thống nhà máy gia công hiện đại cùng năng lực cung ứng vượt trội lên đến 500 tấn/tháng. Chúng tôi tự hào là đại lý cấp 1 của các thương hiệu danh tiếng như Hoa Sen, Hòa Phát, NS BlueScope, mang đến cho nhà thầu và đại lý những sản phẩm thép mạ kẽm, tôn lạnh màu, xà gồ đạt tiêu chuẩn quốc tế.
+              </p>
+              <p>
+                Không chỉ dừng lại ở việc cung cấp sản phẩm, định hướng của chúng tôi là trở thành đối tác chiến lược, đồng hành cùng khách hàng trong quá trình tối ưu hóa chi phí và đảm bảo tiến độ thi công, góp phần xây dựng nên những công trình bền vững với thời gian.
+              </p>
+            </motion.div>
+            
+            <motion.div 
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="relative h-[450px] rounded-xl overflow-hidden border border-white/10 group"
+            >
+              <Image 
+                src="/kho_logistics.png" 
+                alt="Kim Ngan Steel History" 
+                fill 
+                className="object-cover group-hover:scale-105 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors duration-700" />
+            </motion.div>
           </div>
+        </div>
+      </section>
+
+      {/* 4. Đội ngũ Lãnh đạo */}
+      <section className="py-24 bg-[#111]">
+        <div className="container mx-auto px-4 md:px-8 max-w-6xl">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="flex flex-col items-center mb-16 text-center"
+          >
+            <h2 className="text-sm tracking-[0.2em] text-[#C99A5C] uppercase font-bold mb-4">Đội Ngũ Nòng Cốt</h2>
+            <h3 className="text-3xl md:text-4xl font-serif text-white">Những người dẫn đường</h3>
+            <div className="w-16 h-[2px] bg-gradient-to-r from-transparent via-[#C99A5C] to-transparent mt-6" />
+          </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              { 
-                icon: ShieldCheck, 
-                title: "Chất lượng tuyệt đối", 
-                desc: "Cam kết 100% sản phẩm đạt tiêu chuẩn kỹ thuật nghiêm ngặt trước khi xuất xưởng."
-              },
-              { 
-                icon: Zap, 
-                title: "Tốc độ linh hoạt", 
-                desc: "Hệ thống máy móc hiện đại cho phép gia công cực nhanh, đáp ứng ngay cả các đơn hàng gấp."
-              },
-              { 
-                icon: Handshake, 
-                title: "Uy tín đối tác", 
-                desc: "Lấy sự chính trực làm gốc, báo giá minh bạch, giao hàng đúng hẹn, đồng hành dài lâu."
-              },
-              { 
-                icon: Target, 
-                title: "Tập trung giải pháp", 
-                desc: "Không chỉ bán vật liệu, chúng tôi tư vấn giải pháp tối ưu cho từng đặc thù công trình."
-              },
-              { 
-                icon: Compass, 
-                title: "Định hướng tương lai", 
-                desc: "Liên tục cập nhật công nghệ cán tôn mới nhất, nâng cao năng suất và chất lượng thành phẩm."
-              },
-              { 
-                icon: Award, 
-                title: "Trách nhiệm xã hội", 
-                desc: "Đảm bảo môi trường làm việc an toàn, đóng góp tích cực vào sự phát triển cộng đồng."
-              }
-            ].map((item, index) => (
-              <div key={index} className="p-8 border border-[rgba(216,212,206,0.1)] hover:border-[#B8AFA3] transition-colors group bg-[#0A0A0A]">
-                <item.icon className="w-10 h-10 text-[#555] group-hover:text-[#F2F0EC] transition-colors mb-6" />
-                <h3 className="text-xl font-bold text-[#F2F0EC] mb-4">{item.title}</h3>
-                <p className="text-[#999590] leading-relaxed">{item.desc}</p>
-              </div>
+            {LEADERSHIP.map((person, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="bg-[#1a1a1a] border border-white/5 p-8 rounded-xl text-center hover:border-[#C99A5C]/30 transition-colors"
+              >
+                <div className="w-24 h-24 mx-auto bg-gradient-to-br from-[#333] to-[#111] rounded-full mb-6 flex items-center justify-center border border-white/10">
+                  <Users className="w-10 h-10 text-[#C99A5C]/60" />
+                </div>
+                <h4 className="text-xl font-semibold text-white mb-2">{person.name}</h4>
+                <p className="text-[#C99A5C] text-sm uppercase tracking-wider font-bold mb-4">{person.role}</p>
+                <p className="text-gray-400 text-sm">{person.exp}</p>
+              </motion.div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Chứng nhận & Đối tác */}
+      <section className="py-24 relative">
+        <div className="container mx-auto px-4 md:px-8 max-w-6xl">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+            
+            <motion.div 
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+            >
+              <h3 className="text-3xl font-serif text-white mb-8 flex items-center gap-4">
+                <ShieldCheck className="text-[#C99A5C] w-8 h-8" />
+                Chứng nhận & Giải thưởng
+              </h3>
+              <div className="space-y-4">
+                {CERTIFICATES.map((cert, i) => (
+                  <div key={i} className="flex items-start gap-4 p-5 border border-white/5 bg-[#111] rounded-lg hover:border-[#C99A5C]/50 transition-colors">
+                    <Award className="w-6 h-6 text-[#C99A5C] shrink-0 mt-1" />
+                    <div>
+                      <h4 className="text-white font-semibold text-lg">{cert.name}</h4>
+                      <p className="text-gray-400 text-sm mt-1">{cert.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            <motion.div 
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+            >
+              <h3 className="text-3xl font-serif text-white mb-8 flex items-center gap-4">
+                <Factory className="text-[#C99A5C] w-8 h-8" />
+                Quy trình & Cam kết
+              </h3>
+              <div className="relative border-l-2 border-white/10 pl-8 space-y-10 py-4 ml-4">
+                {PROCESS_STEPS.map((step, i) => (
+                  <div key={i} className="relative">
+                    <div className="absolute -left-[43px] top-1 w-5 h-5 rounded-full bg-[#C99A5C] border-[4px] border-[#080808]" />
+                    <h4 className="text-white font-semibold text-lg mb-2">{step.title}</h4>
+                    <p className="text-gray-400 text-sm leading-relaxed">{step.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
           </div>
         </div>
       </section>
