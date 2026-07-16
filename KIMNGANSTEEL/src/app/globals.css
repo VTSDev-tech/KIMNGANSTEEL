@@ -310,7 +310,7 @@
 }
 .antra-scroll { position: absolute; z-index: 2; left: 50%; bottom: 42px; transform: translateX(-50%); background: #fff; color: var(--antra-gold); box-shadow: 0 14px 34px rgb(0 0 0 / 18%); }
 
-.antra-section { padding: clamp(82px, 10vw, 150px) max(24px, calc((100vw - 1320px) / 2)); }
+.antra-section { padding: clamp(60px, 8vw, 100px) max(24px, calc((100vw - 1320px) / 2)); }
 .antra-services { position: relative; background: var(--antra-soft); }
 .antra-services::before, .antra-contact::before { content: ""; position: absolute; inset: 8% auto auto 0; width: min(440px, 60vw); height: 520px; background: linear-gradient(135deg, rgb(24 23 19 / 5%), transparent 60%); clip-path: polygon(0 0, 100% 30%, 70% 100%, 0 72%); opacity: 0.55; pointer-events: none; }
 .antra-section-heading { position: relative; z-index: 1; width: min(760px, 100%); margin: 0 auto 54px; text-align: center; }
@@ -388,9 +388,9 @@
 
 .antra-process { background: #fff; }
 .antra-process-list { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1px; background: rgb(24 23 19 / 10%); border: 1px solid rgb(24 23 19 / 10%); }
-.antra-process-step { min-height: 260px; padding: 30px; background: #fff; }
-.antra-process-step span.process-number { display: block; color: var(--antra-gold); font-size: 46px; font-weight: 900; line-height: 1; }
-.antra-process-step h3 { margin: 24px 0 0; font-size: 24px; font-weight: 900; line-height: 1.2; min-height: 58px; }
+.antra-process-step { min-height: 220px; padding: 24px; background: #fff; }
+.antra-process-step span.process-number { display: block; color: var(--antra-gold); font-size: 38px; font-weight: 900; line-height: 1; }
+.antra-process-step h3 { margin: 18px 0 0; font-size: 20px; font-weight: 800; line-height: 1.2; min-height: 48px; }
 .antra-process-step p { margin-top: 14px; color: var(--antra-muted); font-size: 13px; line-height: 1.65; }
 
 .antra-contact { position: relative; padding: 118px 24px; background: var(--antra-soft); overflow: hidden; }
