@@ -256,7 +256,6 @@
 .antra-hero h1 { max-width: 930px; margin: 0; font-size: clamp(2.5rem, 5.5vw, 5rem); font-weight: 900; line-height: 0.93; letter-spacing: 0; text-transform: uppercase; text-shadow: 0 10px 30px rgba(0,0,0,0.4); }
 .antra-title-mask {
   display: inline-block;
-  overflow: hidden;
   padding: 0 0.14em 0.08em 0;
   vertical-align: top;
 }

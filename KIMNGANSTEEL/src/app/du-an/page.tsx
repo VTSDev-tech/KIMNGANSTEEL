@@ -1,9 +1,13 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import { SiteFooter } from "@/components/antra/SiteFooter";
-import { MapPin, Building2, HardHat } from "lucide-react";
+import { MapPin } from "lucide-react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const PROJECTS = [
   {
@@ -14,7 +18,7 @@ const PROJECTS = [
     location: "Dĩ An, Bình Dương"
   },
   {
-    name: "Dự án Nhà Thép Tiền Chế Logistic",
+    name: "Dự án Nhà Thép Tiền Chế",
     client: "Tập đoàn Vận tải V",
     volume: "200 Tấn Thép Hộp & Xà Gồ C",
     image: "/nha_thep_tien_che.png",
@@ -28,7 +32,7 @@ const PROJECTS = [
     location: "Quận 9, TP.HCM"
   },
   {
-    name: "Kho bãi Logistics Trung tâm",
+    name: "Kho bãi Logistics",
     client: "Công ty Vận chuyển S",
     volume: "Trọn gói Thép & Tôn mái",
     image: "/kho_logistics.png",
@@ -37,90 +41,106 @@ const PROJECTS = [
 ];
 
 export default function ProjectsPage() {
+  const rootRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+      }
+      window.scrollTo(0, 0);
+    }
+
+    const root = rootRef.current;
+    if (!root) return;
+
+    const context = gsap.context(() => {
+      gsap.timeline({ defaults: { ease: "power3.out" } })
+        .from(".antra-hero-kicker", { y: 20, opacity: 0, duration: 0.8 })
+        .from(".antra-h1", { y: 40, opacity: 0, duration: 1 }, "-=0.5")
+        .from(".antra-hero-text", { y: 20, opacity: 0, duration: 0.8 }, "-=0.6");
+
+      gsap.utils.toArray<HTMLElement>(".antra-section").forEach((section) => {
+        gsap.from(section, {
+          y: 80, opacity: 0, duration: 1, ease: "power3.out",
+          scrollTrigger: { trigger: section, start: "top 85%", toggleActions: "play none none reverse" },
+        });
+      });
+
+      gsap.utils.toArray<HTMLElement>(".antra-stagger-grid").forEach((grid) => {
+        const items = grid.querySelectorAll(".antra-stagger-item");
+        gsap.fromTo(items,
+          { y: 60, opacity: 0 },
+          {
+            y: 0, opacity: 1, duration: 0.85, stagger: 0.1, ease: "power3.out",
+            scrollTrigger: { trigger: grid, start: "top 90%", toggleActions: "play none none reverse" },
+          }
+        );
+      });
+    }, root);
+
+    return () => context.revert();
+  }, []);
+
   return (
-    <main className="bg-[#080808] text-white min-h-screen pt-24 font-sans">
+    <div ref={rootRef} className="antra-theme min-h-screen bg-[#080808] selection:bg-[#B8AFA3] selection:text-[#080808] pt-24 font-sans">
       
-      {/* 1. Hero Section */}
-      <section className="relative py-20 overflow-hidden flex items-center justify-center min-h-[40vh]">
-        <div className="absolute inset-0 z-0 opacity-20">
-          <Image src="/nha_thep_tien_che.png" alt="Dự án" fill className="object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#080808]/80 via-[#080808]/60 to-[#080808]" />
+      {/* 1. Hero Section (Light) */}
+      <section className="relative py-20 md:py-32 overflow-hidden flex items-center justify-center min-h-[50vh] bg-[#F2F0EC]">
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(156,138,115,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(156,138,115,0.06)_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,#000_20%,transparent_100%)] z-0"></div>
+        <div className="absolute bottom-10 -left-20 text-[6rem] lg:text-[12rem] font-bold text-[#e5e1da] opacity-30 pointer-events-none whitespace-nowrap select-none z-0">
+          PROJECTS
         </div>
-        <div className="container relative z-10 mx-auto px-4 text-center">
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-            <h1 className="font-serif italic text-4xl md:text-5xl lg:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-white via-[#E8E4DB] to-[#A39A86] mb-4">
-              Dự Án Tiêu Biểu
-            </h1>
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-              Hàng ngàn công trình vững chãi trên khắp cả nước được xây dựng từ nguồn vật liệu do Kim Ngân Steel cung cấp.
-            </p>
-          </motion.div>
+        <div className="container relative z-10 mx-auto px-4 text-center flex flex-col items-center">
+          <p className="antra-hero-kicker text-[10px] font-bold tracking-[0.2em] uppercase text-[#9C8A73] mb-6">Dự Án</p>
+          <h1 className="antra-h1 text-3xl md:text-5xl lg:text-7xl mb-6 uppercase font-light leading-[1.2] text-[#151413]">
+            <span className="block">Công trình</span>
+            <span className="block italic text-[#9C8A73]">Tiêu biểu</span>
+          </h1>
+          <p className="antra-hero-text text-[#555] text-lg max-w-2xl mx-auto font-light leading-relaxed">
+            Hàng ngàn công trình vững chãi trên khắp cả nước được xây dựng từ nguồn vật liệu do Kim Ngân Steel cung cấp.
+          </p>
         </div>
       </section>
 
-      {/* 2. Lưới Dự án */}
-      <section className="py-20">
-        <div className="container mx-auto px-4 md:px-8 max-w-7xl">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+      {/* 2. Lưới Dự án (Dark) */}
+      <section className="antra-section py-24 bg-[#080808]">
+        <div className="container mx-auto px-4 md:px-8 max-w-7xl antra-stagger-grid">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16">
             {PROJECTS.map((project, i) => (
-              <motion.div 
-                key={i}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="group cursor-pointer"
-              >
-                <div className="relative h-[300px] md:h-[400px] w-full rounded-2xl overflow-hidden mb-6 border border-white/10">
-                  <Image 
-                    src={project.image} 
-                    alt={project.name} 
-                    fill 
-                    className="object-cover group-hover:scale-105 transition-transform duration-700" 
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300" />
-                  
-                  <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between">
-                    <div className="flex items-center gap-2 bg-[#C99A5C] text-black px-3 py-1 rounded-full text-sm font-bold">
-                      <MapPin className="w-4 h-4" />
-                      {project.location}
-                    </div>
+              <div key={i} className="antra-stagger-item group cursor-pointer flex flex-col">
+                <div className="relative h-[300px] md:h-[450px] w-full bg-white p-3 shadow-sm mb-8 transition-transform duration-700 group-hover:-translate-y-2">
+                  <div className="relative w-full h-full overflow-hidden">
+                    <Image src={project.image} alt={project.name} fill className="object-cover group-hover:scale-105 transition-transform duration-1000" />
                   </div>
                 </div>
-                
-                <h3 className="text-2xl font-serif text-white mb-3 group-hover:text-[#C99A5C] transition-colors">{project.name}</h3>
-                
-                <div className="flex flex-col gap-2 text-gray-400 text-sm">
-                  <div className="flex items-center gap-3">
-                    <Building2 className="w-5 h-5 text-white/50" />
-                    <span><strong>Chủ đầu tư:</strong> {project.client}</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <HardHat className="w-5 h-5 text-white/50" />
-                    <span><strong>Khối lượng:</strong> {project.volume}</span>
-                  </div>
+                <div className="flex items-center gap-2 text-[#9C8A73] text-[10px] uppercase font-bold tracking-[0.15em] mb-4">
+                  <MapPin className="w-3 h-3" /> {project.location}
                 </div>
-              </motion.div>
+                <h3 className="text-[1.5rem] font-light uppercase tracking-tight text-white mb-4 group-hover:text-[#9C8A73] transition-colors">{project.name}</h3>
+                <div className="flex flex-col gap-2 text-[#666] text-[13px] font-light">
+                  <span className="border-b border-[#222] pb-2"><strong>CĐT:</strong> {project.client}</span>
+                  <span className="pt-1"><strong>Khối lượng:</strong> {project.volume}</span>
+                </div>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 3. Đối tác */}
-      <section className="py-20 bg-[#111] border-t border-white/5 text-center">
+      {/* 3. Đối tác (Light Band) */}
+      <section className="antra-section py-20 bg-[#F2F0EC] text-[#151413] border-y border-[#e5e1da] text-center">
         <div className="container mx-auto px-4 max-w-5xl">
-          <h2 className="text-sm tracking-[0.2em] text-[#C99A5C] uppercase font-bold mb-12">Đối Tác & Thương Hiệu Phân Phối</h2>
-          <div className="flex flex-wrap justify-center gap-12 md:gap-20 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
-            {/* Giả lập logo đối tác */}
-            <div className="text-2xl font-bold font-serif">HOA SEN GROUP</div>
-            <div className="text-2xl font-bold font-serif">HÒA PHÁT</div>
-            <div className="text-2xl font-bold font-serif">NS BLUESCOPE</div>
-            <div className="text-2xl font-bold font-serif">VINAONE</div>
+          <h2 className="text-[10px] tracking-[0.2em] text-[#9C8A73] uppercase font-bold mb-12">Đối Tác & Thương Hiệu Phân Phối</h2>
+          <div className="flex flex-wrap justify-center gap-12 md:gap-20 opacity-40 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-700">
+            <div className="text-2xl lg:text-3xl font-light uppercase tracking-tight">HOA SEN GROUP</div>
+            <div className="text-2xl lg:text-3xl font-light uppercase tracking-tight">HÒA PHÁT</div>
+            <div className="text-2xl lg:text-3xl font-light uppercase tracking-tight">NS BLUESCOPE</div>
           </div>
         </div>
       </section>
 
       <SiteFooter />
-    </main>
+    </div>
   );
 }

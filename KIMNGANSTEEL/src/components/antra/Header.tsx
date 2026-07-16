@@ -1,6 +1,9 @@
+"use client";
+
 import { Grid3X3, Phone, Search } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import type { NavItem } from "@/types/antra";
 
 type HeaderProps = {
@@ -8,6 +11,8 @@ type HeaderProps = {
 };
 
 export function Header({ navItems }: HeaderProps) {
+  const pathname = usePathname();
+
   return (
     <header className="antra-header is-scrolled">
       <Link className="antra-logo" href="/" aria-label="Kim Ngân Steel">
@@ -21,9 +26,18 @@ export function Header({ navItems }: HeaderProps) {
         />
       </Link>
       <nav className="antra-nav" aria-label="Primary navigation">
-        {navItems.map((item) => (
-          <Link key={item.href} href={item.href}>{item.label}</Link>
-        ))}
+        {navItems.map((item) => {
+          const isActive = pathname === item.href;
+          return (
+            <Link 
+              key={item.href} 
+              href={item.href}
+              className={isActive ? "text-[#C99A5C] font-bold border-b-2 border-[#C99A5C] pb-1" : "hover:text-[#C99A5C] transition-colors pb-1 border-b-2 border-transparent"}
+            >
+              {item.label}
+            </Link>
+          );
+        })}
       </nav>
       <div className="antra-header-actions">
         <a className="antra-call" href="tel:0934096794">
