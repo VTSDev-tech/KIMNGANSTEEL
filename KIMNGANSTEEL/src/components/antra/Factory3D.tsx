@@ -79,9 +79,9 @@ export function Factory3D() {
          <p className="text-gray-500 max-w-2xl mx-auto text-[10px] md:text-sm hidden sm:block">Khám phá chi tiết các loại vật liệu thép Kim Ngân được ứng dụng thực tế trong thi công công trình dân dụng cao cấp.</p>
       </div>
 
-      <div className="relative flex-1 min-h-0 w-full flex items-center justify-center px-4">
+      <div className="relative flex-1 min-h-0 w-full flex items-center justify-center px-4 pb-12">
         {/* MẶT NẠ 2D: HÌNH ẢNH BIỆT THỰ */}
-        <div className="relative h-full max-h-full max-w-full aspect-square flex items-center justify-center">
+        <div className="relative h-full max-h-[65vh] max-w-full aspect-square flex items-center justify-center mt-4">
           <img 
             src="/villa_isolated.png" 
             alt="Biệt thự" 
