@@ -2,6 +2,57 @@
 import { useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { OrbitControls, Environment, ContactShadows } from "@react-three/drei";
+import * as THREE from "three";
+import { useRef } from "react";
+
+// The optimized 3D Coil Model
+function CoilModel() {
+  const meshRef = useRef<THREE.Group>(null);
+
+  useFrame(() => {
+    if (meshRef.current) {
+      meshRef.current.rotation.y += 0.002;
+    }
+  });
+
+  return (
+    <group ref={meshRef} position={[0, -0.5, 0]}>
+      {/* Vỏ ngoài thép */}
+      <mesh rotation={[Math.PI / 2, 0, 0]} castShadow receiveShadow>
+        <cylinderGeometry args={[2.5, 2.5, 4, 64, 1, true]} />
+        <meshStandardMaterial
+          color="#dcdcdc"
+          metalness={0.9}
+          roughness={0.1}
+          side={THREE.DoubleSide}
+        />
+      </mesh>
+      
+      {/* Lõi bên trong */}
+      <mesh rotation={[Math.PI / 2, 0, 0]} castShadow receiveShadow>
+        <cylinderGeometry args={[1.5, 1.5, 4, 64, 1, true]} />
+        <meshStandardMaterial
+          color="#b0b0b0"
+          metalness={0.6}
+          roughness={0.4}
+          side={THREE.DoubleSide}
+        />
+      </mesh>
+
+      {/* Độ dày mép (vành) */}
+      <mesh rotation={[Math.PI / 2, 0, 0]} position={[0, 2, 0]} castShadow receiveShadow>
+        <ringGeometry args={[1.5, 2.5, 64]} />
+        <meshStandardMaterial color="#dcdcdc" metalness={0.9} roughness={0.1} />
+      </mesh>
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -2, 0]} castShadow receiveShadow>
+        <ringGeometry args={[1.5, 2.5, 64]} />
+        <meshStandardMaterial color="#dcdcdc" metalness={0.9} roughness={0.1} />
+      </mesh>
+    </group>
+  );
+}
 
 const MATERIALS = [
   { id: 'coil', name: 'Thép Cuộn Mạ Kẽm', src: '/trangtri/coil.svg' },
@@ -135,20 +186,50 @@ export function HeroSection() {
             />
           </div>
 
-          {/* Main Large Image */}
+          {/* Main Large Image / 3D Model */}
           <div className="relative w-full max-w-[800px] h-[400px] md:h-[600px] flex items-center justify-center pl-16 lg:pl-32">
-            <AnimatePresence>
-              <motion.img 
-                key={activeMaterial.id}
-                src={activeMaterial.src} 
-                alt={activeMaterial.name}
-                className="absolute w-[100%] max-w-[550px] object-contain drop-shadow-[0_30px_40px_rgba(0,0,0,0.6)] select-none"
-                draggable="false"
-                initial={{ opacity: 0, x: 40, scale: 0.95 }}
-                animate={{ opacity: 1, x: 0, scale: 1 }}
-                exit={{ opacity: 0, x: -40, scale: 0.95 }}
-                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              />
+            <AnimatePresence mode="wait">
+              {activeMaterial.id === 'coil' ? (
+                <motion.div
+                  key="3d-coil"
+                  initial={{ opacity: 0, x: 40, scale: 0.95 }}
+                  animate={{ opacity: 1, x: 0, scale: 1 }}
+                  exit={{ opacity: 0, x: -40, scale: 0.95 }}
+                  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                  className="absolute w-full h-full max-w-[600px] cursor-grab active:cursor-grabbing z-20"
+                >
+                  <Canvas
+                    dpr={[1, 1.5]}
+                    frameloop="demand"
+                    camera={{ position: [5, 4, 6], fov: 45 }}
+                    gl={{ antialias: false, powerPreference: "high-performance" }}
+                  >
+                    <Environment preset="studio" />
+                    <CoilModel />
+                    <ContactShadows position={[0, -3.5, 0]} opacity={0.4} scale={10} blur={2} far={4} />
+                    <OrbitControls
+                      enableZoom={false}
+                      enablePan={false}
+                      autoRotate
+                      autoRotateSpeed={0.5}
+                      minPolarAngle={Math.PI / 3}
+                      maxPolarAngle={Math.PI / 1.5}
+                    />
+                  </Canvas>
+                </motion.div>
+              ) : (
+                <motion.img 
+                  key={activeMaterial.id}
+                  src={activeMaterial.src} 
+                  alt={activeMaterial.name}
+                  className="absolute w-[100%] max-w-[550px] object-contain drop-shadow-[0_30px_40px_rgba(0,0,0,0.6)] select-none z-10 pointer-events-none"
+                  draggable="false"
+                  initial={{ opacity: 0, x: 40, scale: 0.95 }}
+                  animate={{ opacity: 1, x: 0, scale: 1 }}
+                  exit={{ opacity: 0, x: -40, scale: 0.95 }}
+                  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                />
+              )}
             </AnimatePresence>
           </div>
 
