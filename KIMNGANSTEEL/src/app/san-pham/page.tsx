@@ -1,89 +1,136 @@
+"use client";
+
+import { motion } from "framer-motion";
 import Image from "next/image";
-import { ArrowRight, FileText, CheckCircle2 } from "lucide-react";
 import { SiteFooter } from "@/components/antra/SiteFooter";
+import { AlertCircle, Truck, Percent, PhoneCall } from "lucide-react";
 
-export default function SanPhamPage() {
-  const categories = [
-    {
-      title: "Tôn Lạnh & Tôn Màu",
-      desc: "Vật liệu lợp mái và ốp vách tối ưu, khả năng chống ăn mòn cao, đa dạng biên dạng sóng (5 sóng, 9 sóng, 11 sóng, sóng ngói).",
-      image: "https://images.unsplash.com/photo-1623910385970-d86b7ba9045b?auto=format&fit=crop&w=1200&q=85",
-      specs: ["Độ dày: 0.25mm - 0.50mm", "Khổ rộng: 1200mm", "Thương hiệu: Hoa Sen, Đông Á, Nam Kim", "Tiêu chuẩn: JIS G3321 / ASTM A792"]
-    },
-    {
-      title: "Thép Hộp & Thép Ống",
-      desc: "Sản phẩm thép hộp mạ kẽm và đen dùng trong kết cấu thép, cơ khí chế tạo, khung sườn nhà xưởng với độ bền chịu lực vượt trội.",
-      image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=85",
-      specs: ["Quy cách vuông: 12x12 - 100x100", "Quy cách chữ nhật: 13x26 - 60x120", "Độ dày: 0.7mm - 3.0mm", "Thương hiệu: Hòa Phát, Sendo"]
-    },
-    {
-      title: "Xà Gồ C & Z",
-      desc: "Xà gồ thép mạ kẽm cường độ cao, đột lỗ theo thiết kế công trình. Ứng dụng làm hệ giàn đỡ mái nhà xưởng, nhà thép tiền chế.",
-      image: "https://images.unsplash.com/photo-1533096894038-f99a34bc6e8b?auto=format&fit=crop&w=1200&q=85",
-      specs: ["Chiều cao tiết diện: 80mm - 300mm", "Độ dày: 1.5mm - 3.0mm", "Lỗ đột: Oval, Tròn theo bản vẽ", "Chất liệu: Thép mạ kẽm G450"]
-    }
-  ];
+const PRODUCTS = [
+  {
+    category: "Tôn Lợp & Cán Sóng",
+    items: [
+      { name: "Tôn Lạnh", image: "/ton_lanh_ton_mau.svg", desc: "Tôn chống nóng cao cấp, mạ nhôm kẽm siêu bền." },
+      { name: "Tôn Màu", image: "/ton_lanh_ton_mau1.svg", desc: "Đa dạng màu sắc, cán sóng vuông, sóng ngói thẩm mỹ." },
+      { name: "Tôn Cán Sóng", image: "/ton_can_song.svg", desc: "Cán sóng 5, 9, 11 sóng phục vụ lợp mái nhà xưởng." }
+    ]
+  },
+  {
+    category: "Thép Xây Dựng",
+    items: [
+      { name: "Thép Cuộn Mạ Kẽm", image: "/thep_cuon_ma_kem.svg", desc: "Nguyên liệu phôi thép cuộn chất lượng cao." },
+      { name: "Thép Hộp Mạ Kẽm", image: "/thep_hop_ma_kem.svg", desc: "Thép hộp vuông, hộp chữ nhật chống rỉ sét." },
+      { name: "Thép Ống & Thép Hình", image: "/thep_ong_thep_hinh.svg", desc: "Thép ống đúc, ống hàn và các loại thép hình I, U, V, H." },
+      { name: "Thép Tấm Đen", image: "/thep_tam_den.svg", desc: "Thép tấm chịu lực ứng dụng trong cơ khí công nghiệp." },
+      { name: "Xà Gồ C/Z", image: "/xa_go_c_z.svg", desc: "Xà gồ mạ kẽm cường độ cao đục lỗ theo yêu cầu." },
+    ]
+  }
+];
 
+export default function ProductsPage() {
   return (
-    <main className="min-h-screen bg-[#080808] pt-[100px]">
+    <main className="bg-[#080808] text-white min-h-screen pt-24 font-sans">
       
-      {/* Header */}
-      <section className="py-20 px-6 md:px-12 max-w-[1400px] mx-auto border-b border-[rgba(216,212,206,0.1)]">
-        <p className="text-[#B8AFA3] font-bold tracking-[0.2em] uppercase mb-4 text-sm">Danh mục cung cấp</p>
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#F2F0EC] uppercase tracking-tight leading-tight max-w-4xl">
-          Giải Pháp Vật Liệu <br /> Toàn Diện
-        </h1>
-        <p className="text-[#999590] mt-6 text-xl max-w-2xl">
-          Các dòng sản phẩm tôn thép chất lượng cao được sản xuất và phân phối trực tiếp, đáp ứng nghiêm ngặt các tiêu chuẩn kỹ thuật xây dựng.
-        </p>
+      {/* 1. Hero Section */}
+      <section className="relative py-20 overflow-hidden flex items-center justify-center min-h-[40vh]">
+        <div className="absolute inset-0 z-0 opacity-20">
+          <Image src="/kho_logistics.png" alt="Kho bãi Kim Ngân Steel" fill className="object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#080808]/80 via-[#080808]/60 to-[#080808]" />
+        </div>
+        <div className="container relative z-10 mx-auto px-4 text-center">
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+            <h1 className="font-serif italic text-4xl md:text-5xl lg:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-white via-[#E8E4DB] to-[#A39A86] mb-4">
+              Danh Mục Sản Phẩm
+            </h1>
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+              Đa dạng chủng loại, quy cách chuẩn quốc tế. Cung ứng số lượng lớn cho mọi dự án công trình.
+            </p>
+          </motion.div>
+        </div>
       </section>
 
-      {/* Product Categories */}
-      <section className="py-24 px-6 md:px-12 max-w-[1400px] mx-auto space-y-24">
-        {categories.map((cat, idx) => (
-          <div key={idx} className={`flex flex-col ${idx % 2 !== 0 ? 'lg:flex-row-reverse' : 'lg:flex-row'} gap-12 lg:gap-20 items-center`}>
-            
-            {/* Image Side */}
-            <div className="w-full lg:w-1/2 relative aspect-[4/3] group">
-              <div className="absolute inset-0 bg-[#F2F0EC]/5 mix-blend-overlay z-10 transition-opacity group-hover:opacity-0" />
-              <Image 
-                src={cat.image} 
-                alt={cat.title}
-                fill
-                className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
-              />
-              {/* Corner decor */}
-              <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-[#B8AFA3] z-20" />
-              <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-[#B8AFA3] z-20" />
-            </div>
+      {/* 2. Cảnh báo Giá */}
+      <section className="py-8 bg-[#111] border-y border-[#C99A5C]/20">
+        <div className="container mx-auto px-4 max-w-6xl flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-4 text-[#C99A5C]">
+            <AlertCircle className="w-8 h-8 shrink-0" />
+            <p className="text-sm md:text-base font-semibold">
+              GIÁ CẬP NHẬT THEO TUẦN THEO BIẾN ĐỘNG THỊ TRƯỜNG THÉP.<br/>
+              <span className="text-gray-400 font-normal">Để nhận bảng giá mới nhất kèm chiết khấu tốt nhất, vui lòng liên hệ trực tiếp.</span>
+            </p>
+          </div>
+          <a href="/lien-he" className="flex items-center gap-2 bg-[#C99A5C] text-black px-6 py-3 rounded-full font-bold hover:bg-white transition-colors shrink-0">
+            <PhoneCall className="w-5 h-5" />
+            Nhận Báo Giá Ngay
+          </a>
+        </div>
+      </section>
 
-            {/* Content Side */}
-            <div className="w-full lg:w-1/2">
-              <h2 className="text-3xl md:text-4xl font-bold text-[#F2F0EC] uppercase mb-6">{cat.title}</h2>
-              <p className="text-[#999590] text-lg leading-relaxed mb-8">{cat.desc}</p>
-              
-              <div className="bg-[#121212] border border-[rgba(216,212,206,0.1)] p-6 md:p-8 mb-8">
-                <h3 className="text-[#F2F0EC] font-bold uppercase tracking-wide mb-6 flex items-center gap-2">
-                  <FileText size={20} className="text-[#B8AFA3]" />
-                  Thông số kỹ thuật
-                </h3>
-                <ul className="space-y-4">
-                  {cat.specs.map((spec, sIdx) => (
-                    <li key={sIdx} className="flex items-start gap-3 text-[#999590]">
-                      <CheckCircle2 size={18} className="text-[#B8AFA3] shrink-0 mt-0.5" />
-                      <span>{spec}</span>
-                    </li>
-                  ))}
-                </ul>
+      {/* 3. Lưới Sản Phẩm */}
+      <section className="py-20">
+        <div className="container mx-auto px-4 md:px-8 max-w-7xl space-y-24">
+          {PRODUCTS.map((category, idx) => (
+            <div key={idx}>
+              <motion.h2 
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                className="text-2xl md:text-3xl font-serif text-white mb-10 pb-4 border-b border-white/10 flex items-center"
+              >
+                <div className="w-2 h-8 bg-[#C99A5C] mr-4" />
+                {category.category}
+              </motion.h2>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {category.items.map((item, i) => (
+                  <motion.div 
+                    key={i}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.1 }}
+                    className="bg-[#111] rounded-xl overflow-hidden border border-white/5 hover:border-[#C99A5C]/40 transition-colors group"
+                  >
+                    <div className="relative h-64 w-full bg-[#1a1a1a] p-8 flex items-center justify-center">
+                      <Image 
+                        src={item.image} 
+                        alt={item.name} 
+                        fill 
+                        className="object-contain p-6 group-hover:scale-110 transition-transform duration-500" 
+                      />
+                    </div>
+                    <div className="p-6">
+                      <h3 className="text-xl font-bold text-white mb-2">{item.name}</h3>
+                      <p className="text-gray-400 text-sm leading-relaxed">{item.desc}</p>
+                    </div>
+                  </motion.div>
+                ))}
               </div>
+            </div>
+          ))}
+        </div>
+      </section>
 
-              <button className="flex items-center gap-3 text-[#F2F0EC] font-bold tracking-widest uppercase text-sm border-b border-[#B8AFA3] pb-1 hover:text-[#B8AFA3] transition-colors group">
-                Nhận Báo Giá Ngay
-                <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-              </button>
+      {/* 4. Chính sách Bán hàng */}
+      <section className="py-16 bg-[#1a1a1a]">
+        <div className="container mx-auto px-4 max-w-5xl">
+          <h2 className="text-center text-2xl font-serif text-[#C99A5C] mb-10">Chính Sách Bán Hàng Dành Cho Đại Lý & Nhà Thầu</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="flex items-start gap-4 bg-[#111] p-6 rounded-lg border border-white/5">
+              <Percent className="w-10 h-10 text-[#C99A5C] shrink-0" />
+              <div>
+                <h4 className="font-bold text-lg text-white mb-1">Chiết khấu hấp dẫn</h4>
+                <p className="text-gray-400 text-sm">Giảm ngay 3–5% cho các đơn hàng khối lượng lớn trên 10 tấn. Chính sách công nợ linh hoạt cho đại lý thân thiết.</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-4 bg-[#111] p-6 rounded-lg border border-white/5">
+              <Truck className="w-10 h-10 text-[#C99A5C] shrink-0" />
+              <div>
+                <h4 className="font-bold text-lg text-white mb-1">Giao hàng miễn phí</h4>
+                <p className="text-gray-400 text-sm">Hỗ trợ vận chuyển tận công trình miễn phí khu vực nội tỉnh. Giao đúng tiến độ, đổi trả 7 ngày nếu lỗi nhà sản xuất.</p>
+              </div>
             </div>
           </div>
-        ))}
+        </div>
       </section>
 
       <SiteFooter />

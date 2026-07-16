@@ -1,110 +1,109 @@
+"use client";
+
+import { motion } from "framer-motion";
 import Image from "next/image";
-import { ArrowRight, Calendar } from "lucide-react";
 import { SiteFooter } from "@/components/antra/SiteFooter";
+import { Calendar, ArrowRight } from "lucide-react";
 
-export default function TinTucPage() {
-  const featuredPost = {
-    title: "Dự báo biến động giá thép xây dựng quý 3/2026: Đâu là giải pháp cho nhà thầu?",
+const BLOG_POSTS = [
+  {
+    title: "Bảng giá thép xây dựng cập nhật mới nhất Tuần 2/2026",
     category: "Thị trường",
-    date: "10 Tháng 7, 2026",
-    excerpt: "Trước áp lực chi phí nguyên liệu đầu vào và cước vận tải tăng cao, thị trường tôn thép đang chứng kiến những đợt điều chỉnh giá liên tục. Các nhà thầu xây dựng cần có chiến lược gì để đảm bảo ngân sách công trình?",
-    img: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=85"
-  };
+    date: "12/07/2026",
+    image: "/kho_logistics.png",
+    excerpt: "Cập nhật bảng giá thép hộp, xà gồ, tôn lạnh từ các thương hiệu lớn như Hòa Phát, Hoa Sen. Biến động giá giảm nhẹ so với tuần trước."
+  },
+  {
+    title: "Cách chọn độ dày tôn lợp phù hợp cho nhà xưởng công nghiệp",
+    category: "Kiến thức",
+    date: "05/07/2026",
+    image: "/nha_xuong.png",
+    excerpt: "Độ dày tôn quyết định tuổi thọ và khả năng chống chịu bão gió của nhà xưởng. Cùng tìm hiểu tiêu chuẩn zem phù hợp cho từng khu vực."
+  },
+  {
+    title: "Kinh nghiệm thi công mái tôn chống dột hiệu quả mùa mưa",
+    category: "Thi công",
+    date: "28/06/2026",
+    image: "/nha_thep_tien_che.png",
+    excerpt: "Hướng dẫn kỹ thuật bắn vít, dán silicon và xử lý khe hở giữa các tấm tôn để chống dột tuyệt đối cho công trình dân dụng và công nghiệp."
+  },
+  {
+    title: "Phân biệt Tôn Lạnh và Tôn Mạ Kẽm: Loại nào tốt hơn?",
+    category: "Kiến thức",
+    date: "15/06/2026",
+    image: "/ton_lanh_ton_mau.svg",
+    excerpt: "So sánh chi tiết về cấu tạo lớp mạ, tuổi thọ, khả năng chống nóng và giá thành giữa tôn lạnh và tôn kẽm truyền thống."
+  }
+];
 
-  const recentPosts = [
-    {
-      title: "Kim Ngân Steel đầu tư máy cán xà gồ Z công suất lớn",
-      category: "Nội bộ",
-      date: "05 Tháng 7, 2026",
-      excerpt: "Nhằm đáp ứng nhu cầu khắt khe của các dự án nhà thép tiền chế, chúng tôi vừa đưa vào vận hành hệ thống cán xà gồ Z tự động hoàn toàn.",
-      img: "https://images.unsplash.com/photo-1581092334651-ddf26d9a09d0?auto=format&fit=crop&w=800&q=85"
-    },
-    {
-      title: "Cách phân biệt tôn mạ kẽm và tôn lạnh mạ màu chuẩn xác",
-      category: "Kiến thức",
-      date: "28 Tháng 6, 2026",
-      excerpt: "Nhiều khách hàng vẫn nhầm lẫn giữa hai loại vật liệu này dẫn đến việc sử dụng sai mục đích làm giảm tuổi thọ công trình.",
-      img: "https://images.unsplash.com/photo-1600210492493-0946911123ea?auto=format&fit=crop&w=800&q=85"
-    },
-    {
-      title: "Tổng quan xu hướng sử dụng vật liệu xanh trong nhà công nghiệp",
-      category: "Xu hướng",
-      date: "15 Tháng 6, 2026",
-      excerpt: "Việc sử dụng các loại tôn lợp phản xạ nhiệt và vật liệu có khả năng tái chế đang trở thành tiêu chuẩn mới trong thiết kế nhà xưởng.",
-      img: "https://images.unsplash.com/photo-1541888087405-eb10bb073f1c?auto=format&fit=crop&w=800&q=85"
-    }
-  ];
-
+export default function BlogPage() {
   return (
-    <main className="min-h-screen bg-[#080808] pt-[100px]">
+    <main className="bg-[#080808] text-white min-h-screen pt-24 font-sans">
       
-      {/* Header */}
-      <section className="py-20 px-6 md:px-12 max-w-[1400px] mx-auto border-b border-[rgba(216,212,206,0.1)]">
-        <p className="text-[#B8AFA3] font-bold tracking-[0.2em] uppercase mb-4 text-sm">Tin tức & Sự kiện</p>
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#F2F0EC] uppercase tracking-tight leading-tight max-w-4xl">
-          Cập nhật thị trường <br /> Tôn thép
-        </h1>
-      </section>
-
-      {/* Featured Post */}
-      <section className="py-16 px-6 md:px-12 max-w-[1400px] mx-auto">
-        <div className="group cursor-pointer">
-          <div className="relative aspect-[2/1] md:aspect-[2.5/1] w-full overflow-hidden mb-8">
-            <div className="absolute inset-0 bg-[#080808]/20 mix-blend-overlay z-10" />
-            <Image 
-              src={featuredPost.img} 
-              alt={featuredPost.title}
-              fill
-              className="object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
-            />
-          </div>
-          <div className="max-w-3xl">
-            <div className="flex items-center gap-4 text-sm font-bold tracking-wider uppercase mb-4">
-              <span className="text-[#F2F0EC] bg-[#222] px-3 py-1">{featuredPost.category}</span>
-              <span className="text-[#999590] flex items-center gap-2"><Calendar size={16}/> {featuredPost.date}</span>
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#F2F0EC] group-hover:text-[#B8AFA3] transition-colors mb-4">{featuredPost.title}</h2>
-            <p className="text-[#999590] text-lg leading-relaxed mb-6">{featuredPost.excerpt}</p>
-            <span className="flex items-center gap-3 text-[#F2F0EC] font-bold tracking-widest uppercase text-sm group-hover:text-[#B8AFA3] transition-colors">
-              Đọc tiếp bài viết
-              <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-            </span>
-          </div>
+      {/* 1. Hero Section */}
+      <section className="relative py-20 overflow-hidden flex items-center justify-center min-h-[40vh]">
+        <div className="absolute inset-0 z-0 opacity-10">
+          <Image src="/kho_logistics.png" alt="Tin tức" fill className="object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#080808]/90 via-[#080808]/80 to-[#080808]" />
+        </div>
+        <div className="container relative z-10 mx-auto px-4 text-center">
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+            <h1 className="font-serif italic text-4xl md:text-5xl lg:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-white via-[#E8E4DB] to-[#A39A86] mb-4">
+              Kiến Thức & Cập Nhật
+            </h1>
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+              Thông tin thị trường, bảng giá và cẩm nang kinh nghiệm vật liệu xây dựng.
+            </p>
+          </motion.div>
         </div>
       </section>
 
-      {/* Recent Posts */}
-      <section className="py-16 px-6 md:px-12 max-w-[1400px] mx-auto border-t border-[rgba(216,212,206,0.1)]">
-        <h3 className="text-2xl font-bold text-[#F2F0EC] uppercase mb-10">Tin mới nhất</h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
-          {recentPosts.map((post, idx) => (
-            <div key={idx} className="group cursor-pointer flex flex-col">
-              <div className="relative aspect-[16/9] w-full overflow-hidden mb-6">
-                <div className="absolute inset-0 bg-[#080808]/20 mix-blend-overlay z-10" />
-                <Image 
-                  src={post.img} 
-                  alt={post.title}
-                  fill
-                  className="object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
-                />
-              </div>
-              <div className="flex flex-col flex-grow">
-                <div className="flex items-center gap-3 text-xs font-bold tracking-wider uppercase mb-3">
-                  <span className="text-[#B8AFA3]">{post.category}</span>
-                  <span className="text-[#555]">•</span>
-                  <span className="text-[#777]">{post.date}</span>
+      {/* 2. Lưới Bài Viết */}
+      <section className="py-20">
+        <div className="container mx-auto px-4 md:px-8 max-w-7xl">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {BLOG_POSTS.map((post, i) => (
+              <motion.div 
+                key={i}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="group flex flex-col bg-[#111] rounded-2xl overflow-hidden border border-white/5 hover:border-[#C99A5C]/40 transition-colors cursor-pointer"
+              >
+                <div className="relative h-56 w-full overflow-hidden bg-[#1a1a1a]">
+                  <Image 
+                    src={post.image} 
+                    alt={post.title} 
+                    fill 
+                    className="object-cover group-hover:scale-105 transition-transform duration-700" 
+                  />
+                  <div className="absolute top-4 left-4 bg-[#C99A5C] text-black text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full">
+                    {post.category}
+                  </div>
                 </div>
-                <h4 className="text-xl font-bold text-[#F2F0EC] group-hover:text-[#B8AFA3] transition-colors mb-3 leading-tight line-clamp-2">
-                  {post.title}
-                </h4>
-                <p className="text-[#999590] line-clamp-3 mb-6 flex-grow">{post.excerpt}</p>
-                <span className="inline-flex items-center gap-2 text-[#F2F0EC] font-bold tracking-widest uppercase text-xs group-hover:text-[#B8AFA3] transition-colors mt-auto">
-                  Đọc tiếp
-                  <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-                </span>
-              </div>
-            </div>
-          ))}
+                
+                <div className="p-6 flex flex-col flex-1">
+                  <div className="flex items-center gap-2 text-gray-500 text-sm mb-3">
+                    <Calendar className="w-4 h-4" />
+                    {post.date}
+                  </div>
+                  
+                  <h3 className="text-xl font-bold text-white mb-3 leading-snug group-hover:text-[#C99A5C] transition-colors line-clamp-2">
+                    {post.title}
+                  </h3>
+                  
+                  <p className="text-gray-400 text-sm mb-6 line-clamp-3">
+                    {post.excerpt}
+                  </p>
+                  
+                  <div className="mt-auto flex items-center gap-2 text-[#C99A5C] text-sm font-bold uppercase tracking-wider group-hover:gap-4 transition-all">
+                    Đọc tiếp <ArrowRight className="w-4 h-4" />
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 

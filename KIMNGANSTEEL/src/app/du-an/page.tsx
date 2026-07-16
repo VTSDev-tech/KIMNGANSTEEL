@@ -1,82 +1,121 @@
+"use client";
+
+import { motion } from "framer-motion";
 import Image from "next/image";
-import { Quote } from "lucide-react";
 import { SiteFooter } from "@/components/antra/SiteFooter";
+import { MapPin, Building2, HardHat } from "lucide-react";
 
-export default function DuAnPage() {
-  const projects = [
-    { title: "Khu công nghiệp Mỹ Phước 3", category: "Nhà xưởng công nghiệp", year: "2025", span: "col-span-1 md:col-span-2 row-span-2", img: "https://images.unsplash.com/photo-1541888087405-eb10bb073f1c?auto=format&fit=crop&w=1200&q=85" },
-    { title: "Trung tâm Logistics Tân Bình", category: "Kho bãi thương mại", year: "2025", span: "col-span-1 md:col-span-1 row-span-1", img: "https://images.unsplash.com/photo-1590218731307-e81816e879bb?auto=format&fit=crop&w=800&q=85" },
-    { title: "Khu phức hợp thể thao đa năng", category: "Công trình dân dụng", year: "2024", span: "col-span-1 md:col-span-1 row-span-1", img: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=800&q=85" },
-    { title: "Nhà máy dệt may giai đoạn 2", category: "Nhà xưởng công nghiệp", year: "2024", span: "col-span-1 md:col-span-1 row-span-1", img: "https://images.unsplash.com/photo-1517480132332-6a6839d3752e?auto=format&fit=crop&w=800&q=85" },
-    { title: "Siêu thị Mega Mall chi nhánh 4", category: "Thương mại dịch vụ", year: "2023", span: "col-span-1 md:col-span-2 row-span-1", img: "https://images.unsplash.com/photo-1498661694102-0a3793edbe74?auto=format&fit=crop&w=1200&q=85" },
-  ];
+const PROJECTS = [
+  {
+    name: "Nhà xưởng KCN Sóng Thần 2",
+    client: "Công ty Cổ phần Bao Bì X",
+    volume: "5,000m² Tôn Lạnh Màu 0.45",
+    image: "/nha_xuong.png",
+    location: "Dĩ An, Bình Dương"
+  },
+  {
+    name: "Dự án Nhà Thép Tiền Chế Logistic",
+    client: "Tập đoàn Vận tải V",
+    volume: "200 Tấn Thép Hộp & Xà Gồ C",
+    image: "/nha_thep_tien_che.png",
+    location: "Bến Lức, Long An"
+  },
+  {
+    name: "Khu Biệt Thự Tân Cổ Điển",
+    client: "Công ty Đầu tư Bất Động Sản N",
+    volume: "1,200m² Tôn Ngói Ruby",
+    image: "/cong_trinh_dan_dung.png",
+    location: "Quận 9, TP.HCM"
+  },
+  {
+    name: "Kho bãi Logistics Trung tâm",
+    client: "Công ty Vận chuyển S",
+    volume: "Trọn gói Thép & Tôn mái",
+    image: "/kho_logistics.png",
+    location: "Bình Tân, TP.HCM"
+  }
+];
 
-  const testimonials = [
-    { quote: "Chất lượng tôn cán sóng rất đều và đẹp. Điều tôi ấn tượng nhất là khả năng cung ứng khối lượng lớn trong thời gian ngắn của Kim Ngân, giúp dự án của chúng tôi kịp tiến độ cất nóc trước mùa mưa.", author: "Anh Trần Quang Minh", role: "Giám đốc dự án - Xây dựng Hòa Bình" },
-    { quote: "Là đối tác nhập hàng nhiều năm, tôi rất yên tâm về giá cả và sự minh bạch của Kim Ngân Steel. Hàng luôn đủ vạch ly, đúng rem, không bao giờ có tình trạng trộn hàng kém chất lượng.", author: "Chị Lê Thị Thanh Mai", role: "Đại lý phân phối VLXD - Bình Dương" },
-    { quote: "Mảng xà gồ đột lỗ tự động của Kim Ngân giúp anh em thi công tiết kiệm rất nhiều thời gian lắp ráp tại công trường. Kích thước chuẩn xác gần như tuyệt đối.", author: "Kỹ sư Hoàng Văn Thái", role: "Chỉ huy trưởng - Công ty Kết Cấu Thép" },
-  ];
-
+export default function ProjectsPage() {
   return (
-    <main className="min-h-screen bg-[#080808] pt-[100px]">
+    <main className="bg-[#080808] text-white min-h-screen pt-24 font-sans">
       
-      {/* Header */}
-      <section className="py-20 px-6 md:px-12 max-w-[1400px] mx-auto border-b border-[rgba(216,212,206,0.1)]">
-        <p className="text-[#B8AFA3] font-bold tracking-[0.2em] uppercase mb-4 text-sm">Dự án tiêu biểu</p>
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#F2F0EC] uppercase tracking-tight leading-tight max-w-4xl">
-          Dấu ấn qua từng <br /> Công trình
-        </h1>
-        <p className="text-[#999590] mt-6 text-xl max-w-2xl">
-          Tự hào là nhà cung cấp vật liệu đáng tin cậy cho hàng ngàn dự án công nghiệp, thương mại và dân dụng trên toàn quốc.
-        </p>
-      </section>
-
-      {/* Projects Grid */}
-      <section className="py-24 px-6 md:px-12 max-w-[1400px] mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[250px] md:auto-rows-[300px]">
-          {projects.map((project, idx) => (
-            <div key={idx} className={`relative group overflow-hidden ${project.span}`}>
-              <div className="absolute inset-0 bg-[#080808]/40 mix-blend-overlay z-10 transition-all duration-500 group-hover:bg-[#080808]/20" />
-              <Image 
-                src={project.img} 
-                alt={project.title}
-                fill
-                className="object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-[#080808]/50 to-transparent z-20 opacity-90 group-hover:opacity-100 transition-opacity" />
-              
-              <div className="absolute bottom-0 left-0 w-full p-6 md:p-8 z-30 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                <p className="text-[#B8AFA3] font-bold tracking-widest uppercase text-xs mb-2">
-                  {project.category} • {project.year}
-                </p>
-                <h3 className="text-xl md:text-2xl font-bold text-[#F2F0EC] uppercase">{project.title}</h3>
-              </div>
-            </div>
-          ))}
+      {/* 1. Hero Section */}
+      <section className="relative py-20 overflow-hidden flex items-center justify-center min-h-[40vh]">
+        <div className="absolute inset-0 z-0 opacity-20">
+          <Image src="/nha_thep_tien_che.png" alt="Dự án" fill className="object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#080808]/80 via-[#080808]/60 to-[#080808]" />
+        </div>
+        <div className="container relative z-10 mx-auto px-4 text-center">
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+            <h1 className="font-serif italic text-4xl md:text-5xl lg:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-white via-[#E8E4DB] to-[#A39A86] mb-4">
+              Dự Án Tiêu Biểu
+            </h1>
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+              Hàng ngàn công trình vững chãi trên khắp cả nước được xây dựng từ nguồn vật liệu do Kim Ngân Steel cung cấp.
+            </p>
+          </motion.div>
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-24 px-6 md:px-12 bg-[#121212] border-t border-[rgba(216,212,206,0.05)]">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#F2F0EC] uppercase">Sự tín nhiệm</h2>
-            <p className="text-[#999590] mt-4 max-w-2xl mx-auto text-lg">Phản hồi từ các đối tác và khách hàng đã đồng hành cùng Kim Ngân Steel.</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((test, idx) => (
-              <div key={idx} className="p-8 md:p-10 border border-[rgba(216,212,206,0.1)] bg-[#0A0A0A] relative flex flex-col justify-between">
-                <div>
-                  <Quote className="w-10 h-10 text-[#222] mb-6 absolute top-8 left-8" />
-                  <p className="text-[#F2F0EC] text-lg leading-relaxed relative z-10 italic mt-8">&quot;{test.quote}&quot;</p>
+      {/* 2. Lưới Dự án */}
+      <section className="py-20">
+        <div className="container mx-auto px-4 md:px-8 max-w-7xl">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            {PROJECTS.map((project, i) => (
+              <motion.div 
+                key={i}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="group cursor-pointer"
+              >
+                <div className="relative h-[300px] md:h-[400px] w-full rounded-2xl overflow-hidden mb-6 border border-white/10">
+                  <Image 
+                    src={project.image} 
+                    alt={project.name} 
+                    fill 
+                    className="object-cover group-hover:scale-105 transition-transform duration-700" 
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300" />
+                  
+                  <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between">
+                    <div className="flex items-center gap-2 bg-[#C99A5C] text-black px-3 py-1 rounded-full text-sm font-bold">
+                      <MapPin className="w-4 h-4" />
+                      {project.location}
+                    </div>
+                  </div>
                 </div>
-                <div className="mt-8 pt-6 border-t border-[rgba(216,212,206,0.1)]">
-                  <p className="font-bold text-[#F2F0EC]">{test.author}</p>
-                  <p className="text-[#B8AFA3] text-sm mt-1">{test.role}</p>
+                
+                <h3 className="text-2xl font-serif text-white mb-3 group-hover:text-[#C99A5C] transition-colors">{project.name}</h3>
+                
+                <div className="flex flex-col gap-2 text-gray-400 text-sm">
+                  <div className="flex items-center gap-3">
+                    <Building2 className="w-5 h-5 text-white/50" />
+                    <span><strong>Chủ đầu tư:</strong> {project.client}</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <HardHat className="w-5 h-5 text-white/50" />
+                    <span><strong>Khối lượng:</strong> {project.volume}</span>
+                  </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 3. Đối tác */}
+      <section className="py-20 bg-[#111] border-t border-white/5 text-center">
+        <div className="container mx-auto px-4 max-w-5xl">
+          <h2 className="text-sm tracking-[0.2em] text-[#C99A5C] uppercase font-bold mb-12">Đối Tác & Thương Hiệu Phân Phối</h2>
+          <div className="flex flex-wrap justify-center gap-12 md:gap-20 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
+            {/* Giả lập logo đối tác */}
+            <div className="text-2xl font-bold font-serif">HOA SEN GROUP</div>
+            <div className="text-2xl font-bold font-serif">HÒA PHÁT</div>
+            <div className="text-2xl font-bold font-serif">NS BLUESCOPE</div>
+            <div className="text-2xl font-bold font-serif">VINAONE</div>
           </div>
         </div>
       </section>
