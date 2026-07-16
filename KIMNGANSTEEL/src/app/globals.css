@@ -462,7 +462,7 @@
 .antra-stats-band {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  padding: 80px max(24px, calc((100vw - 1152px) / 2));
+  padding: 40px max(24px, calc((100vw - 1152px) / 2)) 50px;
   background: #F2F0EC;
 }
 

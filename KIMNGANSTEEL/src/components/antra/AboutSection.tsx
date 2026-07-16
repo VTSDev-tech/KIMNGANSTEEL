@@ -1,7 +1,7 @@
 
 export function AboutSection() {
   return (
-    <section id="about" className="relative pt-24 pb-8 lg:pb-12 px-6 md:px-12 lg:px-24 bg-[#F2F0EC] overflow-hidden">
+    <section id="about" className="relative pt-12 lg:pt-16 pb-0 px-6 md:px-12 lg:px-24 bg-[#F2F0EC] overflow-hidden">
       
       {/* Subtle Architectural Grid Pattern for the entire section */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(156,138,115,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(156,138,115,0.06)_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,#000_20%,transparent_100%)] z-0"></div>
@@ -38,7 +38,7 @@ export function AboutSection() {
           <div className="absolute -bottom-10 -left-10 w-48 h-48 bg-[radial-gradient(#C99A5C_2px,transparent_2px)] bg-[size:16px_16px] opacity-30 z-0"></div>
 
           {/* The white padding acts as a matting/passepartout frame to isolate the raw photo */}
-          <div className="relative z-10 w-full aspect-[4/3] bg-white p-3 md:p-5 shadow-[0_20px_50px_rgba(0,0,0,0.06)] transform transition-transform duration-700 hover:-translate-y-2">
+          <div className="relative z-10 w-full aspect-[16/10] bg-white p-3 md:p-5 shadow-[0_20px_50px_rgba(0,0,0,0.06)] transform transition-transform duration-700 hover:-translate-y-2">
             <img 
               src="/KimNganSteel.svg" 
               alt="Nhà máy Kim Ngân Steel" 
