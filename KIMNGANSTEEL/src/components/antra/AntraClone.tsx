@@ -98,43 +98,52 @@ export function AntraClone() {
       });
 
       gsap.utils.toArray<HTMLElement>(".antra-service-card, .antra-project-card, .antra-blog-card").forEach((card) => {
-        gsap.from(card, {
-          y: 60,
-          opacity: 0,
-          duration: 0.85,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: card,
-            start: "top 90%",
-            toggleActions: "play none none reverse",
-          },
-        });
+        gsap.fromTo(card, 
+          { y: 60, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.85,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: card,
+              start: "top 95%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
       });
 
-      gsap.from(".process-inner", {
-        y: 80,
-        opacity: 0,
-        duration: 0.9,
-        stagger: 0.15,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: ".antra-process-list",
-          start: "top 85%",
-          toggleActions: "play none none reverse",
-        },
-      });
-      gsap.from(".antra-stats-band div", {
-        y: 60,
-        opacity: 0,
-        duration: 0.9,
-        stagger: 0.1,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: ".antra-stats-band",
-          start: "top 85%",
-          toggleActions: "play none none reverse",
-        },
-      });
+      gsap.fromTo(".process-inner", 
+        { y: 80, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.9,
+          stagger: 0.15,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".antra-process-list",
+            start: "top 95%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+      gsap.fromTo(".antra-stats-band div", 
+        { y: 60, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.9,
+          stagger: 0.1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".antra-stats-band",
+            start: "top 95%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
 
       gsap.utils.toArray<HTMLElement>(".antra-skill").forEach((skill) => {
         gsap.fromTo(
