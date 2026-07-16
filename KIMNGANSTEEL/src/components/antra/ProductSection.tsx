@@ -127,14 +127,14 @@ export function ProductSection() {
           onMouseLeave={handleMouseLeave}
           onMouseUp={handleMouseUp}
           onMouseMove={handleMouseMove}
-          className={`flex overflow-x-auto hide-scrollbar pb-16 items-start gap-4 w-full pr-4 md:pr-8 transition-all ${
-            isDragging ? "cursor-grabbing snap-none" : "cursor-grab snap-x snap-mandatory"
+          className={`flex overflow-x-auto hide-scrollbar pb-16 items-start gap-4 w-full pr-4 md:pr-8 ${
+            isDragging ? "cursor-grabbing" : "cursor-grab"
           }`}
         >
           {products.map((product, index) => (
             <article 
               key={product.id} 
-              className={`flex-none w-[75vw] sm:w-[45vw] md:w-[35vw] lg:w-[22vw] snap-center relative aspect-[3/4] overflow-hidden group cursor-pointer bg-black ${
+              className={`flex-none w-[75vw] sm:w-[45vw] md:w-[35vw] lg:w-[22vw] relative aspect-[3/4] overflow-hidden group cursor-pointer bg-black ${
                 index % 2 !== 0 ? 'mt-6 lg:mt-10' : ''
               }`}
             >
