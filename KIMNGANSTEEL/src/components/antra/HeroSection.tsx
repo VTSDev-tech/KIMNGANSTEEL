@@ -138,12 +138,12 @@ export function HeroSection() {
           {/* Main Large Image */}
           <div className="relative w-full max-w-[800px] h-[400px] md:h-[600px] flex items-center justify-center pl-16 lg:pl-32">
             <AnimatePresence mode="wait">
-              <motion.img 
-                key={activeMaterial.id}
-                src={activeMaterial.src} 
-                alt={activeMaterial.name}
-                className="absolute w-[100%] max-w-[550px] object-contain drop-shadow-[0_30px_40px_rgba(0,0,0,0.6)] select-none z-10 pointer-events-none"
-                draggable="false"
+                <motion.img 
+                  key={activeMaterial.id}
+                  src={activeMaterial.src} 
+                  alt={activeMaterial.name}
+                  className="absolute w-[100%] max-w-[550px] object-contain select-none z-10 pointer-events-none"
+                  draggable="false"
                 initial={{ opacity: 0, x: 40, scale: 0.95 }}
                 animate={{ opacity: 1, x: 0, scale: 1 }}
                 exit={{ opacity: 0, x: -40, scale: 0.95 }}
