@@ -315,7 +315,7 @@
 .antra-services::before, .antra-contact::before { content: ""; position: absolute; inset: 8% auto auto 0; width: min(440px, 60vw); height: 520px; background: linear-gradient(135deg, rgb(24 23 19 / 5%), transparent 60%); clip-path: polygon(0 0, 100% 30%, 70% 100%, 0 72%); opacity: 0.55; pointer-events: none; }
 .antra-section-heading { position: relative; z-index: 1; width: min(760px, 100%); margin: 0 auto 54px; text-align: center; }
 .antra-section-heading.compact { margin-bottom: 42px; }
-.antra-section-heading h2, .antra-split-heading h2, .antra-about-copy h2, .antra-contact h2 { margin: 0; font-size: clamp(1.8rem, 3.8vw, 3.5rem); font-weight: 900; line-height: 1.4; letter-spacing: 0; text-transform: uppercase; }
+.antra-section-heading h2, .antra-split-heading h2, .antra-about-copy h2, .antra-contact h2 { margin: 0; font-size: clamp(1.5rem, 3vw, 2.5rem); font-weight: 800; line-height: 1.4; letter-spacing: 0; text-transform: uppercase; }
 .antra-section-heading h2 span, 
 .antra-contact h2 span, 
 .antra-split-heading h2 span, 

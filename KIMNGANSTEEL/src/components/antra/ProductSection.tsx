@@ -113,7 +113,7 @@ export function ProductSection() {
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 lg:mb-20 gap-8">
           <div>
             <p className="text-[10px] font-bold tracking-[0.15em] uppercase text-[#7a7570] mb-4">SẢN PHẨM</p>
-            <h2 className="text-[2rem] md:text-[2.6rem] lg:text-[3rem] font-light uppercase tracking-tight leading-[1.2] text-[#2a2925]">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold uppercase tracking-tight leading-[1.2] text-[#2a2925]">
               VẬT LIỆU XÂY DỰNG CHÍNH HÃNG
             </h2>
           </div>
@@ -148,7 +148,7 @@ export function ProductSection() {
               
               <div className="absolute bottom-0 left-0 w-full p-6 lg:p-8 flex flex-col justify-end h-full">
                 <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                  <h3 className="text-white text-xl lg:text-2xl font-light uppercase tracking-wider leading-tight mb-4">
+                  <h3 className="text-white text-lg lg:text-xl font-light uppercase tracking-wider leading-tight mb-4">
                     {product.name}
                   </h3>
                   
