@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Be_Vietnam_Pro, Dancing_Script } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/antra/Header";
-import { PageTransition } from "@/components/antra/PageTransition";
 import { FloatingContact } from "@/components/antra/FloatingContact";
 
 const navItems = [
@@ -44,7 +43,7 @@ export default function RootLayout({
     <html lang="en" className={`${beVietnam.variable} ${dancingScript.variable} h-full scroll-smooth`}>
       <body className="min-h-full bg-background text-foreground antialiased bg-[#080808]">
         <Header navItems={navItems} />
-        <PageTransition>{children}</PageTransition>
+        {children}
         <FloatingContact />
       </body>
     </html>
