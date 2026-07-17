@@ -85,21 +85,27 @@ export default function ProjectsPage() {
   return (
     <div ref={rootRef} className="antra-theme min-h-screen bg-[#080808] selection:bg-[#B8AFA3] selection:text-[#080808] pt-24 font-sans">
       
-      {/* 1. Hero Section (Light) */}
-      <section className="relative py-20 md:py-32 overflow-hidden flex items-center justify-center min-h-[50vh] bg-[#F2F0EC]">
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(156,138,115,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(156,138,115,0.06)_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,#000_20%,transparent_100%)] z-0"></div>
-        <div className="absolute bottom-10 -left-20 text-[6rem] lg:text-[12rem] font-bold text-[#e5e1da] opacity-30 pointer-events-none whitespace-nowrap select-none z-0">
-          PROJECTS
+      {/* 1. Hero Section */}
+      <section className="relative py-20 md:py-32 overflow-hidden flex items-center justify-center min-h-[50vh]">
+        {/* Background image */}
+        <div className="absolute inset-0 z-0 opacity-20">
+          <Image src="/nha_thep_tien_che.png" alt="Công Trình Tiêu Biểu" fill className="object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#080808]/80 via-[#080808]/60 to-[#080808]" />
         </div>
+
         <div className="container relative z-10 mx-auto px-4 text-center flex flex-col items-center">
-          <p className="antra-hero-kicker text-[10px] font-bold tracking-[0.2em] uppercase text-[#9C8A73] mb-6">Dự Án</p>
-          <h1 className="antra-h1 text-3xl md:text-5xl lg:text-7xl mb-6 uppercase font-light leading-[1.2] text-[#151413]">
-            <span className="block">Công trình</span>
-            <span className="block italic text-[#9C8A73]">Tiêu biểu</span>
+          <p className="antra-hero-kicker text-[10px] font-bold tracking-[0.2em] uppercase text-[#C2BAB0] mb-6">Dự Án</p>
+          <h1 className="antra-h1 text-3xl md:text-5xl lg:text-7xl mb-6 uppercase font-light leading-[1.2]">
+            <span className="block text-white">Công Trình</span>
+            <span className="block italic text-[#C2BAB0]">Tiêu Biểu</span>
           </h1>
-          <p className="antra-hero-text text-[#555] text-lg max-w-2xl mx-auto font-light leading-relaxed">
-            Hàng ngàn công trình vững chãi trên khắp cả nước được xây dựng từ nguồn vật liệu do Kim Ngân Steel cung cấp.
-          </p>
+          <div className="flex items-center gap-4">
+            <div className="w-8 h-px bg-[#C2BAB0]/50" />
+            <p className="antra-hero-text text-[#888] text-lg max-w-2xl mx-auto font-light leading-relaxed">
+              Hàng ngàn công trình vững chãi trên khắp cả nước được xây dựng từ nguồn vật liệu do Kim Ngân Steel cung cấp.
+            </p>
+            <div className="w-8 h-px bg-[#C2BAB0]/50" />
+          </div>
         </div>
       </section>
 

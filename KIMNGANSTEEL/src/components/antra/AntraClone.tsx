@@ -7,7 +7,6 @@ import { AboutSection } from "./AboutSection";
 import { BlogSection } from "./BlogSection";
 import { SiteFooter } from "./SiteFooter";
 import { ContactFormSection } from "./ContactFormSection";
-import { FloatingContact } from "./FloatingContact";
 import { PartnerSection } from "./PartnerSection";
 
 import { HeroSection } from "./HeroSection";
@@ -163,17 +162,8 @@ export function AntraClone() {
       });
     }, root);
 
-    const backTop = root.querySelector<HTMLElement>(".antra-back-top");
-    const onScroll = () => {
-      backTop?.classList.toggle("is-visible", window.scrollY > window.innerHeight * 0.55);
-    };
-
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-
     return () => {
       context.revert();
-      window.removeEventListener("scroll", onScroll);
     };
   }, []);
 
@@ -194,8 +184,6 @@ export function AntraClone() {
         <ContactFormSection />
         <SiteFooter />
       </main>
-      <a className="antra-back-top" href="#top" aria-label="Back to top">↑</a>
-      <FloatingContact />
     </div>
   );
 }

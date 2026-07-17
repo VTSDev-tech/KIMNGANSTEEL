@@ -38,17 +38,23 @@ export function HeroSection() {
         <div className="flex flex-col justify-center pl-6 md:pl-12 lg:pl-16 xl:pl-24 py-8 lg:py-4">
           
           <div className="inline-flex items-center gap-4 mb-4 antra-hero-kicker">
-            <div className="w-0.5 h-4 bg-[#B8AFA3]"></div>
-            <span className="text-[#D8D4CE] font-bold tracking-[0.15em] uppercase text-[10px] md:text-[11px]">
+            <div className="w-0.5 h-4 bg-[#C2BAB0]"></div>
+            <span className="text-[#E4E0DC] font-bold tracking-[0.15em] uppercase text-[10px] md:text-[11px]">
               GIA CÔNG CÁN TÔN · PHÂN PHỐI VẬT LIỆU XÂY DỰNG
             </span>
           </div>
           
           <h1 className="mb-6 antra-hero-text">
-            <span className="block text-[1.8rem] sm:text-[2.2rem] md:text-[2.6rem] lg:text-[2.8rem] xl:text-[3.2rem] font-bold leading-[1.2] tracking-tight uppercase text-transparent bg-clip-text bg-gradient-to-r from-white via-[#E8E4DB] to-[#A39A86] pb-2">
+            <span 
+              className="block text-[1.8rem] sm:text-[2.2rem] md:text-[2.6rem] lg:text-[2.8rem] xl:text-[3.2rem] font-bold leading-[1.3] tracking-tight uppercase text-transparent bg-clip-text bg-gradient-to-b from-white via-[#ECE8E4] to-[#C2BAB0] pt-1.5 pb-1.5 px-0.5"
+              style={{ WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}
+            >
               TÔN THÉP<br />CHẤT LƯỢNG CAO
             </span>
-            <span className="block text-[1.4rem] sm:text-[1.6rem] md:text-[1.8rem] font-serif italic text-transparent bg-clip-text bg-gradient-to-r from-[#D8D4CE] to-[#9C8A73] mt-4 leading-[1.2] tracking-wide">
+            <span 
+              className="block text-[1.4rem] sm:text-[1.6rem] md:text-[1.8rem] font-serif italic text-transparent bg-clip-text bg-gradient-to-b from-[#ECE8E4] to-[#C2BAB0] mt-4 leading-[1.2] tracking-wide"
+              style={{ WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}
+            >
               Giao nhanh tận công trình
             </span>
           </h1>
@@ -111,8 +117,8 @@ export function HeroSection() {
           </div>
 
           {/* Floating Title Overlay */}
-          <div className="absolute top-12 left-1/2 -translate-x-1/2 lg:translate-x-0 lg:left-[55%] z-40 flex flex-col items-center pointer-events-none">
-            <div className="relative h-8 flex items-center justify-center">
+          <div className="absolute top-10 left-1/2 z-40 flex w-[min(78vw,360px)] -translate-x-1/2 flex-col items-center pointer-events-none lg:top-12 lg:left-[55%] lg:w-auto lg:translate-x-0">
+            <div className="relative flex min-h-8 w-full items-center justify-center">
               <AnimatePresence mode="wait">
                 <motion.h3 
                   key={activeIndex} 
@@ -120,7 +126,7 @@ export function HeroSection() {
                   animate={{ opacity: 1, y: 0 }} 
                   exit={{ opacity: 0, y: -10 }} 
                   transition={{ duration: 0.4, ease: "easeOut" }} 
-                  className="absolute font-sans font-semibold text-xl md:text-2xl tracking-[0.15em] uppercase whitespace-nowrap text-transparent bg-clip-text bg-gradient-to-r from-white via-[#E8E4DB] to-[#A39A86] drop-shadow-[0_4px_12px_rgba(255,255,255,0.1)] ml-[0.15em]"
+                  className="absolute w-full text-center font-sans font-semibold text-base sm:text-lg md:text-2xl tracking-[0.12em] uppercase leading-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-[#E8E4DB] to-[#A39A86] drop-shadow-[0_4px_12px_rgba(255,255,255,0.1)] lg:w-auto lg:whitespace-nowrap lg:text-left lg:tracking-[0.15em] lg:ml-[0.15em]"
                 >
                   {activeMaterial.name}
                 </motion.h3>

@@ -29,7 +29,7 @@
   --antra-ink: #181713;
   --antra-soft: #f5f4f1;
   --antra-card: #ffffff;
-  --antra-gold: #9ca3af;
+  --antra-gold: #C2BAB0;
   --antra-muted: rgb(24 23 19 / 62%);
   --antra-dark: #171717;
   --radius: 8px;
@@ -78,8 +78,13 @@
   backdrop-filter: blur(10px) saturate(120%);
   -webkit-backdrop-filter: blur(10px) saturate(120%);
   color: #fff;
-  transform: none;
-  transition: min-height 260ms ease, padding 260ms ease, background 260ms ease, color 260ms ease, border-color 260ms ease, box-shadow 260ms ease, backdrop-filter 260ms ease;
+  transform: translateY(0);
+  transition: transform 260ms ease, min-height 260ms ease, padding 260ms ease, background 260ms ease, color 260ms ease, border-color 260ms ease, box-shadow 260ms ease, backdrop-filter 260ms ease;
+}
+
+.antra-header.is-hidden,
+.antra-header.is-scrolled.is-hidden {
+  transform: translateY(-110%) !important;
 }
 
 .antra-header.is-scrolled {
@@ -250,9 +255,9 @@
 .antra-hero-copy-slide .antra-circle-link {
   pointer-events: auto;
 }
-.antra-kicker { margin-bottom: 18px; font-size: 11px; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; }
+.antra-kicker { margin-bottom: 18px; font-size: 11px; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; color: var(--antra-gold); }
 .antra-kicker::before { content: ""; display: inline-block; width: 26px; height: 1px; margin-right: 9px; vertical-align: middle; background: currentColor; opacity: 0.65; }
-.antra-kicker.dark { color: var(--antra-ink); }
+.antra-kicker.dark { color: #6B6460; }
 .antra-hero h1 { max-width: 930px; margin: 0; font-size: clamp(2.5rem, 5.5vw, 5rem); font-weight: 900; line-height: 0.93; letter-spacing: 0; text-transform: uppercase; text-shadow: 0 10px 30px rgba(0,0,0,0.4); }
 .antra-title-mask {
   display: inline-block;
@@ -320,7 +325,7 @@
 .antra-split-heading h2 span, 
 .antra-about-copy h2 span, 
 .antra-expertise-copy h2 span { 
-  background: linear-gradient(135deg, #C99A5C 0%, #7F848D 45%, #4A4D54 100%);
+  background: linear-gradient(180deg, #1a1816 0%, #5a5450 50%, #C2BAB0 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -733,37 +738,7 @@
   50% { transform: rotate(10deg); }
 }
 
-.antra-back-top {
-  position: fixed;
-  right: 28px;
-  bottom: 26px;
-  z-index: 60;
-  display: grid;
-  width: 52px;
-  height: 52px;
-  place-items: center;
-  border-radius: 999px;
-  background: rgb(255 255 255 / 86%);
-  color: var(--antra-gold);
-  font-size: 20px;
-  font-weight: 900;
-  box-shadow: 0 18px 48px rgb(0 0 0 / 18%);
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(18px);
-  transition: opacity 220ms ease, transform 220ms ease, background 220ms ease;
-}
 
-.antra-back-top.is-visible {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translateY(0);
-}
-
-.antra-back-top:hover {
-  background: var(--antra-gold);
-  color: #fff;
-}
 
 @keyframes metallicShine {
   0% { background-position: 0% 50%; }
@@ -854,4 +829,479 @@
     margin-top: 24px;
     background: linear-gradient(180deg, rgb(255 255 255 / 15%), rgb(24 23 19 / 30%));
   }
+}
+
+/* ==========================================================================
+   SITE-WIDE RESPONSIVE POLISH
+   ========================================================================== */
+@layer base {
+  html,
+  body {
+    max-width: 100%;
+  }
+
+  img,
+  svg,
+  video,
+  canvas {
+    max-width: 100%;
+  }
+
+  a,
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  li {
+    overflow-wrap: anywhere;
+  }
+}
+
+.antra-theme {
+  width: 100%;
+  overflow-x: clip;
+}
+
+.antra-section,
+.antra-contact-form-section,
+section[class*="py-"],
+footer {
+  scroll-margin-top: 96px;
+}
+
+@media (max-width: 1280px) {
+  .antra-header,
+  .antra-header.is-scrolled {
+    padding-inline: 24px;
+  }
+
+  .antra-nav {
+    gap: 16px;
+    font-size: 12px;
+  }
+
+  .antra-call {
+    display: none;
+  }
+}
+
+@media (max-width: 1024px) {
+  .antra-header,
+  .antra-header.is-scrolled {
+    min-height: 82px;
+  }
+
+  .antra-nav,
+  .antra-quote {
+    display: none;
+  }
+
+  .antra-logo-image,
+  .antra-header.is-scrolled .antra-logo-image {
+    width: 66px;
+    height: 66px;
+  }
+
+  .antra-header-actions {
+    gap: 10px;
+  }
+
+  .antra-icon-button {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 900px) {
+  .antra-hero {
+    min-height: auto;
+    height: auto;
+    padding: 112px 20px 72px;
+  }
+
+  .antra-hero-content {
+    min-height: auto;
+  }
+
+  .antra-hero-copy-slide {
+    position: relative;
+  }
+
+  .antra-hero h1 {
+    max-width: 100%;
+    line-height: 1.05;
+  }
+
+  .antra-section-heading,
+  .antra-section-heading.compact,
+  .antra-split-heading {
+    margin-bottom: 34px;
+  }
+
+  .antra-service-card,
+  .antra-testimonial-grid article {
+    min-height: auto;
+  }
+
+  .antra-contact-form-section {
+    gap: 36px;
+  }
+
+  .antra-contact-copy h2 {
+    font-size: clamp(1.7rem, 8vw, 2.8rem);
+  }
+}
+
+@media (max-width: 760px) {
+  .antra-header,
+  .antra-header.is-scrolled {
+    min-height: 74px;
+    padding-inline: 14px;
+  }
+
+  .antra-logo-image,
+  .antra-header.is-scrolled .antra-logo-image {
+    width: 58px;
+    height: 58px;
+  }
+
+  .antra-icon-button {
+    width: 38px;
+    height: 38px;
+  }
+
+  .antra-section,
+  .antra-contact-form-section {
+    padding-inline: 18px;
+  }
+
+  .antra-section-heading {
+    width: 100%;
+    text-align: left;
+  }
+
+  .antra-section-heading h2,
+  .antra-split-heading h2,
+  .antra-about-copy h2,
+  .antra-contact h2,
+  .antra-expertise-copy h2 {
+    font-size: clamp(1.45rem, 7vw, 2rem);
+    line-height: 1.28;
+  }
+
+  .antra-kicker {
+    letter-spacing: 0.06em;
+  }
+
+  .antra-service-top {
+    gap: 14px;
+  }
+
+  .antra-service-top h3 {
+    max-width: none;
+    font-size: 20px;
+  }
+
+  .antra-service-top span {
+    font-size: 34px;
+  }
+
+  .antra-project-card {
+    flex-basis: min(86vw, 360px);
+    border-radius: 8px;
+  }
+
+  .antra-project-card h3 {
+    width: calc(100% - 64px);
+    font-size: 19px;
+  }
+
+  .antra-process-step h3 {
+    min-height: auto;
+  }
+
+  .antra-contact-mini span {
+    align-items: flex-start;
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .antra-expertise span:first-child {
+    white-space: nowrap;
+    overflow-wrap: normal;
+  }
+
+  .antra-project-form {
+    padding: 22px;
+  }
+
+  .antra-blog-grid h3 {
+    font-size: 17px;
+  }
+
+
+}
+
+@media (max-width: 640px) {
+  .antra-hero-kicker,
+  .hero-kicker,
+  .antra-kicker {
+    font-size: 9px;
+  }
+
+  .antra-hero h1 span,
+  .hero-title,
+  .antra-h1 {
+    letter-spacing: 0;
+  }
+
+  .antra-hero .whitespace-nowrap,
+  .antra-section .whitespace-nowrap,
+  main .whitespace-nowrap {
+    white-space: normal;
+  }
+
+  .antra-stats-band {
+    padding: 34px 18px 42px;
+  }
+
+  .antra-about-media {
+    min-height: 320px;
+  }
+
+  .antra-about-inset {
+    border-width: 8px;
+  }
+
+  .antra-project-card span,
+  .antra-project-card h3 {
+    left: 18px;
+  }
+
+  .antra-project-card a {
+    right: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .antra-header-actions {
+    gap: 8px;
+  }
+
+  .antra-icon-button {
+    width: 36px;
+    height: 36px;
+  }
+
+  .antra-hero {
+    padding-inline: 16px;
+  }
+
+  .antra-hero h1 {
+    font-size: clamp(1.9rem, 11vw, 2.75rem);
+  }
+
+  .antra-section,
+  .antra-contact-form-section {
+    padding-inline: 16px;
+  }
+
+  .antra-service-card {
+    padding: 22px;
+  }
+
+  .antra-skill-panel {
+    padding: 22px;
+  }
+
+  .antra-contact-form-section > div:first-child {
+    padding: 24px;
+  }
+}
+
+/* ==========================================================================
+   BUSINESS SITE TYPE SCALE
+   ========================================================================== */
+body {
+  font-size: 15px;
+}
+
+.antra-section-heading h2,
+.antra-split-heading h2,
+.antra-about-copy h2,
+.antra-contact h2,
+.antra-expertise-copy h2 {
+  font-size: clamp(1.35rem, 2.45vw, 2.1rem);
+  line-height: 1.32;
+}
+
+#top h1 > span:first-child {
+  font-size: clamp(1.7rem, 4.8vw, 2.85rem) !important;
+  line-height: 1.32 !important;
+  padding-top: 6px !important;
+  padding-bottom: 6px !important;
+  padding-left: 2px !important;
+  padding-right: 2px !important;
+}
+
+#top h1 > span:nth-child(2) {
+  font-size: clamp(1.18rem, 2.7vw, 1.55rem) !important;
+}
+
+#top p,
+.antra-section-heading > p:last-child,
+.antra-about-copy > p:not(.antra-kicker),
+.antra-expertise-copy p:not(.antra-kicker),
+.antra-contact-copy > p:not(.antra-kicker) {
+  font-size: 14px;
+}
+
+.antra-h1,
+.hero-title {
+  font-size: clamp(2.35rem, 6.6vw, 5rem) !important;
+  line-height: 1.25 !important;
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+}
+
+.factory-hero-kicker {
+  color: #B4A28A;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.36em;
+  line-height: 1;
+  text-transform: uppercase;
+  text-shadow: 0 6px 22px rgb(0 0 0 / 55%);
+}
+
+.factory-hero-title {
+  font-size: clamp(3rem, 7.4vw, 6rem);
+  line-height: 0.96;
+  letter-spacing: 0;
+  text-shadow: 0 14px 36px rgb(0 0 0 / 42%);
+}
+
+.factory-hero-subtitle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.factory-hero-subtitle::before,
+.factory-hero-subtitle::after {
+  content: "";
+  flex: 0 0 42px;
+  height: 1px;
+  background: rgb(255 255 255 / 24%);
+}
+
+.antra-service-top h3,
+.antra-project-card h3,
+.antra-process-step h3,
+.antra-blog-grid h3 {
+  font-size: clamp(1rem, 1.7vw, 1.25rem);
+}
+
+.antra-contact-copy h2 {
+  font-size: clamp(1.75rem, 3.1vw, 2.8rem);
+}
+
+@media (max-width: 760px) {
+  body {
+    font-size: 14px;
+  }
+
+  .antra-section-heading h2,
+  .antra-split-heading h2,
+  .antra-about-copy h2,
+  .antra-contact h2,
+  .antra-expertise-copy h2 {
+    font-size: clamp(1.25rem, 6vw, 1.75rem);
+    line-height: 1.34;
+  }
+
+  #top h1 > span:first-child {
+    font-size: clamp(1.65rem, 8.4vw, 2.35rem) !important;
+  }
+
+  #top h1 > span:nth-child(2) {
+    font-size: clamp(1.05rem, 5vw, 1.35rem) !important;
+  }
+
+  #top p,
+  .antra-section-heading > p:last-child,
+  .antra-about-copy > p:not(.antra-kicker),
+  .antra-expertise-copy p:not(.antra-kicker),
+  .antra-contact-copy > p:not(.antra-kicker) {
+    font-size: 13.5px;
+    line-height: 1.72;
+  }
+
+  .antra-h1,
+  .hero-title {
+    font-size: clamp(2rem, 10vw, 3.05rem) !important;
+    line-height: 1.08 !important;
+  }
+
+  .factory-hero-title {
+    font-size: clamp(2.35rem, 12vw, 3.7rem);
+    line-height: 1.02;
+  }
+
+  .factory-hero-kicker {
+    font-size: 8px;
+    letter-spacing: 0.28em;
+  }
+
+  .factory-hero-subtitle {
+    gap: 10px;
+  }
+
+  .factory-hero-subtitle::before,
+  .factory-hero-subtitle::after {
+    flex-basis: 24px;
+  }
+
+  .antra-service-top h3,
+  .antra-project-card h3,
+  .antra-process-step h3,
+  .antra-blog-grid h3 {
+    font-size: 1rem;
+  }
+}
+
+/* Mobile Menu Breakpoint Sync at 1100px */
+.antra-menu-btn {
+  display: none !important;
+}
+
+.antra-menu-drawer {
+  display: flex !important;
+}
+
+@media (max-width: 1100px) {
+  .antra-menu-btn {
+    display: flex !important;
+  }
+}
+
+@media (min-width: 1101px) {
+  .antra-menu-drawer {
+    display: none !important;
+  }
+}
+
+/* Hide floating contact buttons when mobile menu drawer is open */
+.antra-floating-contact {
+  transition: opacity 220ms ease, transform 220ms ease !important;
+}
+
+body.menu-open .antra-floating-contact {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transform: scale(0.8) !important;
 }

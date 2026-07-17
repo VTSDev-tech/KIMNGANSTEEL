@@ -75,15 +75,6 @@ export function ProductSection() {
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
 
-  useEffect(() => {
-    // Cuộn vùng chứa sang phải một đoạn bằng 1/4 chiều rộng của thẻ đầu tiên
-    // để tạo hiệu ứng thẻ đầu tiên bị cắt mất 1/4 ở mép trái.
-    if (scrollRef.current && scrollRef.current.firstChild) {
-      const firstCard = scrollRef.current.firstChild as HTMLElement;
-      scrollRef.current.scrollLeft = firstCard.offsetWidth / 4;
-    }
-  }, []);
-
   const handleMouseDown = (e: React.MouseEvent) => {
     if (!scrollRef.current) return;
     setIsDragging(true);
@@ -112,7 +103,7 @@ export function ProductSection() {
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-24 w-full">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 md:mb-12 gap-6">
           <div>
-            <p className="text-[10px] font-bold tracking-[0.15em] uppercase text-[#7a7570] mb-4">SẢN PHẨM</p>
+            <p className="text-[10px] font-bold tracking-[0.15em] uppercase text-[#9CA3AF] mb-4">SẢN PHẨM</p>
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold uppercase tracking-tight leading-[1.2] text-[#2a2925]">
               VẬT LIỆU XÂY DỰNG CHÍNH HÃNG
             </h2>
@@ -127,14 +118,14 @@ export function ProductSection() {
           onMouseLeave={handleMouseLeave}
           onMouseUp={handleMouseUp}
           onMouseMove={handleMouseMove}
-          className={`flex overflow-x-auto scroll-auto hide-scrollbar pb-16 items-start gap-4 w-full pr-4 md:pr-8 ${
+          className={`flex overflow-x-auto scroll-auto hide-scrollbar pb-16 items-start gap-4.5 w-full px-6 md:px-12 lg:px-24 ${
             isDragging ? "cursor-grabbing" : "cursor-grab"
           }`}
         >
           {products.map((product, index) => (
             <article 
               key={product.id} 
-              className={`flex-none w-[75vw] sm:w-[45vw] md:w-[35vw] lg:w-[20vw] relative aspect-[3/4] overflow-hidden group cursor-pointer bg-black ${
+              className={`flex-none w-[62vw] sm:w-[45vw] md:w-[35vw] lg:w-[20vw] relative aspect-[3/4] overflow-hidden group cursor-pointer bg-black ${
                 index % 2 !== 0 ? 'mt-4 lg:mt-6' : ''
               }`}
             >
@@ -156,12 +147,12 @@ export function ProductSection() {
                     <ul className="space-y-2 mb-4">
                       {product.specs.map((spec, i) => (
                         <li key={i} className="flex items-center text-[11px] text-white/70 tracking-wide uppercase">
-                          <span className="w-1 h-1 bg-[#C99A5C] rounded-full mr-2" />
+                          <span className="w-1 h-1 bg-[#9CA3AF] rounded-full mr-2" />
                           {spec}
                         </li>
                       ))}
                     </ul>
-                    <span className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-[#C99A5C]">
+                    <span className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-[#E5E7EB]">
                       Chi tiết <ArrowRight size={12} />
                     </span>
                   </div>

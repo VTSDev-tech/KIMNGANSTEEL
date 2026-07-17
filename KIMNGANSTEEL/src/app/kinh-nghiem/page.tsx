@@ -10,62 +10,51 @@ gsap.registerPlugin(ScrollTrigger);
 
 const BLOG_POSTS = [
   {
-    title: "Bảng giá thép xây dựng cập nhật mới nhất Tuần 2/2026",
-    category: "Thị Trường",
-    date: "12",
-    month: "07",
-    year: "2026",
-    readTime: "3 phút đọc",
-    excerpt: "Giá thép cuộn mạ kẽm tăng nhẹ 1.2% so với tuần trước do áp lực chi phí nguyên liệu đầu vào tại các nhà máy phía Nam.",
-    image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&q=80",
-    featured: true,
-  },
-  {
     title: "Cách chọn độ dày tôn lợp phù hợp cho nhà xưởng công nghiệp",
     category: "Kiến Thức",
-    date: "05",
+    date: "12",
     month: "07",
     year: "2026",
     readTime: "5 phút đọc",
     excerpt: "Độ dày tôn lợp ảnh hưởng trực tiếp đến tuổi thọ công trình và chi phí bảo trì về lâu dài. Hướng dẫn chọn đúng theo từng hạng mục.",
-    image: "https://images.unsplash.com/photo-1590345558032-14e68baff5b3?w=800&q=80",
+    image: "/nha_xuong.png",
+    featured: true,
   },
   {
     title: "Kinh nghiệm thi công mái tôn chống dột hiệu quả mùa mưa",
     category: "Thi Công",
-    date: "28",
-    month: "06",
+    date: "05",
+    month: "07",
     year: "2026",
     readTime: "4 phút đọc",
     excerpt: "Những lỗi phổ biến khi lợp tôn và cách khắc phục để đảm bảo mái không thấm dột trong mùa mưa bão.",
-    image: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=80",
+    image: "/nha_thep_tien_che.png",
   },
   {
     title: "Phân biệt Tôn Lạnh và Tôn Mạ Kẽm: Loại nào tốt hơn?",
     category: "Kiến Thức",
-    date: "15",
+    date: "28",
     month: "06",
     year: "2026",
     readTime: "4 phút đọc",
     excerpt: "So sánh toàn diện hai dòng vật liệu phổ biến nhất hiện nay về độ bền, chi phí và phạm vi ứng dụng trong xây dựng.",
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
+    image: "/cong_trinh_dan_dung.png",
   },
   {
     title: "Tiêu chuẩn ASTM và JIS trong thép xây dựng là gì?",
     category: "Tiêu Chuẩn",
-    date: "01",
+    date: "15",
     month: "06",
     year: "2026",
     readTime: "6 phút đọc",
     excerpt: "Tìm hiểu các tiêu chuẩn quốc tế ASTM A653, JIS G3302 và cách đọc chứng chỉ kiểm tra chất lượng thép.",
-    image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&q=80",
+    image: "/3d_steel_model.png",
   },
 ];
 
 const CATEGORY_COLORS: Record<string, string> = {
-  "Thị Trường": "#C99A5C",
-  "Kiến Thức": "#9C8A73",
-  "Thi Công": "#7a9e8a",
+  "Kiến Thức": "#9CA3AF",
+  "Thi Công": "#9C8A73",
   "Tiêu Chuẩn": "#8a7a9e",
 };
 
@@ -101,17 +90,26 @@ export default function BlogPage() {
     <div ref={rootRef} className="min-h-screen bg-[#080808] pt-24 font-sans selection:bg-[#B8AFA3] selection:text-[#080808]">
 
       {/* ─── Hero ─── */}
-      <section className="relative bg-[#080808] border-b border-[#111] py-20 md:py-28 overflow-hidden">
-        <div className="absolute right-0 bottom-0 text-[10rem] md:text-[18rem] font-black text-[#0d0d0d] leading-none select-none pointer-events-none tracking-[-0.05em]">NEWS</div>
-        <div className="container mx-auto px-6 md:px-12 max-w-[1280px] relative z-10">
-          <p className="hero-kicker text-[10px] font-bold tracking-[0.3em] uppercase text-[#9C8A73] mb-6">Kim Ngân Steel — Tin Tức</p>
-          <h1 className="hero-title font-light uppercase leading-[0.95] tracking-tight text-white mb-6" style={{ fontSize: "clamp(3rem, 8vw, 7rem)" }}>
-            Kiến Thức<br />
-            <span className="text-transparent italic" style={{ WebkitTextStroke: "1px #444" }}>&amp; Thị Trường</span>
+      <section className="relative py-20 md:py-32 overflow-hidden flex items-center justify-center min-h-[50vh]">
+        {/* Background image */}
+        <div className="absolute inset-0 z-0 opacity-20">
+          <Image src="/nha_xuong.png" alt="Kinh Nghiệm Kim Ngân Steel" fill className="object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#080808]/80 via-[#080808]/60 to-[#080808]" />
+        </div>
+
+        <div className="container relative z-10 mx-auto px-4 md:px-8 max-w-5xl text-center flex flex-col items-center">
+          <p className="hero-kicker text-[10px] font-bold tracking-[0.2em] uppercase text-[#C2BAB0] mb-6">Kim Ngân Steel — Kinh Nghiệm &amp; Tư Vấn</p>
+          <h1 className="hero-title text-3xl md:text-5xl lg:text-7xl mb-6 uppercase font-light leading-[1.2]">
+            <span className="block text-white">Kinh Nghiệm</span>
+            <span className="block italic text-[#C2BAB0]">&amp; Tư Vấn Vật Tư</span>
           </h1>
-          <p className="hero-sub text-[#666] text-sm font-light max-w-md leading-relaxed">
-            Cập nhật bảng giá thép mới nhất và cẩm nang vật liệu xây dựng cho mọi công trình.
-          </p>
+          <div className="flex items-center gap-4">
+            <div className="w-8 h-px bg-[#C2BAB0]/50" />
+            <p className="hero-sub text-[#888] text-sm font-light max-w-md leading-relaxed">
+              Chia sẻ cẩm nang thi công tôn thép hữu ích và cập nhật biến động giá thép hàng tuần.
+            </p>
+            <div className="w-8 h-px bg-[#C2BAB0]/50" />
+          </div>
         </div>
       </section>
 
@@ -237,7 +235,7 @@ export default function BlogPage() {
           </div>
           <a
             href="/lien-he"
-            className="inline-block bg-[#151413] text-white text-[11px] font-black uppercase tracking-[0.25em] px-10 py-4 hover:bg-[#C99A5C] transition-colors duration-300 whitespace-nowrap"
+            className="inline-block bg-[#151413] text-white text-[11px] font-black uppercase tracking-[0.25em] px-10 py-4 hover:bg-[#9CA3AF] transition-colors duration-300 whitespace-nowrap"
           >
             Liên Hệ Đăng Ký →
           </a>

@@ -129,10 +129,10 @@ export default function AboutPage() {
           <div className="absolute inset-0 bg-gradient-to-b from-[#080808]/80 via-[#080808]/60 to-[#080808]" />
         </div>
         <div className="container relative z-10 mx-auto px-4 md:px-8 max-w-5xl text-center flex flex-col items-center">
-          <p className="antra-hero-kicker text-[10px] font-bold tracking-[0.2em] uppercase text-[#C99A5C] mb-6">Giới Thiệu</p>
-          <h1 className="antra-h1 text-3xl md:text-5xl lg:text-7xl mb-6 uppercase font-light leading-[1.2] text-transparent bg-clip-text bg-gradient-to-r from-white via-[#E8E4DB] to-[#A39A86]">
+          <p className="antra-hero-kicker text-[10px] font-bold tracking-[0.2em] uppercase text-[#C2BAB0] mb-6">Giới Thiệu</p>
+          <h1 className="antra-h1 text-3xl md:text-5xl lg:text-7xl mb-6 uppercase font-light leading-[1.2] text-transparent bg-clip-text bg-gradient-to-r from-white via-[#E5E7EB] to-[#9CA3AF]">
             <span className="block">Vững nền móng</span>
-            <span className="block italic text-[#C99A5C]">Bền công trình</span>
+            <span className="block italic text-[#C2BAB0]">Bền công trình</span>
           </h1>
           <p className="antra-hero-text text-[#888] text-lg md:text-xl max-w-2xl mx-auto font-light leading-relaxed">
             Kim Ngân Steel tự hào là đối tác cung ứng tôn thép hàng đầu, mang đến những giải pháp vật liệu chất lượng, bền bỉ và tối ưu nhất cho mọi dự án.
@@ -148,9 +148,9 @@ export default function AboutPage() {
         </div>
         <div className="container mx-auto max-w-6xl relative z-10 flex flex-col lg:flex-row gap-16 lg:gap-24 items-center">
           <div className="w-full lg:w-1/2 flex flex-col relative">
-            <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#9C8A73] mb-6">Câu Chuyện Của Chúng Tôi</p>
+            <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#C2BAB0] mb-6">Câu Chuyện Của Chúng Tôi</p>
             <h2 className="text-[1.8rem] md:text-[2.2rem] lg:text-[2.5rem] font-light leading-[1.2] uppercase tracking-tight mb-8">
-              Hành trình kiến tạo<br/><span className="text-[#9C8A73]">sự vững chắc</span>
+              Hành trình kiến tạo<br/><span className="text-[#C2BAB0]">sự vững chắc</span>
             </h2>
             <div className="text-[#555] text-[15px] leading-relaxed font-light text-justify mb-8 space-y-4">
               <p>Được thành lập với tầm nhìn trở thành nhà cung cấp vật liệu xây dựng hàng đầu khu vực, Kim Ngân Steel đã không ngừng nỗ lực vươn lên, khẳng định vị thế vững chắc trong ngành công nghiệp tôn thép.</p>
@@ -175,10 +175,10 @@ export default function AboutPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {STATS.map((stat, i) => (
               <div key={i} className="antra-card-item flex flex-col items-center justify-center py-6">
-                <div className="text-4xl md:text-5xl font-light text-transparent bg-clip-text bg-gradient-to-r from-white via-[#E8E4DB] to-[#A39A86] mb-2 tracking-tight">
+                <div className="text-4xl md:text-5xl font-light text-transparent bg-clip-text bg-gradient-to-r from-white via-[#E5E7EB] to-[#9CA3AF] mb-2 tracking-tight">
                   {stat.value}
                 </div>
-                <div className="text-[10px] md:text-[11px] text-[#9C8A73] uppercase tracking-[0.2em] font-bold">
+                <div className="text-[10px] md:text-[11px] text-[#C2BAB0] uppercase tracking-[0.2em] font-bold">
                   {stat.label}
                 </div>
               </div>

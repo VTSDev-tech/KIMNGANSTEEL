@@ -4,8 +4,33 @@ export function ContactFormSection() {
   return (
     <section className="antra-contact-form-section !bg-[#080808] !text-[#F2F0EC] !border-t !border-[rgba(216,212,206,0.1)]">
       
-      {/* Form (Left side) */}
-      <div className="bg-[#121212] p-8 md:p-12 border border-[rgba(216,212,206,0.1)] relative">
+      {/* Copy (Right side on desktop, Top on mobile) */}
+      <div className="antra-contact-copy md:col-start-2 md:row-start-1">
+        <p className="antra-kicker">FORM NHẬN BÁO GIÁ</p>
+        <h2 className="text-[#F2F0EC]">
+          NHẬN BÁO GIÁ TÔN THÉP{" "}
+          <span className="!text-transparent bg-clip-text bg-gradient-to-br from-[#C99A5C] via-[#ffffff] to-[#4A4D54] drop-shadow-lg inline-block">
+            NHANH
+          </span>
+        </h2>
+        <p className="!text-[#999590]">
+          Vui lòng để lại thông tin sản phẩm, quy cách và số lượng cần mua. Đội ngũ Kim Ngân sẽ liên hệ tư vấn và gửi báo giá phù hợp trong thời gian sớm nhất.
+        </p>
+        <div className="antra-contact-mini !text-[#F2F0EC] mt-8 space-y-4">
+          <span className="flex items-center gap-3">
+            <MapPin size={20} className="text-[#B8AFA3]" /> 262 đường DT742, Vĩnh Tân, Tân Uyên, Tp. HCM
+          </span>
+          <span className="flex items-center gap-3">
+            <Mail size={20} className="text-[#B8AFA3]" /> sales@kimngansteel.vn
+          </span>
+          <span className="flex items-center gap-3">
+            <Phone size={20} className="text-[#B8AFA3]" /> 090 123 4567
+          </span>
+        </div>
+      </div>
+
+      {/* Form (Left side on desktop, Bottom on mobile) */}
+      <div className="bg-[#121212] p-8 md:p-12 border border-[rgba(216,212,206,0.1)] relative md:col-start-1 md:row-start-1">
         <div className="absolute top-0 right-0 w-20 h-20 border-t border-r border-[#B8AFA3] opacity-30" />
         
         <h2 className="text-2xl font-bold text-[#F2F0EC] uppercase mb-2">Gửi Yêu Cầu Báo Giá</h2>
@@ -63,19 +88,6 @@ export function ContactFormSection() {
         </form>
       </div>
 
-      {/* Copy (Right side) */}
-      <div className="antra-contact-copy">
-        <p className="antra-kicker">FORM NHẬN BÁO GIÁ</p>
-        <h2 className="text-[#F2F0EC]">NHẬN BÁO GIÁ TÔN THÉP <span className="!text-transparent bg-clip-text bg-gradient-to-br from-[#C99A5C] via-[#ffffff] to-[#4A4D54] drop-shadow-lg inline-block">NHANH</span></h2>
-        <p className="!text-[#999590]">Vui lòng để lại thông tin sản phẩm, quy cách và số lượng cần mua. Đội ngũ Kim Ngân sẽ liên hệ tư vấn và gửi báo giá phù hợp trong thời gian sớm nhất.</p>
-        <div className="antra-contact-mini !text-[#F2F0EC] mt-8 space-y-4">
-          <span className="flex items-center gap-3"><MapPin size={20} className="text-[#B8AFA3]" /> 262 đường DT742, Vĩnh Tân, Tân Uyên, Tp. HCM</span>
-          <span className="flex items-center gap-3"><Mail size={20} className="text-[#B8AFA3]" /> sales@kimngansteel.vn</span>
-          <span className="flex items-center gap-3"><Phone size={20} className="text-[#B8AFA3]" /> 090 123 4567</span>
-        </div>
-      </div>
-
     </section>
   );
 }
-

@@ -15,7 +15,7 @@ export function AboutSection() {
         
         {/* Left: Text Content */}
         <div className="w-full lg:w-1/2 flex flex-col relative">
-          <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#9C8A73] mb-6">Về Chúng Tôi</p>
+          <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#C2BAB0] mb-6">Về Chúng Tôi</p>
           <h2 className="text-[1.8rem] md:text-[2.2rem] lg:text-[2.5rem] font-light leading-[1.2] text-[#151413] uppercase tracking-tight mb-8">
             ĐỐI TÁC VẬT LIỆU<br/>ĐÁNG TIN CẬY<br/>CỦA MỌI CÔNG TRÌNH
           </h2>
@@ -24,7 +24,7 @@ export function AboutSection() {
           </p>
           <div className="self-start">
             <div className="text-4xl lg:text-5xl text-[#151413] mb-2 opacity-90 -rotate-2" style={{ fontFamily: "var(--font-dancing-script), cursive" }}>Kim Ngân</div>
-            <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#9C8A73] mt-2">GIÁM ĐỐC</p>
+            <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#C2BAB0] mt-2">GIÁM ĐỐC</p>
           </div>
         </div>
 

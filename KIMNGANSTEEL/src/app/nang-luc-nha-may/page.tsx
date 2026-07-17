@@ -38,8 +38,8 @@ export default function FactoryPage() {
 
     const context = gsap.context(() => {
       gsap.timeline({ defaults: { ease: "power3.out" } })
-        .from(".antra-hero-kicker", { y: 20, opacity: 0, duration: 0.8 })
-        .from(".antra-h1", { y: 40, opacity: 0, duration: 1 }, "-=0.5")
+        .from(".factory-hero-kicker", { y: 20, opacity: 0, duration: 0.8 })
+        .from(".factory-hero-title", { y: 40, opacity: 0, duration: 1 }, "-=0.5")
         .from(".antra-hero-text", { y: 20, opacity: 0, duration: 0.8 }, "-=0.6");
 
       gsap.utils.toArray<HTMLElement>(".antra-section").forEach((section) => {
@@ -74,12 +74,12 @@ export default function FactoryPage() {
           <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-[#080808]/40 to-[#080808]" />
         </div>
         <div className="container relative z-10 mx-auto px-4 text-center flex flex-col items-center">
-          <p className="antra-hero-kicker text-[10px] font-bold tracking-[0.2em] uppercase text-[#9C8A73] mb-6">Nhà Máy</p>
-          <h1 className="antra-h1 text-3xl md:text-5xl lg:text-7xl mb-6 uppercase font-light leading-[1.2] text-transparent bg-clip-text bg-gradient-to-r from-white via-[#E8E4DB] to-[#A39A86]">
+          <p className="factory-hero-kicker antra-hero-kicker mb-7">Nhà Máy</p>
+          <h1 className="factory-hero-title mb-8 uppercase font-light text-white">
             <span className="block">Năng Lực</span>
-            <span className="block italic text-[#C99A5C]">Sản Xuất</span>
+            <span className="block italic text-[#CFC8BE]">Sản Xuất</span>
           </h1>
-          <p className="antra-hero-text text-[#888] text-lg max-w-2xl mx-auto font-light leading-relaxed">
+          <p className="factory-hero-subtitle antra-hero-text text-[#8E8A84] text-[13px] md:text-sm max-w-2xl mx-auto font-light leading-relaxed tracking-wide">
             Hệ thống nhà máy hiện đại, quy trình khép kín, tối ưu hóa từ nguyên liệu đầu vào đến thành phẩm.
           </p>
         </div>
@@ -121,9 +121,9 @@ export default function FactoryPage() {
               { step: "03", title: "Cắt CNC chính xác", desc: "Cắt tôn theo đúng chiều dài bản vẽ, sai số dưới 1mm." },
               { step: "04", title: "KCS & Đóng gói", desc: "Kiểm tra bề mặt không trầy xước, dán nilon bảo vệ." }
             ].map((item, i) => (
-              <div key={i} className="antra-stagger-item flex flex-col md:flex-row gap-8 items-start md:items-center bg-[#111] p-8 md:px-12 border border-white/5 hover:border-[#9C8A73]/30 transition-colors">
-                <div className="text-5xl lg:text-7xl font-light text-[#1a1a1a] shrink-0" style={{ WebkitTextStroke: "1px #9C8A73" }}>{item.step}</div>
-                <div>
+              <div key={i} className="antra-stagger-item grid grid-cols-[72px_minmax(0,1fr)] items-center gap-6 bg-[#111] p-6 sm:grid-cols-[88px_minmax(0,1fr)] sm:p-8 md:grid-cols-[104px_minmax(0,1fr)] md:gap-8 md:px-12 border border-white/5 hover:border-[#C2BAB0]/30 transition-colors">
+                <div className="w-full text-left text-5xl lg:text-6xl font-black text-[#C2BAB0]/30 leading-none tracking-normal tabular-nums select-none">{item.step}</div>
+                <div className="min-w-0">
                   <h3 className="text-lg font-bold text-white mb-2 uppercase tracking-wide">{item.title}</h3>
                   <p className="text-[#666] text-sm font-light leading-relaxed">{item.desc}</p>
                 </div>

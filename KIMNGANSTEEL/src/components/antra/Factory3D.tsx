@@ -8,7 +8,7 @@ const MODELS = [
     id: 'sheet', name: 'Tôn Lợp Mái', 
     desc: 'Tôn cán sóng Kim Ngân siêu bền, chống rỉ sét, chịu thời tiết khắc nghiệt.', 
     imgSrc: '/trangtri/sheet.svg', 
-    top: '25%', left: '35%', 
+    top: '24%', left: '50%', 
     direction: 'left' 
   },
   { 
@@ -81,7 +81,7 @@ export function Factory3D() {
 
       <div className="relative flex-1 min-h-0 w-full flex items-center justify-center px-4 pb-12">
         {/* MẶT NẠ 2D: HÌNH ẢNH BIỆT THỰ */}
-        <div className="relative h-full max-h-[65vh] max-w-full aspect-square flex items-center justify-center mt-4">
+        <div className="relative w-full max-w-[65vh] max-h-[65vh] aspect-square flex items-center justify-center mt-4">
           <img 
             src="/villa_isolated.png" 
             alt="Biệt thự" 
@@ -102,6 +102,34 @@ export function Factory3D() {
           ))}
         </div>
       </div>
+
+      {/* Active Hotspot Detail Card on Mobile */}
+      <AnimatePresence>
+        {activePart !== null && (
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 15 }}
+            className="absolute bottom-4 left-1/2 -translate-x-1/2 w-[calc(100%-32px)] max-w-[360px] bg-white/98 backdrop-blur-xl p-5 rounded-2xl shadow-[0_12px_40px_rgba(0,0,0,0.12)] flex flex-col items-center text-center z-30 border border-[#8A7963]/15 md:hidden"
+          >
+            {/* Close button */}
+            <button 
+              onClick={() => setActivePart(null)}
+              className="absolute top-3.5 right-3.5 text-gray-400 hover:text-gray-600 cursor-pointer"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+
+            {/* Content */}
+            <img src={MODELS[activePart].imgSrc} alt="" className="w-16 h-16 mb-2 object-contain" />
+            <span className="text-[10px] text-[#9C8A73] font-mono tracking-widest uppercase">Chi tiết vật tư</span>
+            <h4 className="text-base font-black text-gray-900 mt-1 uppercase tracking-tight">{MODELS[activePart].name}</h4>
+            <p className="text-xs text-gray-600 mt-2 max-w-[280px] leading-relaxed font-medium">{MODELS[activePart].desc}</p>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
@@ -137,8 +165,7 @@ function HtmlHotspot({ model, isActive, onClick, delay }: { model: { id: string,
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
             transition={{ type: "spring", damping: 20, stiffness: 100 }}
-            className={`pointer-events-auto flex items-center gap-3 md:gap-4
-              fixed bottom-6 left-4 w-[calc(100vw-76px)] sm:w-[320px] bg-white/95 backdrop-blur-xl p-4 sm:p-5 rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.25)] flex-col text-center z-50 border border-[#8A7963]/20
+            className={`pointer-events-auto hidden md:flex items-center gap-3 md:gap-4
               md:absolute md:bottom-auto md:left-auto md:top-1/2 md:translate-y-[-50%] md:w-auto md:max-w-none md:bg-transparent md:backdrop-blur-none md:p-0 md:rounded-none md:shadow-none md:border-none
               ${opensLeft ? 'md:right-full md:mr-[80px] md:flex-row-reverse md:text-right' : 'md:left-full md:ml-[80px] md:flex-row md:text-left'}
             `}
