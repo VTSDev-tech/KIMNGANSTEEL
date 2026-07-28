@@ -2,23 +2,31 @@
 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useEffect, useRef } from "react";
-import { AboutSection } from "./AboutSection";
-import { BlogSection } from "./BlogSection";
+import { useEffect, useRef, useState } from "react";
 import { SiteFooter } from "./SiteFooter";
 import { ContactFormSection } from "./ContactFormSection";
-import { PartnerSection } from "./PartnerSection";
 
 import { HeroSection } from "./HeroSection";
-import { Factory3D } from "./Factory3D";
-import { ProductSection } from "./ProductSection";
-import { ExpertiseSection, StatsBand } from "./StatsExpertise";
+import { IntroScreen } from './IntroScreen';
+import { PrecisionStackSection } from "./PrecisionStackSection";
+import { BuildStatementSection } from "./BuildStatementSection";
+import { MaterialsManifestoSection } from "./MaterialsManifestoSection";
+import { MaterialExplorerSection } from "./MaterialExplorerSection";
+import { BuildingApplicationSection } from "./BuildingApplicationSection";
+import { EditorialScrollFlow } from "./EditorialScrollFlow";
 import { PortfolioSection } from "./PortfolioSection";
-import { ProcessSection } from "./ProcessSection";
-import { ServicesSection } from "./ServicesSection";
+import { FactoryStorySection } from "./FactoryStorySection";
+import { CoreValuesSection } from "./CoreValuesSection";
+import { PartnersSection } from "./PartnersSection";
 import type { ProcessStep, ProjectCard, ServiceCard } from "@/types/antra";
 
 gsap.registerPlugin(ScrollTrigger);
+
+const unlockPageScroll = () => {
+  document.documentElement.style.overflow = "";
+  document.body.style.overflow = "";
+  document.body.style.paddingRight = "";
+};
 
 const services: ServiceCard[] = [
   { title: "Nhà Máy Cán Tôn Riêng", description: "Chủ động trong quá trình gia công, kiểm soát chất lượng và đáp ứng linh hoạt các yêu cầu về chiều dài, độ dày và quy cách sản phẩm.", icon: "⌁" },
@@ -43,123 +51,72 @@ const steps: ProcessStep[] = [
 ];
 
 export function AntraClone() {
+  const [gateOpen, setGateOpen] = useState(true);
   const rootRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      // Prevent browser from restoring scroll position on reload
+      unlockPageScroll();
+
+      const hasSeen = sessionStorage.getItem("kn_has_seen_intro");
+      if (!hasSeen) {
+        setGateOpen(false);
+      }
+
       if ('scrollRestoration' in history) {
         history.scrollRestoration = 'manual';
       }
-      // Force scroll to top on mount
       window.scrollTo(0, 0);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        if (typeof ScrollTrigger !== 'undefined') {
+          ScrollTrigger.clearScrollMemory();
+          ScrollTrigger.refresh();
+        }
+      }, 20);
     }
 
     const root = rootRef.current;
     if (!root) return;
 
     const context = gsap.context(() => {
-      gsap
-        .timeline({ defaults: { ease: "power3.out" } })
-        .from(".antra-hero-kicker", { y: 18, opacity: 0, duration: 0.7 })
-        .from(".antra-title-mask > span", { yPercent: 112, duration: 0.95, stagger: 0.045 }, "-=0.45")
-        .from(".antra-hero-text, .antra-circle-link", { y: 24, opacity: 0, duration: 0.75, stagger: 0.08 }, "-=0.55")
-        .from(".antra-hero-stat, .antra-hero-card", { y: 40, opacity: 0, duration: 0.8, stagger: 0.1 }, "-=0.7");
-
-      gsap.to(".antra-scroll", {
-        y: 10,
-        duration: 1.1,
-        ease: "sine.inOut",
-        repeat: -1,
-        yoyo: true,
-      });
-
-      gsap.to(".antra-hero-stat", {
-        y: -10,
-        duration: 2.8,
-        ease: "sine.inOut",
-        repeat: -1,
-        yoyo: true,
-      });
-
-      gsap.utils.toArray<HTMLElement>(".antra-section, .antra-contact-panel, .antra-contact-form-section").forEach((section) => {
-        gsap.from(section, {
-          y: 80,
-          opacity: 0,
-          duration: 1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: section,
-            start: "top 85%",
-            toggleActions: "play none none reverse",
-          },
-        });
-      });
-
-      gsap.utils.toArray<HTMLElement>(".antra-service-card, .antra-project-card, .antra-blog-card").forEach((card) => {
-        gsap.fromTo(card, 
+      // 1. Text Reveal Animations for Titles & Statements
+      gsap.utils.toArray<HTMLElement>("h1:not(.premium-hero-title), h2, .editorial-statement").forEach((heading) => {
+        gsap.fromTo(
+          heading,
           { y: 60, opacity: 0 },
           {
             y: 0,
             opacity: 1,
-            duration: 0.85,
-            ease: "power3.out",
+            duration: 1,
+            ease: "cubic-bezier(0.16, 1, 0.3, 1)",
             scrollTrigger: {
-              trigger: card,
-              start: "top 95%",
+              trigger: heading,
+              start: "top 88%",
               toggleActions: "play none none reverse",
             },
           }
         );
       });
 
-      gsap.fromTo(".process-inner", 
-        { y: 80, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.9,
-          stagger: 0.15,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: ".antra-process-list",
-            start: "top 95%",
-            toggleActions: "play none none reverse",
-          },
-        }
-      );
-      gsap.fromTo(".antra-stats-band div", 
-        { y: 60, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.9,
-          stagger: 0.1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: ".antra-stats-band",
-            start: "top 95%",
-            toggleActions: "play none none reverse",
-          },
-        }
-      );
-
-      gsap.utils.toArray<HTMLElement>(".antra-skill").forEach((skill) => {
+      // 2. Section Fade & Lift Transitions
+      gsap.utils.toArray<HTMLElement>("section:not(.premium-hero):not(.kn-hero):not(.build-statement-section):not(.precision-stack-section)").forEach((section) => {
         gsap.fromTo(
-          skill,
-          { "--skill-progress": "0%" },
+          section,
+          { opacity: 0.8 },
           {
-            "--skill-progress": skill.style.getPropertyValue("--skill") || "70%",
-            duration: 1.2,
-            ease: "power3.out",
+            opacity: 1,
+            duration: 0.8,
+            ease: "power2.out",
             scrollTrigger: {
-              trigger: skill,
-              start: "top 85%",
+              trigger: section,
+              start: "top 90%",
               toggleActions: "play none none reverse",
             },
-          },
+          }
         );
       });
+
     }, root);
 
     return () => {
@@ -167,23 +124,34 @@ export function AntraClone() {
     };
   }, []);
 
+  const handleIntroComplete = () => {
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem("kn_has_seen_intro", "true");
+      unlockPageScroll();
+      window.requestAnimationFrame(() => ScrollTrigger.refresh());
+    }
+    setGateOpen(true);
+  };
+
   return (
-    <div ref={rootRef} className="antra-theme min-h-screen bg-[#080808] selection:bg-[#B8AFA3] selection:text-[#080808]">
-      <main>
+    <>
+      {!gateOpen && <IntroScreen onComplete={handleIntroComplete} />}
+      <div ref={rootRef} className="antra-theme min-h-screen bg-[#ECE8DE] text-[#1A1918] selection:bg-[#1A1918] selection:text-[#ECE8DE]">
+        <main className="relative z-10">
         <HeroSection />
-        <PartnerSection />
-        <AboutSection />
-        <StatsBand />
-        <ServicesSection services={services} />
-        <Factory3D />
-        <ProductSection />
-        <ExpertiseSection />
+        <PrecisionStackSection />
+        <BuildStatementSection />
+
+        <MaterialsManifestoSection />
+        <MaterialExplorerSection />
+        <BuildingApplicationSection />
         <PortfolioSection projects={projects} />
-        <ProcessSection steps={steps} />
-        <BlogSection />
+        <FactoryStorySection />
+        <PartnersSection />
         <ContactFormSection />
         <SiteFooter />
       </main>
-    </div>
+      </div>
+    </>
   );
 }

@@ -30,7 +30,6 @@ const SEARCHABLE_ITEMS = [
   // General Pages
   { name: "Giới thiệu doanh nghiệp Kim Ngân Steel", type: "Giới Thiệu", href: "/gioi-thieu", desc: "Năng lực cung ứng tôn thép hàng đầu miền Nam." },
   { name: "Năng lực nhà máy và quy trình sản xuất", type: "Nhà Máy", href: "/nang-luc-nha-may", desc: "Hệ thống máy cán tôn hiện đại đạt tiêu chuẩn ISO." },
-  { name: "Dự án công trình tiêu biểu", type: "Dự Án", href: "/du-an", desc: "Cung cấp tôn thép cho biệt thự, nhà xưởng quy mô lớn." },
   { name: "Liên hệ và nhận báo giá tôn thép", type: "Liên Hệ", href: "/lien-he", desc: "Hỗ trợ tư vấn kỹ thuật và báo giá 24/7." },
 ];
 
@@ -38,6 +37,7 @@ export function Header({ navItems }: HeaderProps) {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const searchInputRef = useRef<HTMLInputElement>(null);
@@ -47,20 +47,24 @@ export function Header({ navItems }: HeaderProps) {
     setIsMenuOpen(false); // Close mobile menu drawer when navigation completes
     setIsSearchOpen(false); // Close search overlay when navigation completes
 
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+
     const handleScroll = () => {
-      const scrollHeight = document.documentElement.scrollHeight;
-      const clientHeight = document.documentElement.clientHeight;
       const scrollY = window.scrollY;
 
-      // The footer sits at the bottom of the page.
-      // Hiding the header when scrolled within 450px of the page bottom is extremely reliable.
-      const threshold = 450;
-      const isNearBottom = scrollY + clientHeight >= scrollHeight - threshold;
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const isScrollingDown = scrollY > lastScrollY;
+          const shouldHide = isScrollingDown && scrollY > 100 && !isMenuOpen && !isSearchOpen;
 
-      if (scrollHeight > clientHeight + 100) {
-        setIsHidden(isNearBottom);
-      } else {
-        setIsHidden(false);
+          setIsHidden(shouldHide);
+          setIsScrolled(scrollY > 40);
+          lastScrollY = Math.max(scrollY, 0);
+          ticking = false;
+        });
+
+        ticking = true;
       }
     };
 
@@ -70,23 +74,30 @@ export function Header({ navItems }: HeaderProps) {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [pathname]);
+  }, [pathname, isMenuOpen, isSearchOpen]);
 
   // Lock body scroll and set global classes when mobile menu or search is open
   useEffect(() => {
+    const unlockPageScroll = () => {
+      document.documentElement.style.overflow = "";
+      document.body.style.overflow = "";
+      document.body.style.paddingRight = "";
+    };
+
     if (isMenuOpen || isSearchOpen) {
       document.body.classList.toggle("menu-open", isMenuOpen);
       document.body.classList.toggle("search-open", isSearchOpen);
+      document.documentElement.style.overflow = "hidden";
       document.body.style.overflow = "hidden";
     } else {
       document.body.classList.remove("menu-open");
       document.body.classList.remove("search-open");
-      document.body.style.overflow = "";
+      unlockPageScroll();
     }
     return () => {
       document.body.classList.remove("menu-open");
       document.body.classList.remove("search-open");
-      document.body.style.overflow = "";
+      unlockPageScroll();
     };
   }, [isMenuOpen, isSearchOpen]);
 
@@ -131,125 +142,171 @@ export function Header({ navItems }: HeaderProps) {
 
   return (
     <>
-      <header className={`antra-header is-scrolled ${isHidden ? "is-hidden" : ""}`}>
-        <Link className="antra-logo" href="/" aria-label="Kim Ngân Steel">
+      <header
+        className={`fixed top-0 left-0 z-[100] w-full transition-all duration-500 ease-out flex items-center justify-between px-6 md:px-14 py-4 md:py-5 border-b select-none ${
+          isHidden ? "-translate-y-full opacity-0" : "translate-y-0 opacity-100"
+        } ${
+          isScrolled
+            ? "bg-[#F7F7F4]/95 backdrop-blur-xl border-[#1A1918]/15 shadow-sm py-3 md:py-3.5"
+            : "bg-[#ECE8DE]/85 backdrop-blur-md border-[#1A1918]/10"
+        }`}
+      >
+        {/* Brand Logo & Name */}
+        <Link className="flex items-center gap-3 group" href="/" aria-label="Kim Ngân Steel">
           <Image
             src="/KIMNGANLOGO.svg"
             alt="Kim Ngân Steel"
-            width={84}
-            height={84}
+            width={48}
+            height={48}
             priority
-            className="antra-logo-image"
+            className="w-10 h-10 md:w-11 md:h-11 object-contain filter contrast-125 transition-transform duration-300 group-hover:scale-105"
           />
+          <div className="flex flex-col">
+            <span className="font-bold text-sm md:text-base tracking-[0.2em] uppercase font-sans text-[#1A1918] group-hover:text-[#C28E5C] transition-colors">
+              KIM NGÂN <span className="text-[#C28E5C] font-light">STEEL</span>
+            </span>
+          </div>
         </Link>
-        <nav className="antra-nav" aria-label="Primary navigation">
+
+        {/* Clean Editorial Nav Links */}
+        <nav className="hidden lg:flex items-center gap-8 xl:gap-10" aria-label="Primary navigation">
           {navItems.map((item) => {
             const isActive = pathname === item.href;
             return (
               <Link 
                 key={item.href} 
                 href={item.href}
-                className={isActive ? "text-[#C2BAB0] font-bold border-b-2 border-[#C2BAB0] pb-1" : "hover:text-[#C2BAB0] transition-colors pb-1 border-b-2 border-transparent"}
+                className={`relative text-xs uppercase tracking-[0.22em] font-mono py-1 transition-colors group flex items-center gap-2 ${
+                  isActive ? "text-[#C28E5C] font-bold" : "text-[#524D4A] hover:text-[#1A1918]"
+                }`}
               >
-                {item.label}
+                {isActive && <span className="w-1.5 h-1.5 rounded-full bg-[#C28E5C] animate-pulse" />}
+                <span>{item.label}</span>
+                <span className={`absolute bottom-0 left-0 w-full h-[1.5px] bg-[#C28E5C] transition-transform duration-300 origin-left ${isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"}`} />
               </Link>
             );
           })}
         </nav>
-        <div className="antra-header-actions">
-          <a className="antra-call" href="tel:0934096794">
-            <Phone size={16} />
-            <span><small>Hotline</small>0934 096 794</span>
+
+        {/* Action Controls */}
+        <div className="flex items-center gap-4">
+          {/* Hotline */}
+          <a
+            href="tel:0707079900"
+            className="hidden xl:flex items-center gap-2 text-xs font-mono font-medium text-[#1A1918] hover:text-[#C28E5C] transition-colors"
+          >
+            <Phone size={14} className="text-[#C28E5C]" />
+            <span className="tracking-wide">0707 079 900</span>
           </a>
-          <a className="antra-quote" href="#contact">Nhận báo giá</a>
+
+          {/* CTA Quote Button */}
+          <a
+            href="#contact"
+            className="px-5 py-2.5 rounded-full bg-[#1A1918] text-[#F7F7F4] font-mono text-xs font-bold uppercase tracking-widest hover:bg-[#C28E5C] hover:text-white transition-all duration-300 shadow-sm"
+          >
+            Báo Giá
+          </a>
+
+          {/* Search Trigger */}
           <button 
-            className="antra-icon-button" 
+            className="w-9 h-9 md:w-10 md:h-10 rounded-full border border-[#1A1918]/20 flex items-center justify-center text-[#1A1918] hover:bg-[#1A1918] hover:text-white transition-all cursor-pointer"
             onClick={() => {
               setSearchQuery("");
               setIsSearchOpen(true);
             }} 
-            aria-label="Search"
+            aria-label="Tìm kiếm"
           >
-            <Search size={17} />
+            <Search size={15} />
           </button>
+
+          {/* Mobile Menu Trigger */}
           <button 
-            className="antra-icon-button antra-menu-btn flex items-center justify-center" 
-            onClick={() => setIsMenuOpen(true)} 
-            aria-label="Open menu"
+            className="lg:hidden w-9 h-9 flex items-center justify-center text-[#1A1918] hover:text-[#C28E5C] transition-colors cursor-pointer"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="Toggle menu"
           >
-            <Menu size={20} className="text-white" />
+            <Menu size={22} />
           </button>
         </div>
       </header>
 
-      {/* Mobile Menu Drawer */}
+      {/* Yodezeen Fullscreen Overlay Menu */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: "-100%" }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="fixed inset-0 z-[100] flex flex-col bg-[#080808]/98 backdrop-blur-lg px-6 py-6 antra-menu-drawer"
+            exit={{ opacity: 0, y: "-100%" }}
+            transition={{ duration: 0.6, ease: [0.24, 1, 0.36, 1] }}
+            className="fixed inset-0 z-[100] flex flex-col justify-between bg-[#080808]/98 backdrop-blur-2xl px-6 md:px-16 py-8 md:py-12 text-white"
           >
-            {/* Drawer Header */}
-            <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-8">
-              <Link className="antra-logo" href="/">
+            {/* Overlay Header */}
+            <div className="flex items-center justify-between max-w-[1440px] mx-auto w-full border-b border-white/10 pb-6">
+              <Link className="flex items-center gap-3" href="/" onClick={() => setIsMenuOpen(false)}>
                 <Image
                   src="/KIMNGANLOGO.svg"
                   alt="Kim Ngân Steel"
-                  width={72}
-                  height={72}
+                  width={64}
+                  height={64}
                   priority
                 />
+                <span className="font-bold text-xl tracking-tighter uppercase font-sans">
+                  KIM NGÂN<span className="text-[#C2BAB0] font-light ml-1">STEEL</span>
+                </span>
               </Link>
+
               <button
-                className="antra-icon-button w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white"
+                className="w-12 h-12 rounded-full border border-white/15 bg-white/5 hover:bg-white/20 flex items-center justify-center text-white transition-all cursor-pointer"
                 onClick={() => setIsMenuOpen(false)}
                 aria-label="Close menu"
               >
-                <X size={20} />
+                <X size={24} />
               </button>
             </div>
 
-            {/* Drawer Navigation Links */}
-            <nav className="flex flex-col gap-4 mb-10 pl-2">
-              {navItems.map((item, index) => {
-                const isActive = pathname === item.href;
-                return (
-                  <motion.div
-                    key={item.href}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.05 }}
-                  >
-                    <Link
-                      href={item.href}
-                      className={`text-[17px] font-medium tracking-wide block py-1.5 transition-colors ${
-                        isActive ? "text-[#C2BAB0] font-semibold" : "text-[#D8D4CE]/90 hover:text-[#C2BAB0]"
-                      }`}
+            {/* Overlay Content */}
+            <div className="max-w-[1440px] mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center flex-1 py-10">
+              <nav className="flex flex-col gap-4">
+                {navItems.map((item, index) => {
+                  const isActive = pathname === item.href;
+                  return (
+                    <motion.div
+                      key={item.href}
+                      initial={{ opacity: 0, x: -30 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.1 + index * 0.05, duration: 0.5, ease: [0.24, 1, 0.36, 1] }}
                     >
-                      {item.label}
-                    </Link>
-                  </motion.div>
-                );
-              })}
-            </nav>
+                      <Link
+                        href={item.href}
+                        onClick={() => setIsMenuOpen(false)}
+                        className={`group flex items-center justify-between text-2xl sm:text-4xl md:text-5xl font-light tracking-tight transition-colors py-3 border-b border-white/5 ${
+                          isActive ? "text-[#C2BAB0] font-normal" : "text-white/80 hover:text-[#C2BAB0]"
+                        }`}
+                      >
+                        <span className="uppercase">{item.label}</span>
+                        <span className="text-xs font-mono text-[#C2BAB0]/60 mr-auto ml-4 opacity-0 group-hover:opacity-100 transition-opacity">0{index + 1}</span>
+                        <span className="text-2xl font-mono text-[#C2BAB0] opacity-0 group-hover:opacity-100 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300">↗</span>
+                      </Link>
+                    </motion.div>
+                  );
+                })}
+              </nav>
 
-            {/* Drawer Footer Info */}
-            <div className="mt-auto border-t border-white/10 pt-6 space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-[#C2BAB0]/10 border border-[#C2BAB0]/30 flex items-center justify-center text-[#C2BAB0]">
-                  <Phone size={18} />
-                </div>
-                <div>
-                  <p className="text-[10px] text-[#777] uppercase tracking-wider font-bold">Hotline 24/7</p>
-                  <a href="tel:0934096794" className="text-white text-lg font-medium hover:text-[#C2BAB0] transition-colors">0934 096 794</a>
+              <div className="hidden lg:flex flex-col gap-6 border-l border-white/10 pl-12 py-4">
+                <span className="text-xs uppercase tracking-[0.25em] text-[#C2BAB0] font-medium">
+                  KIM NGÂN STEEL — NHÀ MÁY CÁN TÔN & VẬT LIỆU XÂY DỰNG
+                </span>
+                <p className="text-sm font-light text-white/60 leading-relaxed max-w-md">
+                  Giải pháp tôn thép hàng đầu miền Nam với dây chuyền tự động hóa CNC hiện đại, chủ động nguyên liệu phôi mạ nhôm kẽm AZ tiêu chuẩn quốc tế.
+                </p>
+                <div className="mt-6 pt-6 border-t border-white/10 space-y-3">
+                  <div className="flex items-center gap-3 text-sm text-white/80 font-mono">
+                    <Phone size={16} className="text-[#C2BAB0]" />
+                    <span>Hotline 24/7: <a href="tel:0707079900" className="hover:text-[#C2BAB0] underline transition-colors">0707 079 900</a></span>
+                  </div>
+                  <p className="text-xs text-white/50 font-mono">Địa chỉ: 262 Đường DT742, Khu Phố 1, Phường Vĩnh Tân, TP. HCM</p>
                 </div>
               </div>
-              <p className="text-xs text-[#555] font-light leading-relaxed">
-                Khu Công Nghiệp Sóng Thần, Dĩ An, Bình Dương
-              </p>
             </div>
           </motion.div>
         )}

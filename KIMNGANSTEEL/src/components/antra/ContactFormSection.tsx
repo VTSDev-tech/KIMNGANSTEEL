@@ -1,93 +1,176 @@
-import { Mail, MapPin, Phone, Send } from "lucide-react";
+"use client";
+
+import { useState } from "react";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
 
 export function ContactFormSection() {
+  const [submitted, setSubmitted] = useState(false);
+  const [formData, setFormData] = useState({
+    fullName: "",
+    phone: "",
+    company: "",
+    specs: "",
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitted(true);
+  };
+
   return (
-    <section className="antra-contact-form-section !bg-[#080808] !text-[#F2F0EC] !border-t !border-[rgba(216,212,206,0.1)]">
-      
-      {/* Copy (Right side on desktop, Top on mobile) */}
-      <div className="antra-contact-copy md:col-start-2 md:row-start-1">
-        <p className="antra-kicker">FORM NHẬN BÁO GIÁ</p>
-        <h2 className="text-[#F2F0EC]">
-          NHẬN BÁO GIÁ TÔN THÉP{" "}
-          <span className="!text-transparent bg-clip-text bg-gradient-to-br from-[#C99A5C] via-[#ffffff] to-[#4A4D54] drop-shadow-lg inline-block">
-            NHANH
-          </span>
-        </h2>
-        <p className="!text-[#999590]">
-          Vui lòng để lại thông tin sản phẩm, quy cách và số lượng cần mua. Đội ngũ Kim Ngân sẽ liên hệ tư vấn và gửi báo giá phù hợp trong thời gian sớm nhất.
-        </p>
-        <div className="antra-contact-mini !text-[#F2F0EC] mt-8 space-y-4">
-          <span className="flex items-center gap-3">
-            <MapPin size={20} className="text-[#B8AFA3]" /> 262 đường DT742, Vĩnh Tân, Tân Uyên, Tp. HCM
-          </span>
-          <span className="flex items-center gap-3">
-            <Mail size={20} className="text-[#B8AFA3]" /> sales@kimngansteel.vn
-          </span>
-          <span className="flex items-center gap-3">
-            <Phone size={20} className="text-[#B8AFA3]" /> 090 123 4567
-          </span>
-        </div>
-      </div>
-
-      {/* Form (Left side on desktop, Bottom on mobile) */}
-      <div className="bg-[#121212] p-8 md:p-12 border border-[rgba(216,212,206,0.1)] relative md:col-start-1 md:row-start-1">
-        <div className="absolute top-0 right-0 w-20 h-20 border-t border-r border-[#B8AFA3] opacity-30" />
+    <section id="contact" className="py-24 md:py-32 px-6 md:px-14 bg-[#F7F7F4] border-b border-[#1A1918]/10 text-[#1A1918] select-none">
+      <div className="max-w-[1560px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
         
-        <h2 className="text-2xl font-bold text-[#F2F0EC] uppercase mb-2">Gửi Yêu Cầu Báo Giá</h2>
-        <p className="text-[#999590] mb-8">Chúng tôi sẽ phản hồi trong vòng 2 giờ làm việc.</p>
-
-        <form className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-1">
-              <label htmlFor="hp_name" className="text-[11px] font-bold tracking-[0.1em] uppercase text-[#999590]/80">Họ và Tên *</label>
-              <input 
-                type="text" 
-                id="hp_name" 
-                className="w-full bg-transparent border-b border-[rgba(216,212,206,0.2)] text-[#F2F0EC] text-[15px] font-medium px-0 py-2 focus:outline-none focus:border-[#C99A5C] transition-colors placeholder:text-[#999590]/30 placeholder:font-normal"
-                placeholder="Nguyễn Văn A"
-              />
+        {/* Left Column: Brand Statement & Contact Info */}
+        <div className="lg:col-span-5 space-y-8 pt-4">
+          <div className="space-y-4">
+            <div className="flex items-center gap-3 text-xs font-mono font-bold tracking-[0.25em] text-[#C28E5C] uppercase">
+              <span className="w-2 h-2 rounded-full bg-[#C28E5C]" />
+              <span>05 / LIÊN HỆ &amp; BÁO GIÁ</span>
             </div>
+
+            <h2 className="text-3xl sm:text-4xl lg:text-[2.75rem] font-sans font-bold uppercase tracking-tight text-[#1A1918] leading-[1.12]">
+              NHẬN BÁO GIÁ TÔN THÉP TRỰC TIẾP
+            </h2>
+
+            <p className="text-xs sm:text-sm text-[#524D4A] font-sans leading-relaxed max-w-lg">
+              Vui lòng cung cấp quy cách, độ dày và khối lượng vật tư dự kiến. Đội ngũ tư vấn Kim Ngân Steel sẽ gửi bảng báo giá tối ưu nhất trong vòng 2 giờ làm việc.
+            </p>
+          </div>
+
+          {/* Contact Hairline List */}
+          <div className="pt-6 border-t border-[#1A1918]/15 space-y-5 text-xs font-sans text-[#524D4A]">
             <div className="space-y-1">
-              <label htmlFor="hp_phone" className="text-[11px] font-bold tracking-[0.1em] uppercase text-[#999590]/80">Số điện thoại *</label>
-              <input 
-                type="tel" 
-                id="hp_phone" 
-                className="w-full bg-transparent border-b border-[rgba(216,212,206,0.2)] text-[#F2F0EC] text-[15px] font-medium px-0 py-2 focus:outline-none focus:border-[#C99A5C] transition-colors placeholder:text-[#999590]/30 placeholder:font-normal"
-                placeholder="090 123 4567"
-              />
+              <p className="font-mono font-bold text-[#C28E5C] uppercase tracking-wider">01 / VĂN PHÒNG &amp; KHO XƯỞNG</p>
+              <p className="text-sm font-bold text-[#1A1918]">262 Đường DT742, KP. 1, P. Vĩnh Tân, TP. HCM</p>
+            </div>
+
+            <div className="space-y-1 pt-2 border-t border-[#1A1918]/10">
+              <p className="font-mono font-bold text-[#C28E5C] uppercase tracking-wider">02 / HOTLINE TƯ VẤN 24/7</p>
+              <p className="font-mono text-[#1A1918] font-bold text-xl">0707 079 900</p>
+            </div>
+
+            <div className="space-y-1 pt-2 border-t border-[#1A1918]/10">
+              <p className="font-mono font-bold text-[#C28E5C] uppercase tracking-wider">03 / EMAIL BÁO GIÁ CÔNG TRÌNH</p>
+              <p className="font-mono text-[#1A1918] font-bold text-sm">tonthepkimngan20@gmail.com</p>
             </div>
           </div>
+        </div>
+
+        {/* Right Column: Exact Replica Form Card Matching User Screenshot */}
+        <div className="lg:col-span-7 bg-white rounded-2xl border border-black/5 p-8 sm:p-12 shadow-xl relative">
           
-          <div className="space-y-1">
-            <label htmlFor="hp_company" className="text-[11px] font-bold tracking-[0.1em] uppercase text-[#999590]/80">Tên Công Ty (Tùy chọn)</label>
-            <input 
-              type="text" 
-              id="hp_company" 
-              className="w-full bg-transparent border-b border-[rgba(216,212,206,0.2)] text-[#F2F0EC] text-[15px] font-medium px-0 py-2 focus:outline-none focus:border-[#C99A5C] transition-colors placeholder:text-[#999590]/30 placeholder:font-normal"
-              placeholder="Công ty CP Xây Dựng..."
-            />
+          <div className="mb-8 border-b border-[#1A1918]/10 pb-6">
+            <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#1A1918] uppercase">
+              GỬI YÊU CẦU BÁO GIÁ VẬT TƯ
+            </h3>
+            <p className="text-xs sm:text-sm text-[#524D4A] font-sans mt-1.5">
+              Điền thông tin bên dưới để nhận tư vấn thông số kỹ thuật và báo giá chi tiết.
+            </p>
           </div>
 
-          <div className="space-y-1">
-            <label htmlFor="hp_message" className="text-[11px] font-bold tracking-[0.1em] uppercase text-[#999590]/80">Nhu cầu vật tư *</label>
-            <textarea 
-              id="hp_message" 
-              rows={2}
-              className="w-full bg-transparent border-b border-[rgba(216,212,206,0.2)] text-[#F2F0EC] text-[15px] font-medium px-0 py-2 focus:outline-none focus:border-[#C99A5C] transition-colors resize-none placeholder:text-[#999590]/30 placeholder:font-normal"
-              placeholder="Vui lòng mô tả chi tiết loại tôn, độ dày, khối lượng dự kiến..."
-            ></textarea>
-          </div>
+          {submitted ? (
+            <div className="py-12 text-center space-y-4">
+              <div className="w-12 h-12 rounded-full bg-[#121212] text-white flex items-center justify-center mx-auto shadow-md">
+                <CheckCircle2 size={24} />
+              </div>
+              <h4 className="text-2xl font-bold uppercase text-[#1A1918]">
+                GỬI YÊU CẦU THÀNH CÔNG!
+              </h4>
+              <p className="text-xs sm:text-sm text-[#524D4A] max-w-md mx-auto leading-relaxed">
+                Đội ngũ kỹ thuật Kim Ngân Steel đang chuẩn bị bảng báo giá chi tiết và sẽ liên hệ trực tiếp với bạn ngay lập tức.
+              </p>
+              <button
+                type="button"
+                onClick={() => setSubmitted(false)}
+                className="mt-4 px-6 py-2.5 rounded-full bg-[#121212] text-white text-xs font-mono font-bold uppercase tracking-wider hover:bg-black transition-all"
+              >
+                Gửi yêu cầu báo giá khác
+              </button>
+            </div>
+          ) : (
+            <form className="space-y-8" onSubmit={handleSubmit}>
+              
+              {/* Full Name & Phone Row */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="space-y-2">
+                  <label htmlFor="input_name" className="text-[11px] font-mono font-bold tracking-widest uppercase text-[#6B655F] block">
+                    HỌ VÀ TÊN *
+                  </label>
+                  <input 
+                    type="text" 
+                    id="input_name" 
+                    required
+                    value={formData.fullName}
+                    onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                    className="w-full bg-transparent border-b border-[#1A1918]/20 pb-2 text-sm text-[#1A1918] placeholder:text-[#1A1918]/30 focus:outline-none focus:border-black transition-colors font-medium"
+                    placeholder="Nguyễn Văn A"
+                  />
+                </div>
 
-          <button 
-            type="button" 
-            className="w-full bg-[#F2F0EC] text-[#080808] font-bold uppercase tracking-[0.1em] py-3.5 flex items-center justify-center gap-3 hover:bg-[#C99A5C] hover:text-[#080808] transition-colors rounded-[1px]"
-          >
-            Gửi Yêu Cầu
-            <Send size={18} />
-          </button>
-        </form>
+                <div className="space-y-2">
+                  <label htmlFor="input_phone" className="text-[11px] font-mono font-bold tracking-widest uppercase text-[#6B655F] block">
+                    SỐ ĐIỆN THOẠI *
+                  </label>
+                  <input 
+                    type="tel" 
+                    id="input_phone" 
+                    required
+                    value={formData.phone}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    className="w-full bg-transparent border-b border-[#1A1918]/20 pb-2 text-sm text-[#1A1918] placeholder:text-[#1A1918]/30 focus:outline-none focus:border-black transition-colors font-medium font-mono"
+                    placeholder="0707 079 900"
+                  />
+                </div>
+              </div>
+
+              {/* Company / Project Name */}
+              <div className="space-y-2">
+                <label htmlFor="input_company" className="text-[11px] font-mono font-bold tracking-widest uppercase text-[#6B655F] block">
+                  TÊN DỰ ÁN / CÔNG TY (TÙY CHỌN)
+                </label>
+                <input 
+                  type="text" 
+                  id="input_company" 
+                  value={formData.company}
+                  onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                  className="w-full bg-transparent border-b border-[#1A1918]/20 pb-2 text-sm text-[#1A1918] placeholder:text-[#1A1918]/30 focus:outline-none focus:border-black transition-colors font-medium"
+                  placeholder="Công ty CP Xây dựng / Tên công trình..."
+                />
+              </div>
+
+              {/* Material Specifications & Volume */}
+              <div className="space-y-2">
+                <label htmlFor="input_specs" className="text-[11px] font-mono font-bold tracking-widest uppercase text-[#6B655F] block">
+                  NHU CẦU QUY CÁCH &amp; KHỐI LƯỢNG VẬT TƯ *
+                </label>
+                <input 
+                  type="text"
+                  id="input_specs" 
+                  required
+                  value={formData.specs}
+                  onChange={(e) => setFormData({ ...formData, specs: e.target.value })}
+                  className="w-full bg-transparent border-b border-[#1A1918]/20 pb-2 text-sm text-[#1A1918] placeholder:text-[#1A1918]/30 focus:outline-none focus:border-black transition-colors font-medium"
+                  placeholder="Ví dụ: 500m tôn mạ màu 5 sóng 0.45mm, 10 tấn xà gồ C200..."
+                />
+              </div>
+
+              {/* Pill-Rounded Submit Button */}
+              <div className="pt-2">
+                <button 
+                  type="submit" 
+                  className="w-full py-4 px-6 rounded-full bg-[#121212] hover:bg-black text-white font-mono text-xs font-bold uppercase tracking-widest transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer group"
+                >
+                  <span>GỬI YÊU CẦU BÁO GIÁ</span>
+                  <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                </button>
+              </div>
+            </form>
+          )}
+
+        </div>
+
       </div>
-
     </section>
   );
 }

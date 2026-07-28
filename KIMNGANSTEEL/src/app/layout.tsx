@@ -4,13 +4,14 @@ import "./globals.css";
 import { Header } from "@/components/antra/Header";
 import { PageTransition } from "@/components/antra/PageTransition";
 import { FloatingContact } from "@/components/antra/FloatingContact";
+import { CustomCursor } from "@/components/antra/CustomCursor";
+import { SmoothScroll } from "@/components/antra/SmoothScroll";
 
 const navItems = [
   { label: "Trang Chủ", href: "/" },
   { label: "Giới Thiệu", href: "/gioi-thieu" },
   { label: "Sản Phẩm", href: "/san-pham" },
   { label: "Năng Lực Nhà Máy", href: "/nang-luc-nha-may" },
-  { label: "Dự Án", href: "/du-an" },
   { label: "Kinh Nghiệm", href: "/kinh-nghiem" },
   { label: "Liên Hệ", href: "/lien-he" },
 ];
@@ -41,12 +42,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${beVietnam.variable} ${dancingScript.variable} h-full scroll-smooth`}>
-      <body className="min-h-full bg-background text-foreground antialiased bg-[#080808]">
-        <Header navItems={navItems} />
-        {children}
-        <PageTransition />
-        <FloatingContact />
+    <html lang="en" className={`${beVietnam.variable} ${dancingScript.variable} h-full`}>
+      <body className="min-h-full bg-[#0E0E0D] text-[#F4F2EC] antialiased">
+        <SmoothScroll>
+          <CustomCursor />
+          <Header navItems={navItems} />
+          {children}
+          <PageTransition />
+          <FloatingContact />
+        </SmoothScroll>
       </body>
     </html>
   );

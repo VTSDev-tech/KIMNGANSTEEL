@@ -20,7 +20,7 @@ export function FloatingContact() {
           >
             {/* Zalo Button */}
             <a
-              href="https://zalo.me/0934096794"
+              href="https://zalo.me/0707079900"
               target="_blank"
               rel="noreferrer"
               className="w-11 h-11 md:w-12 md:h-12 bg-white rounded-full shadow-[0_4px_16px_rgba(0,104,255,0.25)] flex items-center justify-center hover:scale-110 transition-transform group relative border border-[#0068FF]/10"
@@ -80,12 +80,12 @@ export function FloatingContact() {
 
             {/* Phone Button with Pulse Animation */}
             <a
-              href="tel:0934096794"
+              href="tel:0707079900"
               className="relative w-11 h-11 md:w-13 md:h-13 bg-[#C99A5C] rounded-full shadow-[0_4px_20px_rgba(201,154,92,0.4)] flex items-center justify-center hover:scale-110 transition-transform group"
               aria-label="Gọi điện thoại"
             >
               <span className="hidden md:block absolute right-full mr-4 bg-black/90 text-white text-xs px-2.5 py-1.5 rounded opacity-0 group-hover:opacity-100 whitespace-nowrap transition-opacity pointer-events-none font-sans tracking-wide">
-                Gọi 0934 096 794
+                Gọi 0707 079 900
               </span>
               <div className="absolute inset-0 rounded-full border border-[#C99A5C] animate-[ping_1.5s_ease-in-out_infinite] opacity-75"></div>
               <Phone size={20} className="text-white animate-[wiggle_1s_ease-in-out_infinite] md:size-[22px]" />

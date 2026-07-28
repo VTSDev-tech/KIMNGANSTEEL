@@ -1,48 +1,216 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Image from "next/image";
-import { Award, Users, ShieldCheck, Factory } from "lucide-react";
+import Link from "next/link";
 import { SiteFooter } from "@/components/antra/SiteFooter";
+import { ArrowRight, ChevronRight, X, Maximize2, ShieldCheck, CheckCircle2 } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const STATS = [
-  { label: "Năm Kinh Nghiệm", value: "15+" },
-  { label: "Dự Án Đã Cấp", value: "2500+" },
-  { label: "Công Suất (Tấn)", value: "500+" },
-  { label: "Đại Lý Cấp 1", value: "3" },
+// =============================================================================
+// DATA ARCHITECTURE
+// =============================================================================
+
+// 3. STICKY BRAND STORY CHAPTERS
+const BRAND_STORY_CHAPTERS = [
+  {
+    number: "01",
+    label: "KHỞI ĐẦU",
+    title: "Từ một đơn vị cung ứng vật liệu",
+    subtitle: "Xây dựng móng vững chắc từ lòng tin của những công trình đầu tiên",
+    desc: "Khởi đầu từ một doanh nghiệp thương mại nhỏ cung ứng tôn lợp và thép mạ cho các nhà thầu địa phương, Kim Ngân Steel đặt sự minh bạch về nguồn gốc và độ dày vật liệu làm nguyên tắc sống còn.",
+    image: "/nha-may-ton-kim-ngan-storefront.jpg",
+    caption: "CƠ SỞ TRỤ SỞ & NHÀ MÁY THỰC TẾ KIM NGÂN STEEL · PHÚ YÊN",
+  },
+  {
+    number: "02",
+    label: "MỞ RỘNG",
+    title: "Đầu tư năng lực gia công, kho vận và nguồn hàng",
+    subtitle: "Chủ động quy trình sản xuất và sở hữu hệ thống máy cán tôn CNC",
+    desc: "Đứng trước nhu cầu khắt khe của các công trình công nghiệp quy mô lớn, chúng tôi mở rộng quy mô nhà máy cán tôn tự động, đầu tư dàn máy chấn xà gồ C/Z và thiết lập hợp tác chiến lược trực tiếp với các nhà máy sản xuất tôn thép hàng đầu Việt Nam.",
+    image: "/steel_coil_monograph.jpg",
+    caption: "HỆ THỐNG NGUỒN HÀNG THÉP MẠ KẼM CHÍNH HÃNG NGUYÊN CUỘN",
+  },
+  {
+    number: "03",
+    label: "HÔM NAY",
+    title: "Phục vụ nhà thầu, chủ đầu tư và hệ thống đại lý",
+    subtitle: "Vận hành chuỗi giao vận 24h tới tận chân công trình toàn quốc",
+    desc: "Hôm nay, Kim Ngân Steel tự hào là đối tác chiến lược tin cậy của hàng trăm nhà thầu xây dựng, xưởng gia công và đại lý vật liệu. Với tốc độ giao vận 24h và chứng nhận chất lượng ISO, chúng tôi cam kết bảo chứng độ bền cho mọi công trình.",
+    image: "/nha_xuong.png",
+    caption: "NHÀ MÁY NĂNG LỰC SẢN XUẤT CÁN TÔN CNC QUY MÔ 15.000 M²",
+  },
 ];
 
-const LEADERSHIP = [
-  { name: "Ông Trần Văn B", role: "Giám Đốc Điều Hành", exp: "15 năm kinh nghiệm ngành thép" },
-  { name: "Bà Nguyễn Thị C", role: "Trưởng Phòng Kinh Doanh", exp: "10 năm kinh nghiệm bán B2B" },
-  { name: "Ông Lê Văn D", role: "Giám Đốc Sản Xuất", exp: "12 năm quản lý nhà máy" },
+// 4. FINANCIAL CREDIBILITY METRICS
+const FINANCIAL_METRICS = [
+  {
+    value: "720,2",
+    unit: "TỶ VNĐ",
+    label: "Doanh thu năm 2024",
+    subtext: "Tăng trưởng bền vững +86% giai đoạn 2022–2024",
+  },
+  {
+    value: "3,81",
+    unit: "TỶ VNĐ",
+    label: "Lợi nhuận trước thuế",
+    subtext: "Minh bạch năng lực tài chính & nghĩa vụ thuế",
+  },
+  {
+    value: "3,05",
+    unit: "TỶ VNĐ",
+    label: "Lợi nhuận sau thuế",
+    subtext: "Bảo chứng dòng tiền & năng lực thanh khoản",
+  },
 ];
 
+// 5. TIMELINE MILESTONES DATA
+const MILESTONES = [
+  {
+    year: "2011",
+    title: "Khởi đầu",
+    subtitle: "Cung ứng vật liệu tôn thép thương mại",
+    desc: "Thành lập đơn vị cung ứng vật liệu tôn mạ kẽm chính hãng cho các nhà thầu dân dụng và xưởng cơ khí.",
+    image: "/nha-may-ton-kim-ngan-storefront.jpg",
+    tag: "KHỞI TẠO UY TÍN",
+  },
+  {
+    year: "2018",
+    title: "Mở rộng năng lực",
+    subtitle: "Đầu tư nhà máy cán tôn CNC tự động",
+    desc: "Trang bị dây chuyền máy cán tôn sóng vuông, sóng tròn và máy chấn xà gồ C/Z tự động hiện đại.",
+    image: "/steel_coil_monograph.jpg",
+    tag: "ĐẦU TƯ CÔNG NGHỆ",
+  },
+  {
+    year: "2022",
+    title: "Đối tác chiến lược",
+    subtitle: "Ủy quyền Đại lý cấp 1 chính thức",
+    desc: "Chính thức ký kết trở thành Đại lý cấp 1 ủy quyền phân phối tôn thép từ Tập đoàn Tôn Đông Á, Hoa Sen, Hòa Phát.",
+    image: "/nha_xuong.png",
+    tag: "ĐẠI LÝ CHÍNH THỨC",
+  },
+  {
+    year: "2026",
+    title: "Tự động hóa và số hóa",
+    subtitle: "Chuẩn hóa ISO 9001:2015 & Giao vận 24h",
+    desc: "Số hóa quy trình đặt hàng, quản trị kho vận tự động và cam kết giao hàng trong 24h tới tận chân công trình.",
+    image: "/hero-corrugated-sheet-cutout.png",
+    tag: "SỐ HÓA & GIAO VẬN 24H",
+  },
+];
+
+// 6. LEGAL AND CERTIFICATIONS DATA (Section 6)
 const CERTIFICATES = [
-  { name: "Chứng nhận ISO 9001:2015", desc: "Hệ thống Quản lý Chất lượng" },
-  { name: "Đại lý Cấp 1 Hoa Sen", desc: "Phân phối chính hãng Tôn Hoa Sen" },
-  { name: "Đại lý Cấp 1 Hòa Phát", desc: "Phân phối chính hãng Thép Hòa Phát" },
-  { name: "Chứng chỉ CO/CQ", desc: "Đầy đủ cho mọi lô hàng xuất xưởng" },
-];
-
-const PROCESS_STEPS = [
-  { title: "Kiểm tra nguyên liệu", desc: "Kiểm định phôi thép, cuộn mạ nguyên bản 100% chính hãng trước khi nhập kho." },
-  { title: "Gia công chính xác", desc: "Cán sóng, cắt xả băng theo đúng kích thước bản vẽ bằng hệ thống máy CNC hiện đại." },
-  { title: "Kiểm định độ bền", desc: "Đo độ dày zem, kiểm tra độ bám dính mạ kẽm/màu trước khi đóng gói." },
-  { title: "Bàn giao & Chứng nhận", desc: "Cấp kèm giấy chứng nhận chất lượng (CO/CQ) lúc giao hàng tại công trình." },
+  {
+    id: "giay-phep-kd",
+    seqNum: "01",
+    title: "Giấy chứng nhận đăng ký doanh nghiệp",
+    issuer: "Sở Kế hoạch & Đầu tư tỉnh Bình Dương",
+    meta: "2 trang",
+    images: ["/certificates/giayto-1.svg", "/certificates/giayto-2.svg"],
+    tag: "PHÁP LÝ DOANH NGHIỆP (2 TRANG)",
+  },
+  {
+    id: "dai-ly-chinh-thuc",
+    seqNum: "02",
+    title: "Giấy chứng nhận đại lý chính thức",
+    issuer: "Tôn Đông Á",
+    meta: "1 trang",
+    images: ["/certificates/giay-chung-nhan-dai-ly-chinh-thuc.svg"],
+    tag: "ỦY QUYỀN PHÂN PHỐI CHÍNH THỨC",
+  },
+  {
+    id: "nha-phan-phoi",
+    seqNum: "03",
+    title: "Giấy chứng nhận nhà phân phối",
+    issuer: "Thép Việt Nhật",
+    meta: "Chứng nhận đối tác",
+    images: ["/certificates/giay-chung-nhan-nha-phan-phoi.svg"],
+    tag: "CHỨNG NHẬN ĐỐI TÁC",
+  },
 ];
 
 export default function AboutPage() {
   const rootRef = useRef<HTMLDivElement>(null);
+  
+  // Interactive States
+  const [activeStoryIndex, setActiveStoryIndex] = useState(0);
+  const [activeMilestoneIndex, setActiveMilestoneIndex] = useState(0);
+  const [activeCertIndex, setActiveCertIndex] = useState(0);
+  const [activeCertPageIndex, setActiveCertPageIndex] = useState(0);
+  const [selectedCertModal, setSelectedCertModal] = useState<{ title: string; images: string[] } | null>(null);
+
+  // ---------------------------------------------------------------------------
+  // LIGHTBOX ACCESSIBLE SCROLL LOCK WITH CAPTURE-PHASE WHEEL INTERCEPTOR
+  // ---------------------------------------------------------------------------
+  useEffect(() => {
+    document.documentElement.style.overflow = "";
+    document.body.style.overflow = "";
+    document.body.style.paddingRight = "";
+  }, []);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      if ('scrollRestoration' in history) {
-        history.scrollRestoration = 'manual';
+    if (selectedCertModal) {
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+      document.documentElement.style.overflow = "hidden";
+      document.body.style.overflow = "hidden";
+      if (scrollbarWidth > 0) {
+        document.body.style.paddingRight = `${scrollbarWidth}px`;
+      }
+
+      if (typeof ScrollTrigger !== "undefined") {
+        ScrollTrigger.getAll().forEach((st) => st.disable(false));
+      }
+
+      const preventOutsideWheel = (e: WheelEvent) => {
+        const scrollArea = document.getElementById("cert-modal-scroll-area");
+        if (scrollArea && scrollArea.contains(e.target as Node)) {
+          return;
+        }
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+      };
+
+      const preventOutsideTouch = (e: TouchEvent) => {
+        const scrollArea = document.getElementById("cert-modal-scroll-area");
+        if (scrollArea && scrollArea.contains(e.target as Node)) {
+          return;
+        }
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+      };
+
+      window.addEventListener("wheel", preventOutsideWheel, { capture: true, passive: false });
+      window.addEventListener("touchmove", preventOutsideTouch, { capture: true, passive: false });
+
+      return () => {
+        document.documentElement.style.overflow = "";
+        document.body.style.overflow = "";
+        document.body.style.paddingRight = "";
+        window.removeEventListener("wheel", preventOutsideWheel, { capture: true } as any);
+        window.removeEventListener("touchmove", preventOutsideTouch, { capture: true } as any);
+
+        if (typeof ScrollTrigger !== "undefined") {
+          ScrollTrigger.getAll().forEach((st) => st.enable(false));
+          ScrollTrigger.refresh();
+        }
+      };
+    }
+  }, [selectedCertModal]);
+
+  // ---------------------------------------------------------------------------
+  // GSAP RESTRAINED SCROLL ANIMATION & STICKY STORYTELLING OBSERVER
+  // ---------------------------------------------------------------------------
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      if ("scrollRestoration" in history) {
+        history.scrollRestoration = "manual";
       }
       window.scrollTo(0, 0);
     }
@@ -50,210 +218,640 @@ export default function AboutPage() {
     const root = rootRef.current;
     if (!root) return;
 
-    const context = gsap.context(() => {
-      // Hero Animation
-      gsap.timeline({ defaults: { ease: "power3.out" } })
-        .from(".antra-hero-kicker", { y: 20, opacity: 0, duration: 0.8 })
-        .from(".antra-h1", { y: 40, opacity: 0, duration: 1 }, "-=0.5")
-        .from(".antra-hero-text", { y: 20, opacity: 0, duration: 0.8 }, "-=0.6");
+    const ctx = gsap.context(() => {
+      // 1. Opening Section Fade-in
+      gsap.fromTo(
+        ".kn-about-opening-el",
+        { opacity: 0, y: 25 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.9,
+          stagger: 0.15,
+          ease: "power2.out",
+        }
+      );
 
-      // Scroll Sections Animation
-      gsap.utils.toArray<HTMLElement>(".antra-section").forEach((section) => {
-        gsap.from(section, {
-          y: 80,
-          opacity: 0,
-          duration: 1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: section,
-            start: "top 85%",
-            toggleActions: "play none none reverse",
-          },
+      // 2. Cinematic Factory Image Subtle Scale Transition (1.04 -> 1.0)
+      const factoryImg = root.querySelector(".kn-about-factory-img img");
+      if (factoryImg) {
+        gsap.fromTo(
+          factoryImg,
+          { scale: 1.04 },
+          {
+            scale: 1,
+            ease: "none",
+            scrollTrigger: {
+              trigger: ".kn-about-factory-img",
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true,
+            },
+          }
+        );
+      }
+
+      // 3. Sticky Storytelling Chapter Trigger Observer
+      const storyTriggers = root.querySelectorAll(".kn-story-chapter-trigger");
+      storyTriggers.forEach((chapterEl, idx) => {
+        ScrollTrigger.create({
+          trigger: chapterEl,
+          start: "top 60%",
+          end: "bottom 60%",
+          onEnter: () => setActiveStoryIndex(idx),
+          onEnterBack: () => setActiveStoryIndex(idx),
         });
       });
 
-      // Cards Stagger Animation
-      gsap.utils.toArray<HTMLElement>(".antra-card-grid").forEach((grid) => {
-        const cards = grid.querySelectorAll(".antra-card-item");
-        gsap.fromTo(cards,
-          { y: 60, opacity: 0 },
+      // 4. Section Subtle Reveal
+      gsap.utils.toArray<HTMLElement>(".kn-about-section").forEach((section) => {
+        gsap.fromTo(
+          section,
+          { opacity: 0, y: 30 },
           {
+            opacity: 1,
             y: 0,
-            opacity: 1,
-            duration: 0.85,
-            stagger: 0.1,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: grid,
-              start: "top 90%",
-              toggleActions: "play none none reverse",
-            },
-          }
-        );
-      });
-      
-      // Timeline items Stagger
-      gsap.utils.toArray<HTMLElement>(".antra-timeline-grid").forEach((grid) => {
-        const items = grid.querySelectorAll(".antra-timeline-item");
-        gsap.fromTo(items,
-          { x: -40, opacity: 0 },
-          {
-            x: 0,
-            opacity: 1,
             duration: 0.8,
-            stagger: 0.15,
-            ease: "power3.out",
+            ease: "power2.out",
             scrollTrigger: {
-              trigger: grid,
-              start: "top 90%",
+              trigger: section,
+              start: "top 85%",
               toggleActions: "play none none reverse",
             },
           }
         );
       });
-
     }, root);
 
-    return () => {
-      context.revert();
-    };
+    return () => ctx.revert();
   }, []);
 
+  const currentCert = CERTIFICATES[activeCertIndex];
+
   return (
-    <div ref={rootRef} className="antra-theme min-h-screen bg-[#080808] selection:bg-[#B8AFA3] selection:text-[#080808] pt-24 font-sans">
-      
-      {/* 1. Hero Section (Dark) */}
-      <section className="relative py-20 md:py-32 overflow-hidden flex items-center justify-center min-h-[50vh]">
-        <div className="absolute inset-0 z-0 opacity-20">
-          <Image src="/nha_xuong.png" alt="Kim Ngân Steel Factory" fill className="object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#080808]/80 via-[#080808]/60 to-[#080808]" />
-        </div>
-        <div className="container relative z-10 mx-auto px-4 md:px-8 max-w-5xl text-center flex flex-col items-center">
-          <p className="antra-hero-kicker text-[10px] font-bold tracking-[0.2em] uppercase text-[#C2BAB0] mb-6">Giới Thiệu</p>
-          <h1 className="antra-h1 text-3xl md:text-5xl lg:text-7xl mb-6 uppercase font-light leading-[1.2] text-transparent bg-clip-text bg-gradient-to-r from-white via-[#E5E7EB] to-[#9CA3AF]">
-            <span className="block">Vững nền móng</span>
-            <span className="block italic text-[#C2BAB0]">Bền công trình</span>
-          </h1>
-          <p className="antra-hero-text text-[#888] text-lg md:text-xl max-w-2xl mx-auto font-light leading-relaxed">
-            Kim Ngân Steel tự hào là đối tác cung ứng tôn thép hàng đầu, mang đến những giải pháp vật liệu chất lượng, bền bỉ và tối ưu nhất cho mọi dự án.
-          </p>
-        </div>
-      </section>
+    <div
+      ref={rootRef}
+      className="antra-theme min-h-screen bg-[#F7F7F4] text-[#1A1918] selection:bg-[#1A1918] selection:text-[#F7F7F4] select-none font-sans"
+    >
+      {/* =========================================================================
+          1. OPENING SECTION — INDUSTRIAL EDITORIAL STATEMENT
+         ========================================================================= */}
+      <section className="relative pt-28 pb-12 sm:pt-36 sm:pb-16 px-6 md:px-14 bg-[#F7F7F4] border-b border-[#1A1918]/10">
+        <div className="max-w-[1600px] mx-auto space-y-6">
+          
+          {/* Eyebrow */}
+          <div className="kn-about-opening-el inline-flex items-center gap-3 text-xs font-mono font-bold tracking-[0.25em] text-[#C28E5C] uppercase">
+            <span className="w-2 h-2 rounded-full bg-[#C28E5C]" />
+            <span>01 / CÂU CHUYỆN KIM NGÂN</span>
+          </div>
 
-      {/* 2. Câu chuyện & Hành trình (Light Section - like AboutSection) */}
-      <section className="antra-section relative py-24 px-6 md:px-12 lg:px-24 bg-[#F2F0EC] overflow-hidden text-[#151413]">
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(156,138,115,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(156,138,115,0.06)_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,#000_20%,transparent_100%)] z-0"></div>
-        <div className="absolute bottom-10 -left-20 text-[6rem] lg:text-[12rem] font-bold text-[#e5e1da] opacity-30 pointer-events-none whitespace-nowrap select-none z-0">
-          HISTORY
-        </div>
-        <div className="container mx-auto max-w-6xl relative z-10 flex flex-col lg:flex-row gap-16 lg:gap-24 items-center">
-          <div className="w-full lg:w-1/2 flex flex-col relative">
-            <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#C2BAB0] mb-6">Câu Chuyện Của Chúng Tôi</p>
-            <h2 className="text-[1.8rem] md:text-[2.2rem] lg:text-[2.5rem] font-light leading-[1.2] uppercase tracking-tight mb-8">
-              Hành trình kiến tạo<br/><span className="text-[#C2BAB0]">sự vững chắc</span>
-            </h2>
-            <div className="text-[#555] text-[15px] leading-relaxed font-light text-justify mb-8 space-y-4">
-              <p>Được thành lập với tầm nhìn trở thành nhà cung cấp vật liệu xây dựng hàng đầu khu vực, Kim Ngân Steel đã không ngừng nỗ lực vươn lên, khẳng định vị thế vững chắc trong ngành công nghiệp tôn thép.</p>
-              <p>Với hơn 15 năm kinh nghiệm, chúng tôi tự hào là đại lý cấp 1 của Hoa Sen, Hòa Phát, NS BlueScope, mang đến cho nhà thầu và đại lý những sản phẩm thép mạ kẽm, tôn lạnh màu đạt tiêu chuẩn quốc tế.</p>
+          {/* Headline Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-baseline">
+            <div className="lg:col-span-8 space-y-2">
+              <h1 className="kn-about-opening-el text-4xl sm:text-6xl lg:text-7xl font-bold uppercase tracking-tight text-[#1A1918] leading-[1.1]">
+                VỮNG TỪ VẬT LIỆU. <br />
+                BỀN CÙNG CÔNG TRÌNH.
+              </h1>
+              <p className="kn-about-opening-el text-xs sm:text-sm font-mono text-[#C28E5C] tracking-widest lowercase pt-1">
+                crafted with precision &amp; architectural integrity.
+              </p>
             </div>
-            <div className="self-start">
-              <div className="text-4xl lg:text-5xl mb-2 opacity-90 -rotate-2" style={{ fontFamily: "var(--font-dancing-script), cursive" }}>Kim Ngân</div>
+
+            <div className="lg:col-span-4 lg:pl-6 lg:border-l lg:border-[#1A1918]/15 space-y-4">
+              <p className="kn-about-opening-el text-sm sm:text-base text-[#524D4A] font-sans leading-relaxed font-normal">
+                Kim Ngân Steel gia công cán tôn và phân phối vật liệu thép cho nhà thầu, nhà xưởng và hệ thống đại lý trên toàn quốc.
+              </p>
             </div>
           </div>
-          <div className="w-full lg:w-1/2 relative mt-8 lg:mt-0">
-            <div className="absolute -top-8 -right-8 w-[80%] h-[80%] max-w-[300px] max-h-[300px] border border-[#d8d4ce] bg-transparent z-0 hidden md:block"></div>
-            <div className="relative z-10 w-full aspect-[16/10] bg-white p-3 md:p-5 shadow-[0_20px_50px_rgba(0,0,0,0.06)]">
-              <Image src="/kho_logistics.png" alt="Lịch sử Kim Ngân Steel" fill className="object-cover" />
-            </div>
-          </div>
+
         </div>
       </section>
 
-      {/* 3. Năng lực & Con số thực tế (Dark Band) */}
-      <section className="antra-section py-16 bg-[#111] border-y border-white/5">
-        <div className="container mx-auto px-4 md:px-8 max-w-6xl antra-card-grid">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            {STATS.map((stat, i) => (
-              <div key={i} className="antra-card-item flex flex-col items-center justify-center py-6">
-                <div className="text-4xl md:text-5xl font-light text-transparent bg-clip-text bg-gradient-to-r from-white via-[#E5E7EB] to-[#9CA3AF] mb-2 tracking-tight">
-                  {stat.value}
-                </div>
-                <div className="text-[10px] md:text-[11px] text-[#C2BAB0] uppercase tracking-[0.2em] font-bold">
-                  {stat.label}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 4. Đội ngũ Lãnh đạo (Dark Section) */}
-      <section className="antra-section py-24 bg-[#080808]">
-        <div className="container mx-auto px-4 md:px-8 max-w-6xl">
-          <div className="flex flex-col items-center mb-16 text-center">
-            <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#9C8A73] mb-6">Đội Ngũ Nòng Cốt</p>
-            <h2 className="text-[1.8rem] md:text-[2.2rem] lg:text-[2.5rem] font-light leading-[1.2] uppercase tracking-tight text-white">
-              Những người dẫn đường
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 antra-card-grid">
-            {LEADERSHIP.map((person, i) => (
-              <div key={i} className="antra-card-item bg-[#111] border border-white/5 p-8 rounded-none flex flex-col items-center text-center hover:border-[#9C8A73]/40 transition-colors">
-                <div className="w-20 h-20 bg-[#1a1a1a] rounded-full mb-6 flex items-center justify-center border border-white/10">
-                  <Users className="w-8 h-8 text-[#9C8A73]" />
-                </div>
-                <h4 className="text-lg font-bold text-white mb-2">{person.name}</h4>
-                <p className="text-[#9C8A73] text-[10px] uppercase tracking-[0.1em] font-bold mb-4">{person.role}</p>
-                <p className="text-[#666] text-sm font-light">{person.exp}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 5. Chứng nhận & Đối tác (Light Section) */}
-      <section className="antra-section py-24 relative bg-[#F2F0EC] text-[#151413]">
-        <div className="container mx-auto px-4 md:px-8 max-w-6xl">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+      {/* =========================================================================
+          2. FACTORY IMAGE — CINEMATIC FULL-WIDTH EDITORIAL BANNER (21:9)
+         ========================================================================= */}
+      <section className="relative w-full bg-[#F7F7F4] border-b border-[#1A1918]/10">
+        <div className="max-w-[1600px] mx-auto px-6 md:px-14 py-8 md:py-12">
+          
+          {/* 21:9 Wide Editorial Image Container */}
+          <div className="kn-about-factory-img relative w-full aspect-[21/9] min-h-[320px] max-h-[640px] overflow-hidden rounded-none border border-[#1A1918]/15 bg-[#1A1918]">
+            <img
+              src="/nha-may-ton-kim-ngan-storefront.jpg"
+              alt="Nhà Máy Tôn Kim Ngân - Đại lý chính thức Tôn Đông Á"
+              className="w-full h-full object-cover filter contrast-[1.03]"
+            />
             
-            <div className="antra-card-grid">
-              <h3 className="text-2xl font-light uppercase tracking-tight mb-8 flex items-center gap-4">
-                <ShieldCheck className="text-[#9C8A73] w-6 h-6" />
-                Chứng nhận & Giải thưởng
-              </h3>
-              <div className="space-y-4">
-                {CERTIFICATES.map((cert, i) => (
-                  <div key={i} className="antra-card-item flex items-start gap-4 p-5 bg-white border border-[#d8d4ce] shadow-sm">
-                    <Award className="w-6 h-6 text-[#9C8A73] shrink-0 mt-1" />
-                    <div>
-                      <h4 className="font-bold text-lg">{cert.name}</h4>
-                      <p className="text-[#666] text-[13px] mt-1 font-light">{cert.desc}</p>
+            {/* Minimalist Lower Edge Caption */}
+            <div className="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 flex items-center gap-3 bg-[#1A1918]/70 backdrop-blur-md px-4 py-2 text-[#F7F7F4] border border-white/10">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#C28E5C]" />
+              <span className="font-mono text-[11px] sm:text-xs tracking-widest font-bold uppercase">
+                01 / CƠ SỞ THỰC TẾ NHÀ MÁY TÔN KIM NGÂN · ĐÔNG HÒA, PHÚ YÊN
+              </span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* =========================================================================
+          3. STICKY BRAND STORY — TWO-COLUMN SCROLL-DRIVEN CHAPTERS
+         ========================================================================= */}
+      <section className="kn-about-section relative py-20 md:py-28 px-6 md:px-14 bg-[#F7F7F4] border-b border-[#1A1918]/10">
+        <div className="max-w-[1600px] mx-auto">
+          
+          {/* Section Eyebrow Header */}
+          <div className="flex items-center justify-between border-b border-[#1A1918]/12 pb-4 mb-12 sm:mb-16">
+            <span className="text-xs font-mono font-bold tracking-[0.25em] text-[#C28E5C] uppercase">
+              03 / HÀNH TRÌNH THƯƠNG HIỆU
+            </span>
+            <span className="text-xs font-mono text-[#524D4A] tracking-wider uppercase hidden sm:inline-block">
+              STICKY BRAND STORY
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start relative">
+            
+            {/* Left Column: 3 Scroll-Driven Chapters */}
+            <div className="lg:col-span-6 space-y-24 sm:space-y-36 py-6">
+              {BRAND_STORY_CHAPTERS.map((chap, idx) => {
+                const isActive = activeStoryIndex === idx;
+                return (
+                  <div
+                    key={chap.number}
+                    className={`kn-story-chapter-trigger transition-all duration-500 space-y-4 ${
+                      isActive ? "opacity-100" : "opacity-35 hover:opacity-75"
+                    }`}
+                  >
+                    <div className="flex items-center gap-3 font-mono text-xs font-bold tracking-widest text-[#C28E5C] uppercase">
+                      <span>{chap.number} /</span>
+                      <span>{chap.label}</span>
+                    </div>
+
+                    <h2 className="text-2xl sm:text-4xl font-bold uppercase tracking-tight text-[#1A1918] leading-tight">
+                      {chap.title}
+                    </h2>
+
+                    <p className="text-sm sm:text-base text-[#C28E5C] font-mono font-medium">
+                      {chap.subtitle}
+                    </p>
+
+                    <p className="text-sm sm:text-base text-[#524D4A] font-sans leading-relaxed pt-2 max-w-xl font-normal">
+                      {chap.desc}
+                    </p>
+
+                    <div className="pt-2">
+                      <button
+                        onClick={() => setActiveStoryIndex(idx)}
+                        className={`font-mono text-xs font-bold tracking-wider uppercase flex items-center gap-2 transition-colors ${
+                          isActive ? "text-[#1A1918]" : "text-[#8E857B]"
+                        }`}
+                      >
+                        <span>XEM CHI TIẾT GIAI ĐOẠN</span>
+                        <ChevronRight size={14} className={isActive ? "translate-x-1 transition-transform" : ""} />
+                      </button>
                     </div>
                   </div>
-                ))}
-              </div>
+                );
+              })}
             </div>
 
-            <div className="antra-timeline-grid">
-              <h3 className="text-2xl font-light uppercase tracking-tight mb-8 flex items-center gap-4">
-                <Factory className="text-[#9C8A73] w-6 h-6" />
-                Quy trình & Cam kết
-              </h3>
-              <div className="relative border-l border-[#d8d4ce] pl-8 space-y-10 py-4 ml-4">
-                {PROCESS_STEPS.map((step, i) => (
-                  <div key={i} className="antra-timeline-item relative">
-                    <div className="absolute -left-[37px] top-1 w-3 h-3 rounded-full bg-[#9C8A73] border-[3px] border-[#F2F0EC]" />
-                    <h4 className="font-bold text-lg mb-2">{step.title}</h4>
-                    <p className="text-[#666] text-[13px] leading-relaxed font-light">{step.desc}</p>
-                  </div>
-                ))}
+            {/* Right Column: Sticky Large Image Display */}
+            <div className="lg:col-span-6 sticky top-28 sm:top-36 w-full">
+              <div className="relative w-full aspect-[4/3] overflow-hidden rounded-none border border-[#1A1918]/15 bg-[#ECE8DE] shadow-lg">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeStoryIndex}
+                    initial={{ opacity: 0, scale: 1.02 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.5, ease: "easeOut" }}
+                    className="absolute inset-0 w-full h-full"
+                  >
+                    <img
+                      src={BRAND_STORY_CHAPTERS[activeStoryIndex].image}
+                      alt={BRAND_STORY_CHAPTERS[activeStoryIndex].title}
+                      className="w-full h-full object-cover filter contrast-[1.03]"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#1A1918]/80 via-transparent to-transparent pointer-events-none" />
+                    
+                    {/* Dynamic Image Caption */}
+                    <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 flex items-center gap-3 bg-[#1A1918]/85 backdrop-blur-md px-4 py-2.5 text-white border border-white/10">
+                      <span className="w-2 h-2 rounded-full bg-[#C28E5C]" />
+                      <span className="font-mono text-[11px] sm:text-xs tracking-wider font-bold uppercase truncate">
+                        {BRAND_STORY_CHAPTERS[activeStoryIndex].caption}
+                      </span>
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
               </div>
             </div>
 
           </div>
+
         </div>
       </section>
 
+      {/* =========================================================================
+          4. KEY NUMBERS — REFINED LIGHT FINANCIAL CREDIBILITY SECTION
+         ========================================================================= */}
+      <section className="kn-about-section py-20 md:py-28 px-6 md:px-14 bg-[#ECE8DE] border-b border-[#1A1918]/10">
+        <div className="max-w-[1600px] mx-auto space-y-12">
+          
+          <div className="flex items-center justify-between border-b border-[#1A1918]/12 pb-4">
+            <span className="text-xs font-mono font-bold tracking-[0.25em] text-[#C28E5C] uppercase">
+              04 / NĂNG LỰC TÀI CHÍNH &amp; UY TÍN
+            </span>
+            <span className="text-xs font-mono text-[#524D4A] tracking-wider uppercase hidden sm:inline-block">
+              FINANCIAL AUDIT 2024
+            </span>
+          </div>
+
+          {/* Clean Common Baseline Financial Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-0 divide-y md:divide-y-0 md:divide-x divide-[#1A1918]/15 pt-2">
+            {FINANCIAL_METRICS.map((metric, idx) => (
+              <div
+                key={metric.label}
+                className={`flex flex-col justify-between pt-6 md:pt-0 ${
+                  idx > 0 ? "md:pl-10 lg:pl-14" : ""
+                }`}
+              >
+                <div className="space-y-2">
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-5xl sm:text-6xl lg:text-7xl font-bold font-sans tracking-tight text-[#1A1918]">
+                      {metric.value}
+                    </span>
+                    <span className="text-lg sm:text-xl font-mono font-bold text-[#C28E5C] tracking-wider">
+                      {metric.unit}
+                    </span>
+                  </div>
+
+                  <h3 className="text-sm font-mono font-bold uppercase tracking-wider text-[#1A1918]">
+                    {metric.label}
+                  </h3>
+
+                  <p className="text-xs sm:text-sm text-[#524D4A] font-sans leading-relaxed pt-1">
+                    {metric.subtext}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </section>
+
+      {/* =========================================================================
+          5. MILESTONES — TRUE HORIZONTAL INTERACTIVE TIMELINE
+         ========================================================================= */}
+      <section className="kn-about-section py-16 md:py-22 px-5 md:px-10 bg-[#F7F7F4] border-b border-[#1A1918]/10">
+        <div className="max-w-[1500px] mx-auto space-y-10">
+          
+          <div className="flex items-center justify-between border-b border-[#1A1918]/12 pb-4">
+            <span className="text-xs font-mono font-bold tracking-[0.25em] text-[#C28E5C] uppercase">
+              05 / CỘT MỐC PHÁT TRIỂN
+            </span>
+            <span className="text-xs font-mono text-[#524D4A] tracking-wider uppercase hidden sm:inline-block">
+              HORIZONTAL TIMELINE
+            </span>
+          </div>
+
+          {/* Desktop Horizontal Interactive Timeline Track */}
+          <div className="hidden md:block space-y-12">
+            
+            {/* Continuous Axis Line with Stops */}
+            <div className="relative w-full border-b-2 border-[#1A1918]/15 pb-8 flex items-center justify-between">
+              {MILESTONES.map((m, idx) => {
+                const isActive = activeMilestoneIndex === idx;
+                return (
+                  <button
+                    key={m.year}
+                    onClick={() => setActiveMilestoneIndex(idx)}
+                    onMouseEnter={() => setActiveMilestoneIndex(idx)}
+                    className="relative group text-left flex flex-col items-center cursor-pointer focus:outline-none"
+                  >
+                    <span
+                      className={`text-2xl lg:text-3xl font-mono font-bold transition-all duration-300 ${
+                        isActive ? "text-[#C28E5C] scale-110" : "text-[#1A1918]/50 group-hover:text-[#1A1918]"
+                      }`}
+                    >
+                      {m.year}
+                    </span>
+                    <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#1A1918] mt-1">
+                      {m.title}
+                    </span>
+
+                    {/* Timeline Node Point */}
+                    <span
+                      className={`absolute -bottom-[41px] w-4 h-4 rounded-full border-2 transition-all duration-300 ${
+                        isActive
+                          ? "bg-[#C28E5C] border-[#1A1918] scale-125 shadow-md"
+                          : "bg-[#F7F7F4] border-[#1A1918]/30 group-hover:border-[#1A1918]"
+                      }`}
+                    />
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Active Milestone Detailed Showcase Panel */}
+            <div className="p-8 lg:p-12 rounded-none border border-[#1A1918]/15 bg-[#ECE8DE] grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              <div className="lg:col-span-7 space-y-4">
+                <span className="text-xs font-mono font-bold tracking-[0.2em] text-[#C28E5C] uppercase block">
+                  {MILESTONES[activeMilestoneIndex].tag}
+                </span>
+                <h3 className="text-2xl lg:text-3xl font-bold uppercase text-[#1A1918]">
+                  {MILESTONES[activeMilestoneIndex].year} · {MILESTONES[activeMilestoneIndex].title}
+                </h3>
+                <p className="text-sm font-mono text-[#C28E5C] font-semibold">
+                  {MILESTONES[activeMilestoneIndex].subtitle}
+                </p>
+                <p className="text-sm lg:text-base text-[#524D4A] font-sans leading-relaxed pt-1">
+                  {MILESTONES[activeMilestoneIndex].desc}
+                </p>
+              </div>
+
+              <div className="lg:col-span-5">
+                <div className="relative aspect-[16/10] overflow-hidden border border-[#1A1918]/15 shadow-sm bg-white">
+                  <img
+                    src={MILESTONES[activeMilestoneIndex].image}
+                    alt={MILESTONES[activeMilestoneIndex].title}
+                    className="w-full h-full object-cover filter contrast-[1.03]"
+                  />
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          {/* Mobile Vertical Timeline Track */}
+          <div className="block md:hidden space-y-8 border-l-2 border-[#1A1918]/15 pl-6 ml-2">
+            {MILESTONES.map((m, idx) => (
+              <div key={m.year} className="relative space-y-2">
+                <span className="absolute -left-[31px] top-1 w-3.5 h-3.5 rounded-full bg-[#C28E5C] border-2 border-[#F7F7F4]" />
+                <span className="text-xl font-mono font-bold text-[#C28E5C] block">
+                  {m.year}
+                </span>
+                <h3 className="text-lg font-bold text-[#1A1918] uppercase">
+                  {m.title}
+                </h3>
+                <p className="text-xs font-mono font-semibold text-[#8E857B]">
+                  {m.subtitle}
+                </p>
+                <p className="text-xs text-[#524D4A] leading-relaxed pt-1">
+                  {m.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </section>
+
+      {/* =========================================================================
+          6. LEGAL AND CERTIFICATIONS — FEATURED PREVIEW + SELECTABLE ARCHIVE LIST
+         ========================================================================= */}
+      <section className="kn-about-section py-20 md:py-28 px-6 md:px-14 bg-[#F5F3EE] border-b border-[#D8D5CF]">
+        <div className="max-w-[1600px] mx-auto space-y-10">
+          
+          {/* Section Header */}
+          <div className="space-y-3 border-b border-[#D8D5CF] pb-6">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-mono font-bold tracking-[0.25em] text-[#C28E5C] uppercase">
+                06 / HỒ SƠ PHÁP LÝ &amp; CHỨNG NHẬN CHÍNH THỨC
+              </span>
+              <span className="text-xs font-mono text-[#524D4A] tracking-wider uppercase hidden sm:inline-block">
+                VERIFIED DOCUMENTS
+              </span>
+            </div>
+
+            <p className="text-sm sm:text-base text-[#524D4A] font-sans">
+              Hồ sơ minh bạch, chứng nhận rõ ràng và được công nhận bởi các đối tác chiến lược.
+            </p>
+          </div>
+
+          {/* 60/40 Split Showcase */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+            
+            {/* Left Column (60%): Large Active Document Preview Stage (Butter-smooth GPU Fade, Zero Jitter/Layout Shift) */}
+            <div className="lg:col-span-7 flex flex-col items-center">
+              <div className="bg-[#EEEAE2] border border-[#D8D5CF] p-4 sm:p-6 rounded-none flex flex-col items-center justify-center shadow-sm w-full max-w-lg min-h-[480px] sm:min-h-[540px]">
+                
+                {/* Snug White Paper Mat Frame with Fixed Stage Bounds */}
+                <div className="relative bg-white p-3 sm:p-4 border border-[#D8D5CF] shadow-[0_8px_25px_rgba(0,0,0,0.06)] flex items-center justify-center w-full h-[420px] sm:h-[460px] overflow-hidden">
+                  <AnimatePresence mode="popLayout">
+                    <motion.div
+                      key={`${activeCertIndex}-${activeCertPageIndex}`}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.2, ease: "easeOut" }}
+                      className="absolute inset-0 w-full h-full flex items-center justify-center p-3 sm:p-4"
+                    >
+                      <img
+                        src={CERTIFICATES[activeCertIndex].images[activeCertPageIndex] || CERTIFICATES[activeCertIndex].images[0]}
+                        alt={CERTIFICATES[activeCertIndex].title}
+                        className="w-auto h-auto max-h-full max-w-full object-contain filter contrast-[1.03]"
+                      />
+                    </motion.div>
+                  </AnimatePresence>
+                </div>
+
+                {/* Page Switcher for Multi-page Documents */}
+                {CERTIFICATES[activeCertIndex].images.length > 1 && (
+                  <div className="flex items-center justify-center gap-3 pt-4 border-t border-[#D8D5CF] w-full mt-4">
+                    {CERTIFICATES[activeCertIndex].images.map((_, pageIdx) => (
+                      <button
+                        key={pageIdx}
+                        type="button"
+                        onClick={() => setActiveCertPageIndex(pageIdx)}
+                        aria-label={`Chuyển sang trang ${pageIdx + 1}`}
+                        className={`px-3 py-1 text-xs font-mono font-bold border transition-all ${
+                          activeCertPageIndex === pageIdx
+                            ? "bg-[#121212] text-white border-[#121212]"
+                            : "bg-[#EEEAE2] text-[#121212] border-[#D8D5CF] hover:border-[#121212]"
+                        }`}
+                      >
+                        TRANG {pageIdx + 1}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Primary Action Button Below Stage */}
+              <div className="w-full max-w-lg pt-3 flex items-center justify-between">
+                <button
+                  type="button"
+                  onClick={() => setSelectedCertModal({ title: CERTIFICATES[activeCertIndex].title, images: CERTIFICATES[activeCertIndex].images })}
+                  className="inline-flex items-center gap-2 font-mono text-xs font-bold tracking-wider text-[#121212] hover:text-[#C28E5C] transition-colors focus:outline-none focus:ring-2 focus:ring-[#C28E5C] cursor-pointer"
+                >
+                  <span>Xem tài liệu gốc ↗</span>
+                </button>
+
+                <span className="text-xs font-mono text-[#8E857B]">
+                  {CERTIFICATES[activeCertIndex].meta}
+                </span>
+              </div>
+            </div>
+
+            {/* Right Column (40%): Selectable Archive List */}
+            <div className="lg:col-span-5 space-y-3">
+              {CERTIFICATES.map((cert, idx) => {
+                const isSelected = activeCertIndex === idx;
+                return (
+                  <button
+                    key={cert.id}
+                    type="button"
+                    role="option"
+                    aria-selected={isSelected}
+                    onClick={() => {
+                      setActiveCertIndex(idx);
+                      setActiveCertPageIndex(0);
+                    }}
+                    className={`w-full text-left p-5 border transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#C28E5C] cursor-pointer ${
+                      isSelected
+                        ? "bg-[#EEEAE2] border-[#D8D5CF] border-l-4 border-l-[#C28E5C]"
+                        : "bg-transparent border-[#D8D5CF] border-l-2 border-l-transparent hover:border-[#121212]/30"
+                    }`}
+                  >
+                    <div className="flex items-start justify-between gap-4">
+                      <span
+                        className={`font-mono text-xs font-bold tracking-widest transition-colors ${
+                          isSelected ? "text-[#C28E5C]" : "text-[#8E857B]"
+                        }`}
+                      >
+                        {cert.seqNum}
+                      </span>
+                      
+                      <span className="text-xs font-mono text-[#8E857B] shrink-0">
+                        {cert.meta}
+                      </span>
+                    </div>
+
+                    <h3
+                      className={`text-base font-bold uppercase pt-2 transition-colors ${
+                        isSelected ? "text-[#121212]" : "text-[#121212]/70"
+                      }`}
+                    >
+                      {cert.title}
+                    </h3>
+
+                    <p className="text-xs font-mono text-[#524D4A] pt-1">
+                      {cert.issuer}
+                    </p>
+                  </button>
+                );
+              })}
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      {/* =========================================================================
+          7. CLOSING CTA — SIMPLE & SPACIOUS
+         ========================================================================= */}
+      <section className="py-24 sm:py-32 px-6 md:px-14 bg-[#F7F7F4] border-t border-[#1A1918]/10 text-center">
+        <div className="max-w-4xl mx-auto space-y-8">
+          
+          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-bold uppercase tracking-tight text-[#1A1918] leading-tight">
+            Sẵn sàng đồng hành cùng công trình của bạn?
+          </h2>
+
+          <p className="text-base sm:text-lg text-[#524D4A] font-sans max-w-2xl mx-auto font-normal">
+            Liên hệ ngay với đội ngũ tư vấn kỹ thuật Kim Ngân Steel để nhận báo giá chi tiết và hỗ trợ tiến độ giao vận 24h.
+          </p>
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+            <Link
+              href="/san-pham"
+              className="w-full sm:w-auto px-8 py-4 bg-[#1A1918] text-[#F7F7F4] font-mono text-xs font-bold uppercase tracking-widest hover:bg-[#C28E5C] transition-all shadow-md text-center"
+            >
+              Khám phá sản phẩm
+            </Link>
+
+            <Link
+              href="/lien-he"
+              className="w-full sm:w-auto px-8 py-4 bg-transparent text-[#1A1918] border border-[#1A1918] font-mono text-xs font-bold uppercase tracking-widest hover:bg-[#1A1918] hover:text-white transition-all text-center"
+            >
+              Liên hệ báo giá
+            </Link>
+          </div>
+
+        </div>
+      </section>
+
+      {/* =========================================================================
+          ACCESSIBLE LIGHTBOX MODAL
+         ========================================================================= */}
+      <AnimatePresence>
+        {selectedCertModal && (
+          <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 sm:p-6 md:p-10">
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelectedCertModal(null)}
+              className="absolute inset-0 bg-[#1A1918]/65 backdrop-blur-md"
+            />
+
+            {/* Modal Box */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.96 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.96 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="relative z-10 w-full max-w-5xl max-h-[92vh] bg-[#F7F7F4] border border-[#1A1918]/15 rounded-none p-4 sm:p-6 md:p-8 shadow-2xl flex flex-col items-center text-[#1A1918]"
+            >
+              {/* Header */}
+              <div className="w-full flex items-center justify-between border-b border-[#1A1918]/12 pb-3 mb-4">
+                <div>
+                  <h3 className="text-sm md:text-base font-bold uppercase tracking-wider text-[#1A1918]">
+                    {selectedCertModal.title}
+                  </h3>
+                  <p className="text-xs font-mono font-medium text-[#C28E5C] mt-0.5">
+                    {selectedCertModal.images.length > 1
+                      ? `TÀI LIỆU GỒM ${selectedCertModal.images.length} TRANG BẢN GỐC`
+                      : "BẢN GỐC CHỨNG NHẬN"}
+                  </p>
+                </div>
+                <button
+                  onClick={() => setSelectedCertModal(null)}
+                  className="w-9 h-9 rounded-full bg-[#1A1918]/5 border border-[#1A1918]/15 flex items-center justify-center text-[#1A1918] hover:bg-[#1A1918] hover:text-white transition-all cursor-pointer"
+                  aria-label="Đóng"
+                >
+                  <X size={18} />
+                </button>
+              </div>
+
+              {/* Scroll Container */}
+              <div id="cert-modal-scroll-area" className="w-full overflow-y-auto max-h-[78vh] pr-1">
+                <div className={`flex ${selectedCertModal.images.length > 1 ? "flex-col md:flex-row" : "flex-col"} gap-6 items-center justify-center`}>
+                  {selectedCertModal.images.map((imgSrc, idx) => (
+                    <div key={idx} className="flex flex-col items-center bg-white p-3 sm:p-4 border border-[#1A1918]/12 shadow-sm w-fit max-w-full">
+                      <div className="w-full text-center pb-2 mb-3 border-b border-[#1A1918]/08 flex items-center justify-between gap-4">
+                        <span className="text-[11px] font-mono text-[#C28E5C] font-bold uppercase">
+                          TRANG {idx + 1} / {selectedCertModal.images.length}
+                        </span>
+                        <span className="text-[10px] font-mono text-[#8E857B]">VECTOR HD</span>
+                      </div>
+                      <img
+                        src={imgSrc}
+                        alt={`${selectedCertModal.title} Trang ${idx + 1}`}
+                        className="w-auto h-auto max-w-full max-h-[70vh] object-contain"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* FOOTER */}
       <SiteFooter />
     </div>
   );

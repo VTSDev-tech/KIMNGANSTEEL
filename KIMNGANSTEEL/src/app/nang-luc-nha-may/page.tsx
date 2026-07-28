@@ -3,154 +3,291 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Image from "next/image";
+import Link from "next/link";
 import { SiteFooter } from "@/components/antra/SiteFooter";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
+// 4 CORE CAPABILITIES
 const CAPABILITIES = [
-  { num: "500+", unit: "Tấn/Tháng", title: "Công Suất", desc: "Hơn 500 tấn/tháng, đáp ứng tiến độ mọi dự án." },
-  { num: "05", unit: "Dây Chuyền", title: "Tự Động Hóa", desc: "Tự động hóa, cán sóng và xả băng chính xác." },
-  { num: "10K", unit: "Tấn Phôi", title: "Kho Bãi", desc: "Sức chứa hàng ngàn tấn phôi, luôn sẵn sàng." },
-  { num: "±1", unit: "Milimet", title: "Kiểm Định", desc: "Đo lường độ dày, độ bám kẽ m khắt khe." },
+  { num: "15.000 m²", label: "DIỆN TÍCH NHÀ MÁY", desc: "Quy mô nhà xưởng gia công khép kín tại Phú Yên & Bình Dương." },
+  { num: "06 Dây Chuyền", label: "CÁN TÔN CNC TỰ ĐỘNG", desc: "Hệ thống máy cán tôn sóng vuông, sóng tròn, xà gồ C/Z tự động." },
+  { num: "500+ Tấn", label: "CÔNG SUẤT / THÁNG", desc: "Sản xuất liên tục 24/7 đáp ứng tiến độ các đại dự án." },
+  { num: "24 Hours", label: "GIAO VẬN TẬN NƠI", desc: "Vận chuyển trực tiếp bằng đội xe tải chuyên dụng tới công trình." },
 ];
 
-const GALLERY = [
-  "/nha_xuong.png",
-  "/kho_logistics.png",
-  "/ton_can_song.svg",
-  "/thep_cuon_ma_kem.svg"
+// 6 PRODUCTION WORKFLOW STEPS
+const FACTORY_STEPS = [
+  {
+    num: "01",
+    title: "Nguồn phôi thép chính hãng 100%",
+    subtitle: "Tôn Đông Á · Hoa Sen · Hòa Phát",
+    desc: "Chủ động nguồn phôi thép mạ kẽm nguyên cuộn chính hãng với đầy đủ chứng nhận nguồn gốc CO/CQ.",
+    img: "/factory_story/1.svg",
+  },
+  {
+    num: "02",
+    title: "Kiểm tra độ dày zem & tiêu chuẩn mạ",
+    subtitle: "Đo đạc chỉ số AZ & độ bền màng sơn",
+    desc: "QC kiểm tra độ dày thực tế bằng thiết bị chuyên dụng, đảm bảo đúng quy cách zem trước khi sản xuất.",
+    img: "/factory_story/2.svg",
+  },
+  {
+    num: "03",
+    title: "Gia công cán tôn CNC tự động",
+    subtitle: "Lập trình chính xác theo bản vẽ",
+    desc: "Cán tôn sóng vuông, sóng tròn, Seamlock điều khiển tự động bằng PLC CNC, cắt chiều dài chuẩn xác.",
+    img: "/factory_story/3.svg",
+  },
+  {
+    num: "04",
+    title: "Chấn & đột lỗ xà gồ C/Z tự động",
+    subtitle: "Tạo biên dạng xà gồ cường độ cao",
+    desc: "Tự động đột lỗ theo đúng khoảng cách bản vẽ, giúp thi công lắp dựng khung kèo nhanh chóng.",
+    img: "/factory_story/4.svg",
+  },
+  {
+    num: "05",
+    title: "Nghiệm thu QC & dán màng bảo vệ",
+    subtitle: "Đồng bộ tem nhãn & dán màng PE",
+    desc: "Kiểm tra màng sơn, dán tem thông số kỹ thuật và bọc màng PE chống trầy xước trong vận chuyển.",
+    img: "/factory_story/5.svg",
+  },
+  {
+    num: "06",
+    title: "Giao vận 24h tới tận chân công trình",
+    subtitle: "Đội xe tải trọng lớn giao vận thần tốc",
+    desc: "Thành phẩm được đóng gói an toàn và giao tận chân công trình đúng số lượng và tiến độ 24h.",
+    img: "/factory_story/6.svg",
+  },
 ];
 
 export default function FactoryPage() {
   const rootRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      if ('scrollRestoration' in history) {
-        history.scrollRestoration = 'manual';
-      }
+    if (typeof window !== "undefined") {
+      if ("scrollRestoration" in history) history.scrollRestoration = "manual";
       window.scrollTo(0, 0);
     }
 
     const root = rootRef.current;
     if (!root) return;
 
-    const context = gsap.context(() => {
-      gsap.timeline({ defaults: { ease: "power3.out" } })
-        .from(".factory-hero-kicker", { y: 20, opacity: 0, duration: 0.8 })
-        .from(".factory-hero-title", { y: 40, opacity: 0, duration: 1 }, "-=0.5")
-        .from(".antra-hero-text", { y: 20, opacity: 0, duration: 0.8 }, "-=0.6");
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        ".kn-fact-opening-el",
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.8, stagger: 0.12, ease: "power2.out" }
+      );
 
-      gsap.utils.toArray<HTMLElement>(".antra-section").forEach((section) => {
-        gsap.from(section, {
-          y: 80, opacity: 0, duration: 1, ease: "power3.out",
-          scrollTrigger: { trigger: section, start: "top 85%", toggleActions: "play none none reverse" },
-        });
-      });
-
-      gsap.utils.toArray<HTMLElement>(".antra-stagger-grid").forEach((grid) => {
-        const items = grid.querySelectorAll(".antra-stagger-item");
-        gsap.fromTo(items,
-          { y: 60, opacity: 0 },
+      gsap.utils.toArray<HTMLElement>(".kn-fact-card").forEach((card) => {
+        gsap.fromTo(
+          card,
+          { opacity: 0, y: 25 },
           {
-            y: 0, opacity: 1, duration: 0.85, stagger: 0.1, ease: "power3.out",
-            scrollTrigger: { trigger: grid, start: "top 90%", toggleActions: "play none none reverse" },
+            opacity: 1,
+            y: 0,
+            duration: 0.7,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: card,
+              start: "top 88%",
+              toggleActions: "play none none reverse",
+            },
           }
         );
       });
     }, root);
 
-    return () => context.revert();
+    return () => ctx.revert();
   }, []);
 
   return (
-    <div ref={rootRef} className="antra-theme min-h-screen bg-[#080808] selection:bg-[#B8AFA3] selection:text-[#080808] pt-24 font-sans">
-      
-      {/* 1. Hero Section (Dark Image Background) */}
-      <section className="relative py-20 md:py-32 overflow-hidden flex items-center justify-center min-h-[50vh]">
-        <div className="absolute inset-0 z-0 opacity-30">
-          <Image src="/nha_xuong.png" alt="Nhà xưởng" fill className="object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-[#080808]/40 to-[#080808]" />
+    <div
+      ref={rootRef}
+      className="antra-theme min-h-screen bg-[#F7F7F4] text-[#1A1918] selection:bg-[#1A1918] selection:text-[#F7F7F4] select-none font-sans"
+    >
+      {/* =========================================================================
+          1. HERO SECTION — CLEAN MINIMALIST HEADER
+         ========================================================================= */}
+      <section className="relative pt-28 pb-12 sm:pt-36 sm:pb-16 px-6 md:px-14 bg-[#F7F7F4] border-b border-[#1A1918]/10">
+        <div className="max-w-[1600px] mx-auto space-y-6">
+          
+          <div className="kn-fact-opening-el inline-flex items-center gap-3 px-3.5 py-1.5 rounded-full bg-[#1A1918]/[0.05] border border-[#1A1918]/12 text-xs font-mono font-bold tracking-[0.25em] text-[#C28E5C] uppercase">
+            <span className="w-2 h-2 rounded-full bg-[#C28E5C] animate-pulse" />
+            <span>03 / NĂNG LỰC SẢN XUẤT</span>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-baseline">
+            <div className="lg:col-span-7 space-y-3">
+              <h1 className="kn-fact-opening-el text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#1A1918] leading-[1.15]">
+                Nhà máy cán tôn CNC &amp; <br />
+                Kho vật liệu 15.000m²
+              </h1>
+              <p className="kn-fact-opening-el text-sm sm:text-base font-mono text-[#C28E5C] font-semibold">
+                Đại lý chính thức Tôn Đông Á · Thương Hiệu Quốc Gia
+              </p>
+            </div>
+
+            <div className="lg:col-span-5 lg:pl-8 lg:border-l lg:border-[#1A1918]/15 space-y-3">
+              <p className="kn-fact-opening-el text-sm sm:text-base text-[#524D4A] font-sans leading-relaxed">
+                Nhà máy trang bị 06 dây chuyền cán tôn CNC tự động khép kín, đáp ứng quy chuẩn kiểm định ISO 9001:2015 và tiến độ giao vận 24h bằng đội xe tải chuyên dụng tới tận chân công trình.
+              </p>
+            </div>
+          </div>
+
         </div>
-        <div className="container relative z-10 mx-auto px-4 text-center flex flex-col items-center">
-          <p className="factory-hero-kicker antra-hero-kicker mb-7">Nhà Máy</p>
-          <h1 className="factory-hero-title mb-8 uppercase font-light text-white">
-            <span className="block">Năng Lực</span>
-            <span className="block italic text-[#CFC8BE]">Sản Xuất</span>
-          </h1>
-          <p className="factory-hero-subtitle antra-hero-text text-[#8E8A84] text-[13px] md:text-sm max-w-2xl mx-auto font-light leading-relaxed tracking-wide">
-            Hệ thống nhà máy hiện đại, quy trình khép kín, tối ưu hóa từ nguyên liệu đầu vào đến thành phẩm.
+      </section>
+
+      {/* =========================================================================
+          2. REAL STOREFRONT PHOTO (PURE UNTOUCHED REAL IMAGE)
+         ========================================================================= */}
+      <section className="relative w-full bg-[#F7F7F4] border-b border-[#1A1918]/10">
+        <div className="max-w-[1600px] mx-auto px-6 md:px-14 py-8 md:py-12">
+          <div className="relative w-full overflow-hidden border border-[#1A1918]/15 bg-[#ECE8DE] shadow-md">
+            <img
+              src="/nha-may-ton-kim-ngan-storefront.jpg"
+              alt="Hình ảnh thực tế Nhà Máy Tôn Kim Ngân"
+              className="w-full h-auto object-cover filter contrast-[1.03]"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================================
+          3. CAPACITY METRICS GRID (4 CLEAN ARCHITECTURAL CARDS)
+         ========================================================================= */}
+      <section className="py-16 sm:py-24 px-6 md:px-14 bg-[#ECE8DE] border-b border-[#1A1918]/10">
+        <div className="max-w-[1600px] mx-auto space-y-10">
+          
+          <div className="flex items-center justify-between border-b border-[#1A1918]/12 pb-4">
+            <span className="text-xs font-mono font-bold tracking-[0.25em] text-[#C28E5C] uppercase">
+              04 / THÔNG SỐ NĂNG LỰC
+            </span>
+            <span className="text-xs font-mono text-[#524D4A] tracking-wider uppercase hidden sm:inline-block">
+              CAPACITY METRICS
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {CAPABILITIES.map((c) => (
+              <div
+                key={c.label}
+                className="kn-fact-card bg-white p-6 border border-[#1A1918]/12 space-y-3 shadow-sm hover:border-[#1A1918] transition-colors"
+              >
+                <span className="text-3xl sm:text-4xl font-bold font-sans tracking-tight text-[#1A1918] block">
+                  {c.num}
+                </span>
+                <span className="text-xs font-mono font-bold tracking-wider text-[#C28E5C] uppercase block">
+                  {c.label}
+                </span>
+                <p className="text-xs text-[#524D4A] leading-relaxed pt-1">
+                  {c.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </section>
+
+      {/* =========================================================================
+          4. 6-STEP PRODUCTION WORKFLOW (CLEAN 3-COLUMN VISUAL GRID)
+         ========================================================================= */}
+      <section className="py-20 md:py-28 px-6 md:px-14 bg-[#F7F7F4] border-b border-[#1A1918]/10">
+        <div className="max-w-[1600px] mx-auto space-y-12">
+          
+          <div className="flex items-center justify-between border-b border-[#1A1918]/12 pb-4">
+            <div>
+              <span className="text-xs font-mono font-bold tracking-[0.25em] text-[#C28E5C] uppercase block mb-1">
+                05 / QUY TRÌNH SẢN XUẤT 6 BƯỚC
+              </span>
+              <h2 className="text-2xl sm:text-4xl font-bold uppercase tracking-tight text-[#1A1918]">
+                CHUẨN KIỂM ĐỊNH ISO 9001:2015
+              </h2>
+            </div>
+            <span className="text-xs font-mono text-[#524D4A] tracking-wider uppercase hidden sm:inline-block">
+              QUALITY CONTROL WORKFLOW
+            </span>
+          </div>
+
+          {/* Clean 3-Column Visual Step Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {FACTORY_STEPS.map((step) => (
+              <div
+                key={step.num}
+                className="kn-fact-card bg-white border border-[#1A1918]/15 p-6 flex flex-col justify-between space-y-6 shadow-sm hover:shadow-md hover:border-[#1A1918] transition-all"
+              >
+                {/* Step Header */}
+                <div className="space-y-2 pb-3 border-b border-[#1A1918]/10">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-mono font-bold tracking-widest text-[#C28E5C] uppercase">
+                      BƯỚC {step.num} / 06
+                    </span>
+                    <span className="text-[10px] font-mono text-[#8E857B] uppercase">
+                      {step.subtitle}
+                    </span>
+                  </div>
+
+                  <h3 className="text-base sm:text-lg font-bold text-[#1A1918] leading-snug">
+                    {step.title}
+                  </h3>
+                </div>
+
+                {/* Step Image Graphic */}
+                <div className="relative w-full aspect-[4/3] bg-[#F7F7F4] border border-[#1A1918]/08 overflow-hidden flex items-center justify-center p-4">
+                  <img
+                    src={step.img}
+                    alt={step.title}
+                    className="w-full h-full object-contain filter contrast-[1.03]"
+                  />
+                </div>
+
+                {/* Step Description */}
+                <p className="text-xs text-[#524D4A] font-sans leading-relaxed pt-1">
+                  {step.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </section>
+
+      {/* =========================================================================
+          5. CLOSING CTA SECTION
+         ========================================================================= */}
+      <section className="py-24 sm:py-32 px-6 md:px-14 bg-[#F7F7F4] text-center">
+        <div className="max-w-4xl mx-auto space-y-8">
+          <h2 className="text-3xl sm:text-5xl font-bold uppercase tracking-tight text-[#1A1918] leading-tight">
+            Tham quan nhà máy hoặc nhận báo giá dự án?
+          </h2>
+
+          <p className="text-base sm:text-lg text-[#524D4A] font-sans max-w-2xl mx-auto">
+            Nhà Máy Tôn Kim Ngân luôn sẵn sàng tiếp đón đại diện nhà thầu, chủ đầu tư thăm quan trực tiếp quy trình cán tôn tại nhà máy.
           </p>
-        </div>
-      </section>
 
-      {/* 2. Tổng quan năng lực (Light) */}
-      <section className="antra-section py-20 bg-[#F2F0EC] text-[#151413]">
-        <div className="container mx-auto px-4 md:px-8 max-w-6xl antra-stagger-grid">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-[#d8d4ce]">
-            {CAPABILITIES.map((cap, i) => (
-              <div key={i} className="antra-stagger-item bg-[#F2F0EC] p-8 md:p-10 flex flex-col group hover:bg-white transition-colors duration-300">
-                <div className="mb-6">
-                  <span className="text-[3.5rem] font-black leading-none text-[#151413] tracking-tighter tabular-nums">{cap.num}</span>
-                  <span className="block text-[10px] font-bold uppercase tracking-[0.2em] text-[#9C8A73] mt-1">{cap.unit}</span>
-                </div>
-                <div className="w-8 h-px bg-[#9C8A73] mb-4" />
-                <h3 className="text-[13px] font-bold uppercase tracking-wide mb-2 text-[#151413]">{cap.title}</h3>
-                <p className="text-[#666] text-[13px] font-light leading-relaxed">{cap.desc}</p>
-              </div>
-            ))}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+            <Link
+              href="/lien-he"
+              className="w-full sm:w-auto px-8 py-4 bg-[#1A1918] text-[#F7F7F4] font-mono text-xs font-bold uppercase tracking-widest hover:bg-[#C28E5C] transition-all shadow-md text-center"
+            >
+              Liên hệ tư vấn kỹ thuật
+            </Link>
+
+            <Link
+              href="/san-pham"
+              className="w-full sm:w-auto px-8 py-4 bg-transparent text-[#1A1918] border border-[#1A1918] font-mono text-xs font-bold uppercase tracking-widest hover:bg-[#1A1918] hover:text-white transition-all text-center"
+            >
+              Xem danh mục sản phẩm
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* 3. Quy trình sản xuất (Dark) */}
-      <section className="antra-section py-24 bg-[#080808]">
-        <div className="container mx-auto px-4 md:px-8 max-w-5xl">
-          <div className="text-center mb-20">
-            <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#9C8A73] mb-6">Quy trình gia công</p>
-            <h2 className="text-[1.8rem] md:text-[2.2rem] font-light leading-[1.2] uppercase tracking-tight text-white">
-              Từ cuộn mạ nguyên bản<br/>đến mái tôn hoàn thiện
-            </h2>
-          </div>
-
-          <div className="space-y-6 antra-stagger-grid">
-            {[
-              { step: "01", title: "Nhập & Kiểm tra phôi", desc: "Cuộn mạ được cân, đo độ dày, dán tem mã vạch." },
-              { step: "02", title: "Xả băng / Cán sóng", desc: "Máy tự động kéo cuộn mạ đi qua hệ thống lô cán tạo hình." },
-              { step: "03", title: "Cắt CNC chính xác", desc: "Cắt tôn theo đúng chiều dài bản vẽ, sai số dưới 1mm." },
-              { step: "04", title: "KCS & Đóng gói", desc: "Kiểm tra bề mặt không trầy xước, dán nilon bảo vệ." }
-            ].map((item, i) => (
-              <div key={i} className="antra-stagger-item grid grid-cols-[72px_minmax(0,1fr)] items-center gap-6 bg-[#111] p-6 sm:grid-cols-[88px_minmax(0,1fr)] sm:p-8 md:grid-cols-[104px_minmax(0,1fr)] md:gap-8 md:px-12 border border-white/5 hover:border-[#C2BAB0]/30 transition-colors">
-                <div className="w-full text-left text-5xl lg:text-6xl font-black text-[#C2BAB0]/30 leading-none tracking-normal tabular-nums select-none">{item.step}</div>
-                <div className="min-w-0">
-                  <h3 className="text-lg font-bold text-white mb-2 uppercase tracking-wide">{item.title}</h3>
-                  <p className="text-[#666] text-sm font-light leading-relaxed">{item.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 4. Thư viện hình ảnh (Light) */}
-      <section className="antra-section py-24 bg-[#F2F0EC] text-[#151413]">
-        <div className="container mx-auto px-4 md:px-8 max-w-7xl">
-          <div className="text-center mb-16">
-            <h2 className="text-[1.8rem] md:text-[2.2rem] font-light leading-[1.2] uppercase tracking-tight">Thư Viện Hình Ảnh</h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 antra-stagger-grid">
-            {GALLERY.map((img, i) => (
-              <div key={i} className="antra-stagger-item relative h-64 md:h-[400px] w-full bg-white p-3 shadow-sm group">
-                <div className="relative w-full h-full overflow-hidden">
-                  <Image src={img} alt="Gallery" fill className="object-cover group-hover:scale-105 transition-transform duration-1000" />
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
+      {/* FOOTER */}
       <SiteFooter />
     </div>
   );

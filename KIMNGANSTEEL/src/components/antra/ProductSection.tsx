@@ -70,96 +70,77 @@ const products: Product[] = [
 ];
 
 export function ProductSection() {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const [scrollLeft, setScrollLeft] = useState(0);
-
-  const handleMouseDown = (e: React.MouseEvent) => {
-    if (!scrollRef.current) return;
-    setIsDragging(true);
-    setStartX(e.pageX - scrollRef.current.offsetLeft);
-    setScrollLeft(scrollRef.current.scrollLeft);
-  };
-
-  const handleMouseLeave = () => {
-    setIsDragging(false);
-  };
-
-  const handleMouseUp = () => {
-    setIsDragging(false);
-  };
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging || !scrollRef.current) return;
-    e.preventDefault();
-    const x = e.pageX - scrollRef.current.offsetLeft;
-    const walk = (x - startX) * 1.5;
-    scrollRef.current.scrollLeft = scrollLeft - walk;
-  };
+  const [activeMaterial, setActiveMaterial] = useState<number>(0);
 
   return (
-    <section id="products" className="py-12 md:py-16 bg-[#F2F0EC] overflow-hidden flex flex-col justify-center min-h-[min(100vh,900px)]">
-      <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-24 w-full">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 md:mb-12 gap-6">
+    <section id="products" className="py-32 bg-[#ECE8DE] border-b border-[#1A1918]/10 text-[#1A1918]">
+      <div className="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-24">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-6">
           <div>
-            <p className="text-[10px] font-bold tracking-[0.15em] uppercase text-[#9CA3AF] mb-4">SẢN PHẨM</p>
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold uppercase tracking-tight leading-[1.2] text-[#2a2925]">
-              VẬT LIỆU XÂY DỰNG CHÍNH HÃNG
+            <span className="editorial-subhead text-[#6B655F] block mb-4">
+              EDITORIAL MATERIAL INDEX
+            </span>
+            <h2 className="text-3xl md:text-5xl lg:text-6xl font-light uppercase tracking-tight text-[#1A1918]">
+              VẬT LIỆU XÂY DỰNG CAO CẤP
             </h2>
           </div>
+          <a
+            href="/san-pham"
+            className="editorial-link text-xs uppercase tracking-[0.25em] text-[#1A1918] font-mono pb-1 self-start md:self-auto"
+          >
+            Tất Cả Quy Cách ↗
+          </a>
         </div>
-      </div>
 
-      <div className="w-full select-none">
-        <div 
-          ref={scrollRef}
-          onMouseDown={handleMouseDown}
-          onMouseLeave={handleMouseLeave}
-          onMouseUp={handleMouseUp}
-          onMouseMove={handleMouseMove}
-          className={`flex overflow-x-auto scroll-auto hide-scrollbar pb-16 items-start gap-4.5 w-full px-6 md:px-12 lg:px-24 ${
-            isDragging ? "cursor-grabbing" : "cursor-grab"
-          }`}
-        >
-          {products.map((product, index) => (
-            <article 
-              key={product.id} 
-              className={`flex-none w-[62vw] sm:w-[45vw] md:w-[35vw] lg:w-[20vw] relative aspect-[3/4] overflow-hidden group cursor-pointer bg-black ${
-                index % 2 !== 0 ? 'mt-4 lg:mt-6' : ''
-              }`}
-            >
-              <img 
-                src={product.image} 
-                alt={product.name}
-                draggable={false}
-                className="absolute inset-0 w-full h-full object-cover object-[center_top] scale-[1.05] transition-transform duration-1000 group-hover:scale-110 pointer-events-none"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500" />
-              
-              <div className="absolute bottom-0 left-0 w-full p-6 lg:p-8 flex flex-col justify-end h-full">
-                <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                  <h3 className="text-white text-lg lg:text-xl font-light uppercase tracking-wider leading-tight mb-4">
-                    {product.name}
-                  </h3>
-                  
-                  <div className="opacity-0 h-0 overflow-hidden group-hover:opacity-100 group-hover:h-auto transition-all duration-500 delay-100">
-                    <ul className="space-y-2 mb-4">
-                      {product.specs.map((spec, i) => (
-                        <li key={i} className="flex items-center text-[11px] text-white/70 tracking-wide uppercase">
-                          <span className="w-1 h-1 bg-[#9CA3AF] rounded-full mr-2" />
-                          {spec}
-                        </li>
-                      ))}
-                    </ul>
-                    <span className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-[#E5E7EB]">
-                      Chi tiết <ArrowRight size={12} />
-                    </span>
+        {/* Editorial Index List */}
+        <div className="flex flex-col border-t border-[#1A1918]/10">
+          {products.slice(0, 4).map((prod, index) => {
+            const isHovered = activeMaterial === index;
+            return (
+              <div
+                key={prod.id}
+                data-cursor="MATERIAL"
+                onMouseEnter={() => setActiveMaterial(index)}
+                className="group relative py-10 md:py-14 border-b border-[#1A1918]/10 flex flex-col lg:flex-row lg:items-center justify-between gap-6 cursor-pointer transition-colors duration-500 hover:bg-black/[0.03] px-2 md:px-6"
+              >
+                <div className="flex items-baseline gap-6 md:gap-12">
+                  <span className="text-xs font-mono text-[#6B655F]">0{index + 1}</span>
+                  <div>
+                    <h3 className="text-2xl md:text-4xl lg:text-5xl font-light uppercase tracking-tight text-[#1A1918] group-hover:text-[#8E857B] transition-colors">
+                      {prod.name}
+                    </h3>
+                    <p className="text-xs md:text-sm text-[#524D4A] font-light mt-2 max-w-xl">
+                      {prod.description}
+                    </p>
                   </div>
                 </div>
+
+                <div className="flex items-center gap-8 self-end lg:self-auto">
+                  <div className="hidden sm:flex flex-col items-end text-xs font-mono text-[#6B655F]">
+                    {prod.specs.slice(0, 2).map((spec, i) => (
+                      <span key={i}>{spec}</span>
+                    ))}
+                  </div>
+                  <span className="text-lg text-[#1A1918] opacity-0 group-hover:opacity-100 group-hover:translate-x-2 transition-all duration-300">
+                    ↗
+                  </span>
+                </div>
+
+                {/* Quiet Floating Material Preview Photo */}
+                <div 
+                  className={`hidden lg:block absolute right-48 top-1/2 -translate-y-1/2 w-64 h-40 pointer-events-none overflow-hidden border border-[#1A1918]/15 bg-white shadow-xl transition-all duration-700 ${
+                    isHovered ? "opacity-100 scale-100" : "opacity-0 scale-95"
+                  }`}
+                >
+                  <img
+                    src={prod.image}
+                    alt={prod.name}
+                    className="w-full h-full object-cover opacity-95"
+                  />
+                </div>
               </div>
-            </article>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
