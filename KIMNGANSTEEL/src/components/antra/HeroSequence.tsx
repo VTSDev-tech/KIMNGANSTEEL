@@ -25,18 +25,21 @@ const frameCameraFixes: Array<{ scale: number; x: number; y: number }> = [
   { scale: 1, x: 0, y: 0 },
 ];
 
-function drawCoverImage(
+function drawFrameImage(
   context: CanvasRenderingContext2D,
   image: HTMLImageElement,
   canvasWidth: number,
   canvasHeight: number,
   alpha: number,
-  camera = { scale: 1, x: 0, y: 0 }
+  camera = { scale: 1, x: 0, y: 0 },
+  fit: "cover" | "contain" = "cover"
 ) {
   const imageRatio = image.naturalWidth / image.naturalHeight;
   const canvasRatio = canvasWidth / canvasHeight;
-  const baseWidth = imageRatio > canvasRatio ? canvasHeight * imageRatio : canvasWidth;
-  const baseHeight = imageRatio > canvasRatio ? canvasHeight : canvasWidth / imageRatio;
+  const useHeight =
+    fit === "cover" ? imageRatio > canvasRatio : imageRatio < canvasRatio;
+  const baseWidth = useHeight ? canvasHeight * imageRatio : canvasWidth;
+  const baseHeight = useHeight ? canvasHeight : canvasWidth / imageRatio;
   const drawWidth = baseWidth * camera.scale;
   const drawHeight = baseHeight * camera.scale;
   const x = (canvasWidth - drawWidth) / 2 + canvasWidth * camera.x;
@@ -111,6 +114,10 @@ export function HeroSequence({ className = "" }: HeroSequenceProps) {
     const context = canvas.getContext("2d", { alpha: false });
     if (!context || images.length === 0) return;
 
+    const isTouchViewport =
+      window.matchMedia("(max-width: 767px), (pointer: coarse)").matches ||
+      "ontouchstart" in window;
+
     // Initialize SVG Path Dash Arrays
     [p1, p2, p3, p4].forEach((p) => {
       if (p) {
@@ -145,17 +152,21 @@ export function HeroSequence({ className = "" }: HeroSequenceProps) {
       const nextImage = images[nextIndex];
       const currentCamera = frameCameraFixes[currentIndex] ?? frameCameraFixes[0];
       const nextCamera = frameCameraFixes[nextIndex] ?? currentCamera;
+      const fit = window.matchMedia("(max-width: 767px)").matches
+        ? "contain"
+        : "cover";
 
-      drawCoverImage(context, currentImage, width, height, 1, currentCamera);
+      drawFrameImage(context, currentImage, width, height, 1, currentCamera, fit);
 
       if (nextImage !== currentImage) {
-        drawCoverImage(context, nextImage, width, height, blend, nextCamera);
+        drawFrameImage(context, nextImage, width, height, blend, nextCamera, fit);
       }
     };
 
     const tick = () => {
       const playback = playbackRef.current;
-      playback.current += (playback.target - playback.current) * 0.16;
+      playback.current +=
+        (playback.target - playback.current) * (isTouchViewport ? 0.22 : 0.16);
       if (Math.abs(playback.target - playback.current) < 0.0005) {
         playback.current = playback.target;
       }
@@ -205,7 +216,7 @@ export function HeroSequence({ className = "" }: HeroSequenceProps) {
       }
 
       // Cinematic Majestic Camera Zoom (1.0 -> 1.12)
-      const currentScale = 1 + (prog * 0.12);
+      const currentScale = 1 + prog * (isTouchViewport ? 0.04 : 0.12);
       gsap.set([canvas, svgLayer], { scale: currentScale, transformOrigin: "center center" });
 
       // Fade out Blueprint SVG Layer at the end
@@ -241,7 +252,7 @@ export function HeroSequence({ className = "" }: HeroSequenceProps) {
         trigger: section,
         start: "top top",
         end: "bottom bottom",
-        scrub: 2, // High momentum for cinematic heavy feel
+        scrub: isTouchViewport ? 1.15 : 2,
         animation: timeline,
         invalidateOnRefresh: true,
         anticipatePin: 1,
@@ -277,13 +288,13 @@ export function HeroSequence({ className = "" }: HeroSequenceProps) {
       ref={containerRef}
       className={`relative h-full min-h-svh w-full overflow-hidden bg-[#f7f7f5] ${className}`}
     >
-      <canvas ref={canvasRef} className="h-full w-full object-cover" aria-hidden="true" />
+      <canvas ref={canvasRef} className="h-full w-full" aria-hidden="true" />
       {!isReady ? (
         <img
           src={heroSequenceFrames[0]}
           alt=""
           aria-hidden="true"
-          className="absolute inset-0 h-full w-full object-cover pointer-events-none select-none"
+          className="absolute inset-0 h-full w-full object-contain md:object-cover pointer-events-none select-none"
         />
       ) : null}
 

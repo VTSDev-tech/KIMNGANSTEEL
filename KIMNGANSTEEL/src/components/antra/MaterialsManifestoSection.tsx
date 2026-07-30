@@ -26,6 +26,16 @@ export function MaterialsManifestoSection() {
         return;
       }
 
+      gsap.set(sheet, {
+        transformOrigin: "50% 50%",
+        force3D: true,
+        rotation: 0,
+        skewX: 0,
+        skewY: 0,
+        scaleX: 1,
+        scaleY: 1,
+      });
+
       const timeline = gsap.timeline({
         scrollTrigger: {
           trigger: section,
@@ -59,10 +69,34 @@ export function MaterialsManifestoSection() {
         .fromTo(
           sheet,
           { xPercent: 30, yPercent: 10, rotate: -6, opacity: 0 },
-          { xPercent: 0, yPercent: 0, rotate: 0, opacity: 1, duration: 0.5 },
+          {
+            xPercent: 0,
+            yPercent: 0,
+            rotate: 0,
+            skewX: 0,
+            skewY: 0,
+            scaleX: 1,
+            scaleY: 1,
+            opacity: 1,
+            duration: 0.5,
+          },
           0.1
         )
-        .to(sheet, { rotate: 8, yPercent: -5, ease: "none" }, 0.5);
+        .to(
+          sheet,
+          {
+            xPercent: 0,
+            yPercent: 0,
+            rotate: 0,
+            skewX: 0,
+            skewY: 0,
+            scaleX: 1,
+            scaleY: 1,
+            ease: "none",
+            duration: 0.55,
+          },
+          0.5
+        );
 
     }, section);
 

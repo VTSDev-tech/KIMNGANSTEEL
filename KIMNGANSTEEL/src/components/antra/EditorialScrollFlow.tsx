@@ -173,6 +173,97 @@ export function EditorialScrollFlow() {
           }
         }
       });
+
+      // Touch layouts keep the same editorial rhythm without desktop-sized
+      // transforms that can crop or overwhelm a narrow viewport.
+      mm.add("(max-width: 767px)", () => {
+        const explorer = document.getElementById("material-explorer");
+        const application = document.getElementById("building-applications");
+        const projects = document.getElementById("projects");
+
+        if (explorer && application) {
+          const explorerParts = explorer.querySelectorAll(
+            ".kn-explorer-carousel, .kn-explorer-panel, .kn-explorer-visual"
+          );
+          const appParts = application.querySelectorAll(
+            ".kn-app-header, .kn-app-museum-model, .kn-app-hotspot-item, .kn-app-info-panel"
+          );
+
+          gsap.fromTo(
+            explorerParts,
+            { opacity: 1, y: 0 },
+            {
+              opacity: 0.72,
+              y: -12,
+              ease: "none",
+              scrollTrigger: {
+                trigger: explorer,
+                start: "bottom 92%",
+                end: "bottom 45%",
+                scrub: 0.45,
+                invalidateOnRefresh: true,
+              },
+            }
+          );
+
+          gsap.fromTo(
+            appParts,
+            { opacity: 0, y: 18 },
+            {
+              opacity: 1,
+              y: 0,
+              stagger: 0.06,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: application,
+                start: "top 88%",
+                end: "top 58%",
+                scrub: 0.45,
+                invalidateOnRefresh: true,
+              },
+            }
+          );
+        }
+
+        if (application && projects) {
+          const appParts = application.querySelectorAll(
+            ".kn-app-header, .kn-app-museum-model, .kn-app-hotspot-item, .kn-app-info-panel"
+          );
+          const firstProjectImg = projects.querySelector("img");
+
+          gsap.to(appParts, {
+            opacity: 0.45,
+            y: -10,
+            ease: "none",
+            scrollTrigger: {
+              trigger: application,
+              start: "bottom 88%",
+              end: "bottom 42%",
+              scrub: 0.45,
+              invalidateOnRefresh: true,
+            },
+          });
+
+          if (firstProjectImg) {
+            gsap.fromTo(
+              firstProjectImg,
+              { opacity: 0.55, y: 18 },
+              {
+                opacity: 1,
+                y: 0,
+                ease: "power2.out",
+                scrollTrigger: {
+                  trigger: projects,
+                  start: "top 88%",
+                  end: "top 62%",
+                  scrub: 0.45,
+                  invalidateOnRefresh: true,
+                },
+              }
+            );
+          }
+        }
+      });
     });
 
     const handleRefresh = () => ScrollTrigger.refresh();

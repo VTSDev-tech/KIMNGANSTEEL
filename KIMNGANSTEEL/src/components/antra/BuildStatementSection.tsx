@@ -106,7 +106,7 @@ export function BuildStatementSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="build-statement-section relative z-20 w-full h-[280vh] md:h-[420vh] bg-[#F7F7F4] text-[#1A1918] select-none" aria-label="Giá trị cốt lõi của Kim Ngân Steel">
+    <section ref={sectionRef} className="build-statement-section relative z-20 w-full h-[220vh] sm:h-[280vh] md:h-[420vh] bg-[#F7F7F4] text-[#1A1918] select-none" aria-label="Giá trị cốt lõi của Kim Ngân Steel">
       <div className="build-stage sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-[#F7F7F4]">
         
         <p className="build-kicker absolute top-12 left-8 md:left-16 text-xs font-mono font-bold tracking-[0.25em] text-[#C28E5C] uppercase z-30">

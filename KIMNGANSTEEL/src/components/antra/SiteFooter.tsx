@@ -25,7 +25,6 @@ export function SiteFooter() {
               <li><a href="/gioi-thieu" className="editorial-link text-[#1A1918]">Giới thiệu</a></li>
               <li><a href="/san-pham" className="editorial-link text-[#1A1918]">Sản phẩm</a></li>
               <li><a href="/nang-luc-nha-may" className="editorial-link text-[#1A1918]">Năng lực nhà máy</a></li>
-              <li><a href="/kinh-nghiem" className="editorial-link text-[#1A1918]">Kinh nghiệm</a></li>
               <li><a href="/lien-he" className="editorial-link text-[#1A1918]">Liên hệ báo giá</a></li>
             </ul>
           </div>

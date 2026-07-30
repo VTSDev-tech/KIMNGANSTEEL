@@ -1,12 +1,13 @@
 "use client";
 
-import { Menu, Phone, Search, X } from "lucide-react";
+import { Languages, Menu, Phone, Search, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { NavItem } from "@/types/antra";
 import { useState, useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useLanguage } from "./LanguageProvider";
 
 type HeaderProps = {
   navItems: NavItem[];
@@ -35,6 +36,7 @@ const SEARCHABLE_ITEMS = [
 
 export function Header({ navItems }: HeaderProps) {
   const pathname = usePathname();
+  const { language, setLanguage } = useLanguage();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -43,10 +45,12 @@ export function Header({ navItems }: HeaderProps) {
   const searchInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    setIsHidden(false); // Reset visibility when navigating to a new page
-    setIsMenuOpen(false); // Close mobile menu drawer when navigation completes
-    setIsSearchOpen(false); // Close search overlay when navigation completes
+    setIsHidden(false);
+    setIsMenuOpen(false);
+    setIsSearchOpen(false);
+  }, [pathname]);
 
+  useEffect(() => {
     let lastScrollY = window.scrollY;
     let ticking = false;
 
@@ -74,11 +78,12 @@ export function Header({ navItems }: HeaderProps) {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [pathname, isMenuOpen, isSearchOpen]);
+  }, [isMenuOpen, isSearchOpen]);
 
   // Lock body scroll and set global classes when mobile menu or search is open
   useEffect(() => {
     const unlockPageScroll = () => {
+      delete document.body.dataset.scrollLock;
       document.documentElement.style.overflow = "";
       document.body.style.overflow = "";
       document.body.style.paddingRight = "";
@@ -87,6 +92,7 @@ export function Header({ navItems }: HeaderProps) {
     if (isMenuOpen || isSearchOpen) {
       document.body.classList.toggle("menu-open", isMenuOpen);
       document.body.classList.toggle("search-open", isSearchOpen);
+      document.body.dataset.scrollLock = "true";
       document.documentElement.style.overflow = "hidden";
       document.body.style.overflow = "hidden";
     } else {
@@ -143,12 +149,12 @@ export function Header({ navItems }: HeaderProps) {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 z-[100] w-full transition-all duration-500 ease-out flex items-center justify-between px-6 md:px-14 py-4 md:py-5 border-b select-none ${
+        className={`fixed top-0 left-0 z-[300] w-full pointer-events-auto transition-all duration-500 ease-out flex items-center justify-between px-6 md:px-14 border-b select-none bg-white/95 backdrop-blur-xl border-[#1A1918]/10 shadow-sm ${
           isHidden ? "-translate-y-full opacity-0" : "translate-y-0 opacity-100"
         } ${
           isScrolled
-            ? "bg-[#F7F7F4]/95 backdrop-blur-xl border-[#1A1918]/15 shadow-sm py-3 md:py-3.5"
-            : "bg-[#ECE8DE]/85 backdrop-blur-md border-[#1A1918]/10"
+            ? "py-3 md:py-3.5 shadow-md"
+            : "py-4 md:py-5"
         }`}
       >
         {/* Brand Logo & Name */}
@@ -199,6 +205,22 @@ export function Header({ navItems }: HeaderProps) {
             <span className="tracking-wide">0707 079 900</span>
           </a>
 
+          <label className="hidden lg:flex items-center gap-2 text-[#524D4A]">
+            <Languages size={15} className="text-[#C28E5C]" />
+            <span className="sr-only">Language</span>
+            <select
+              value={language}
+              onChange={(event) =>
+                setLanguage(event.target.value as "vi" | "en")
+              }
+              className="cursor-pointer bg-transparent font-mono text-[11px] font-bold uppercase tracking-widest outline-none"
+              aria-label="Select language"
+            >
+              <option value="vi">VI</option>
+              <option value="en">EN</option>
+            </select>
+          </label>
+
           {/* CTA Quote Button */}
           <a
             href="#contact"
@@ -207,23 +229,14 @@ export function Header({ navItems }: HeaderProps) {
             Báo Giá
           </a>
 
-          {/* Search Trigger */}
-          <button 
-            className="w-9 h-9 md:w-10 md:h-10 rounded-full border border-[#1A1918]/20 flex items-center justify-center text-[#1A1918] hover:bg-[#1A1918] hover:text-white transition-all cursor-pointer"
-            onClick={() => {
-              setSearchQuery("");
-              setIsSearchOpen(true);
-            }} 
-            aria-label="Tìm kiếm"
-          >
-            <Search size={15} />
-          </button>
-
           {/* Mobile Menu Trigger */}
-          <button 
-            className="lg:hidden w-9 h-9 flex items-center justify-center text-[#1A1918] hover:text-[#C28E5C] transition-colors cursor-pointer"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          <button
+            type="button"
+            className="relative z-[310] lg:hidden flex h-11 w-11 min-h-11 min-w-11 shrink-0 touch-manipulation items-center justify-center text-[#1A1918] transition-colors hover:text-[#C28E5C] cursor-pointer pointer-events-auto"
+            onClick={() => setIsMenuOpen((open) => !open)}
             aria-label="Toggle menu"
+            aria-expanded={isMenuOpen}
+            aria-controls="mobile-navigation"
           >
             <Menu size={22} />
           </button>
@@ -234,11 +247,15 @@ export function Header({ navItems }: HeaderProps) {
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
+            id="mobile-navigation"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Mobile navigation"
             initial={{ opacity: 0, y: "-100%" }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: "-100%" }}
             transition={{ duration: 0.6, ease: [0.24, 1, 0.36, 1] }}
-            className="fixed inset-0 z-[100] flex flex-col justify-between bg-[#080808]/98 backdrop-blur-2xl px-6 md:px-16 py-8 md:py-12 text-white"
+            className="fixed inset-0 z-[400] flex flex-col justify-between overflow-y-auto overscroll-contain bg-[#080808]/98 backdrop-blur-2xl px-6 md:px-16 py-8 md:py-12 text-white pointer-events-auto"
           >
             {/* Overlay Header */}
             <div className="flex items-center justify-between max-w-[1440px] mx-auto w-full border-b border-white/10 pb-6">
@@ -256,11 +273,35 @@ export function Header({ navItems }: HeaderProps) {
               </Link>
 
               <button
-                className="w-12 h-12 rounded-full border border-white/15 bg-white/5 hover:bg-white/20 flex items-center justify-center text-white transition-all cursor-pointer"
+                type="button"
+                className="relative z-[410] w-12 h-12 shrink-0 touch-manipulation rounded-full border border-white/15 bg-white/5 hover:bg-white/20 flex items-center justify-center text-white transition-all cursor-pointer pointer-events-auto"
                 onClick={() => setIsMenuOpen(false)}
                 aria-label="Close menu"
               >
                 <X size={24} />
+              </button>
+            </div>
+
+            <div className="flex items-center justify-end gap-3 border-b border-white/10 py-4 lg:hidden">
+              <Languages size={16} className="text-[#C2BAB0]" />
+              <button
+                type="button"
+                onClick={() => setLanguage("vi")}
+                className={`min-h-10 px-3 font-mono text-xs font-bold tracking-widest ${
+                  language === "vi" ? "text-white" : "text-white/40"
+                }`}
+              >
+                VI
+              </button>
+              <span className="text-white/20">/</span>
+              <button
+                type="button"
+                onClick={() => setLanguage("en")}
+                className={`min-h-10 px-3 font-mono text-xs font-bold tracking-widest ${
+                  language === "en" ? "text-white" : "text-white/40"
+                }`}
+              >
+                EN
               </button>
             </div>
 

@@ -3,7 +3,6 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef, useState } from "react";
-import { SiteFooter } from "./SiteFooter";
 import { ContactFormSection } from "./ContactFormSection";
 
 import { HeroSection } from "./HeroSection";
@@ -23,6 +22,7 @@ import type { ProcessStep, ProjectCard, ServiceCard } from "@/types/antra";
 gsap.registerPlugin(ScrollTrigger);
 
 const unlockPageScroll = () => {
+  delete document.body.dataset.scrollLock;
   document.documentElement.style.overflow = "";
   document.body.style.overflow = "";
   document.body.style.paddingRight = "";
@@ -149,7 +149,6 @@ export function AntraClone() {
         <FactoryStorySection />
         <PartnersSection />
         <ContactFormSection />
-        <SiteFooter />
       </main>
       </div>
     </>

@@ -19,6 +19,10 @@ export function PrecisionStackSection() {
     const section = sectionRef.current;
     if (!section) return;
 
+    const isTouchViewport =
+      window.matchMedia("(max-width: 767px), (pointer: coarse)").matches ||
+      "ontouchstart" in window;
+
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     const ctx = gsap.context(() => {
@@ -37,8 +41,8 @@ export function PrecisionStackSection() {
         scrollTrigger: {
           trigger: section,
           start: "top top",
-          end: "+=320%",
-          scrub: 1.2,
+          end: isTouchViewport ? "+=260%" : "+=320%",
+          scrub: isTouchViewport ? 1.35 : 1.2,
           pin: true,
           pinSpacing: true,
           invalidateOnRefresh: true,
@@ -76,7 +80,7 @@ export function PrecisionStackSection() {
         <div className="precision-statements absolute inset-0 flex items-center justify-center pointer-events-none">
           {statements.map((statement) => (
             <div className="precision-statement absolute inset-0 flex items-center justify-center pointer-events-none" key={statement}>
-              <span className="!max-w-full px-4 md:px-8 text-center uppercase tracking-wider font-bold whitespace-normal sm:whitespace-nowrap !text-[clamp(1.25rem,4.2vw,4.2rem)] text-[#1A1918]">
+              <span className="!max-w-full px-4 md:px-8 text-center uppercase tracking-wider font-bold whitespace-normal sm:whitespace-nowrap !text-[clamp(1.15rem,4.2vw,4.2rem)] text-[#1A1918]">
                 {statement}
               </span>
             </div>

@@ -72,8 +72,8 @@ export function FactoryStorySection() {
     const ctx = gsap.context(() => {
       const mm = gsap.matchMedia();
 
-      // DESKTOP / TABLET GSAP HIGH-DEFINITION WOW MOTION (min-width: 768px)
-      mm.add("(min-width: 768px)", () => {
+      // Shared cinematic timeline across desktop, tablet, and mobile.
+      mm.add("(min-width: 320px)", () => {
         if (prefersReducedMotion) return;
 
         const container = containerRef.current;
@@ -85,9 +85,9 @@ export function FactoryStorySection() {
           scrollTrigger: {
             trigger: container,
             start: "top top",
-            end: "+=800%", // Extended generous scroll length for slow calm holds
+            end: () => `+=${window.innerHeight * (window.innerWidth < 768 ? 5.5 : 8)}`,
             pin: true,
-            scrub: 1.2, // Extra smooth scrub feel
+            scrub: window.innerWidth < 768 ? 0.75 : 1.2,
             anticipatePin: 1,
             onUpdate: (self) => {
               const p = self.progress;
@@ -308,12 +308,12 @@ export function FactoryStorySection() {
       {/* =========================================================================
           DESKTOP / TABLET: ONE SINGLE STICKY FRAME PINNED VIA GSAP
          ========================================================================= */}
-      <div className="hidden md:block relative w-full">
+      <div className="block relative w-full">
         
         {/* ONE Sticky Viewport Frame (Pin-spacer target) */}
         <div
           id="factory-sticky-frame"
-          className="relative h-screen w-full overflow-hidden bg-[#1A1918]"
+          className="relative h-svh w-full overflow-hidden bg-[#1A1918]"
         >
           
           {/* Layered Images (Positioned at exact same 100vw x 100vh frame) */}
@@ -400,7 +400,7 @@ export function FactoryStorySection() {
       {/* =========================================================================
           MOBILE VIEWPORT (max-width: 767px): CLEAN VERTICAL DOCUMENT FLOW
          ========================================================================= */}
-      <div className="block md:hidden py-16 px-6 space-y-16">
+      <div className="hidden py-16 px-6 space-y-16">
         
         {/* Mobile Intro Header */}
         <div className="space-y-3 pb-8 border-b border-white/10 text-center">

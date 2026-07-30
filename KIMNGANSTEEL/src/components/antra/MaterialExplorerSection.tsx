@@ -552,7 +552,7 @@ const MATERIALS_DATA: MaterialItem[] = [
 ];
 
 export function MaterialExplorerSection() {
-  const [selectedId, setSelectedId] = useState<string>("ton-can-song");
+  const [selectedId, setSelectedId] = useState<string>("gi-coil");
   const [activeTab, setActiveTab] = useState<"specs" | "apps" | "stds">("specs");
   const carouselRef = useRef<HTMLDivElement>(null);
 
@@ -566,7 +566,7 @@ export function MaterialExplorerSection() {
   };
 
   return (
-    <section id="material-explorer" className="relative py-20 md:py-32 bg-[#ECE8DE] border-b border-[#1A1918]/10 text-[#1A1918] select-none overflow-hidden">
+    <section id="material-explorer" className="relative py-10 md:py-32 bg-[#ECE8DE] border-b border-[#1A1918]/10 text-[#1A1918] select-none overflow-hidden">
       {/* Top Expanding Gold Accent Line Transition */}
       <motion.div 
         initial={{ scaleX: 0 }}
@@ -576,10 +576,10 @@ export function MaterialExplorerSection() {
         className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#C28E5C] to-transparent origin-center z-30"
       />
 
-      <div className="max-w-[1600px] mx-auto px-6 md:px-12 lg:px-16">
+      <div className="max-w-[1600px] mx-auto px-4 md:px-12 lg:px-16">
         
         {/* Main 1:1 Reference Stage Grid: Fixed Height Stage & Spec Panel matching Reference 1:1 */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch mb-12 min-h-[520px]">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-8 items-stretch mb-8 md:mb-12 lg:min-h-[470px]">
           
           {/* Left Column: Section Header, Intro & Drag Hint Button (3 Cols) matching Reference */}
           <motion.div 
@@ -587,23 +587,23 @@ export function MaterialExplorerSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, amount: 0.15 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-3 flex flex-col justify-between pt-4 lg:pt-8 z-20"
+            className="lg:col-span-3 flex flex-col justify-between pt-2 lg:pt-8 z-20"
           >
             <div>
-              <span className="text-xs uppercase tracking-[0.2em] text-[#A38C75] font-sans font-semibold block mb-3">
+              <span className="text-[10px] sm:text-xs uppercase tracking-[0.2em] text-[#A38C75] font-sans font-semibold block mb-2 sm:mb-3">
                 MATERIAL EXPLORER
               </span>
 
-              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold uppercase tracking-tight text-[#1A1918] leading-[1.05] mb-6">
+              <h2 className="text-3xl sm:text-5xl lg:text-6xl font-bold uppercase tracking-tight text-[#1A1918] leading-[1.05] mb-3 sm:mb-6">
                 KHÁM PHÁ<br />VẬT LIỆU
               </h2>
 
-              <p className="text-xs sm:text-sm text-[#524D4A] font-sans max-w-[280px] leading-relaxed mb-8">
+              <p className="text-[11px] sm:text-sm text-[#524D4A] font-sans max-w-[280px] leading-relaxed mb-4 sm:mb-8">
                 Tương tác để tìm hiểu cấu tạo, thông số và ứng dụng của từng loại vật liệu.
               </p>
             </div>
 
-            <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-[#C2A180]/60 bg-white/40 backdrop-blur-sm text-xs font-sans text-[#7A6652] font-medium self-start shadow-sm mb-4">
+            <div className="hidden sm:inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-[#C2A180]/60 bg-white/40 backdrop-blur-sm text-xs font-sans text-[#7A6652] font-medium self-start shadow-sm mb-4">
               <span className="w-2.5 h-2.5 rounded-full bg-[#C28E5C]" />
               <span>KÉO ĐỂ XOAY</span>
             </div>
@@ -615,11 +615,11 @@ export function MaterialExplorerSection() {
             whileInView={{ opacity: 1, scale: 1.0, y: 0 }}
             viewport={{ once: false, amount: 0.15 }}
             transition={{ duration: 0.9, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-6 relative flex items-center justify-center h-[520px] p-2 overflow-visible group"
+            className="lg:col-span-6 relative flex items-center justify-center h-[260px] sm:h-[390px] lg:h-[470px] p-0 sm:p-2 overflow-visible group"
           >
             
             {/* Center Studio Image Render Box with Expanded 680px Hotspot Canvas */}
-            <div className="relative w-full max-w-[680px] h-[460px] flex items-center justify-center z-10">
+            <div className="relative w-full max-w-[360px] sm:max-w-[560px] lg:max-w-[680px] h-[250px] sm:h-[380px] lg:h-[460px] flex items-center justify-center z-10">
               <AnimatePresence>
                 <motion.div
                   key={activeMaterial.id}
@@ -633,7 +633,7 @@ export function MaterialExplorerSection() {
                   <img
                     src={activeMaterial.displayAsset}
                     alt={activeMaterial.name}
-                    className="w-[360px] h-[320px] object-contain mix-blend-multiply filter contrast-[1.04] brightness-[1.01]"
+                    className="w-[255px] h-[225px] sm:w-[330px] sm:h-[295px] lg:w-[360px] lg:h-[320px] object-contain mix-blend-multiply filter contrast-[1.04] brightness-[1.01]"
                   />
 
                   {/* Hotspots Nested Inside 680px Canvas - Pointer Lines Extend OUTSIDE Metal Graphic */}
@@ -651,8 +651,8 @@ export function MaterialExplorerSection() {
                           className="absolute z-20 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
                         >
                           <div className="relative flex items-center justify-center">
-                            <span className="w-5 h-5 rounded-full border border-[#C28E5C] bg-[#C28E5C]/20 flex items-center justify-center shadow-sm">
-                              <span className="w-2.5 h-2.5 rounded-full bg-[#C28E5C]" />
+                            <span className="w-4 h-4 sm:w-5 sm:h-5 rounded-full border border-[#C28E5C] bg-[#C28E5C]/20 flex items-center justify-center shadow-sm">
+                              <span className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-[#C28E5C]" />
                             </span>
                           </div>
                         </div>
@@ -753,7 +753,7 @@ export function MaterialExplorerSection() {
                                 top: topPos,
                                 left: "calc(" + leftPos + " + " + hLine + " + 6px)",
                               }}
-                              className="absolute z-20 -translate-y-1/2 text-left pointer-events-none max-w-[145px]"
+                              className="absolute z-20 -translate-y-1/2 text-left pointer-events-none max-w-[145px] hidden md:block"
                             >
                               <span className="font-bold block text-[#1A1918] text-xs font-sans uppercase tracking-wide mb-0.5 whitespace-nowrap">
                                 {spot.label}
@@ -780,29 +780,29 @@ export function MaterialExplorerSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: false, amount: 0.15 }}
             transition={{ duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-3 flex flex-col justify-between bg-white rounded-xl border border-[#1A1918]/10 p-6 md:p-7 shadow-[0_12px_36px_rgba(0,0,0,0.05)] z-20 h-[520px]"
+            className="lg:col-span-3 mx-auto flex h-auto min-h-0 w-full max-w-[300px] flex-col overflow-hidden rounded-xl border border-[#1A1918]/10 bg-white p-3 shadow-[0_12px_36px_rgba(0,0,0,0.05)] z-20 sm:h-[430px] sm:w-full sm:max-w-none sm:p-5 md:h-[470px] md:p-7"
           >
             
-            <div className="flex-1 flex flex-col justify-between">
-              <div>
+            <div className="flex-1 flex flex-col min-h-0">
+              <div className="shrink-0">
                 {/* Header: Pure Text Kicker + Type */}
-                <div className="flex items-center justify-between pb-2 mb-1">
-                  <span className="text-[11px] font-sans font-semibold uppercase tracking-[0.25em] text-[#8E857B]">
+                <div className="flex items-center justify-between pb-1.5 mb-0.5">
+                  <span className="text-[8px] sm:text-[11px] font-sans font-semibold uppercase tracking-[0.22em] sm:tracking-[0.25em] text-[#8E857B]">
                     ĐANG XEM
                   </span>
-                  <span className="text-xs font-sans text-[#8E857B]">{activeMaterial.type}</span>
+                  <span className="max-w-[120px] text-right text-[9px] sm:max-w-none sm:text-xs font-sans text-[#8E857B]">{activeMaterial.type}</span>
                 </div>
 
                 {/* Main Title & Amber Subtitle */}
-                <h3 className="text-3xl font-bold uppercase tracking-tight text-[#1A1918] mb-1">
+                <h3 className="text-lg sm:text-3xl font-bold uppercase tracking-tight text-[#1A1918] mb-0.5 sm:mb-1">
                   {activeMaterial.name}
                 </h3>
-                <p className="text-xs font-sans font-semibold text-[#C28E5C] uppercase tracking-widest mb-5">
+                <p className="text-[8px] sm:text-xs font-sans font-semibold text-[#C28E5C] uppercase tracking-widest mb-2 sm:mb-5">
                   {activeMaterial.subName}
                 </p>
 
                 {/* Sub Tabs: THÔNG SỐ | ỨNG DỤNG | TIÊU CHUẨN */}
-                <div className="flex items-center gap-6 border-b border-[#1A1918]/10 pb-3 mb-4 text-xs font-sans font-semibold">
+                <div className="flex items-center justify-between gap-1.5 sm:gap-6 border-b border-[#1A1918]/10 pb-1.5 sm:pb-3 mb-1.5 sm:mb-4 text-[8px] sm:text-xs font-sans font-semibold">
                   <button
                     onClick={() => setActiveTab("specs")}
                     className={"pb-1 uppercase tracking-wider transition-colors relative " + (activeTab === "specs" ? "text-[#1A1918] font-bold" : "text-[#6B655F] hover:text-[#1A1918]")}
@@ -829,8 +829,8 @@ export function MaterialExplorerSection() {
                 </div>
               </div>
 
-              {/* Fixed Height Tab Content Container (min-h-[250px]) */}
-              <div className="min-h-[250px] flex flex-col justify-start">
+              {/* Fixed Height Tab Content — 220px, scrollable if needed */}
+              <div className="max-h-[150px] sm:h-[190px] md:h-[220px] overflow-y-auto flex flex-col justify-start pr-1">
                 <AnimatePresence mode="wait">
                   {activeTab === "specs" && (
                     <motion.div
@@ -839,12 +839,12 @@ export function MaterialExplorerSection() {
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.2 }}
-                      className="space-y-0.5 font-sans text-xs"
+                      className="space-y-0 font-sans text-[9px] sm:text-xs"
                     >
                       {activeMaterial.specs.map((s) => (
-                        <div key={s.label} className="flex items-center justify-between py-1.5 border-b border-[#1A1918]/06">
-                          <div className="flex items-center gap-2">
-                            <span className="w-1.5 h-1.5 rounded-full bg-[#C28E5C] inline-block shrink-0" />
+                        <div key={s.label} className="flex items-center justify-between gap-2 py-0.5 sm:py-1.5 border-b border-[#1A1918]/06">
+                          <div className="flex items-center gap-1.5 sm:gap-2">
+                            <span className="w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-[#C28E5C] inline-block shrink-0" />
                             <span className="text-[#6B655F] font-medium">{s.label}</span>
                           </div>
                           <span className="font-bold text-[#1A1918] text-right">{s.value}</span>
@@ -892,11 +892,11 @@ export function MaterialExplorerSection() {
               </div>
             </div>
 
-            {/* CTA Button: Nhận Báo Giá Sản Phẩm */}
-            <div className="pt-3 mt-2 border-t border-[#1A1918]/10 shrink-0">
+            {/* CTA Button — pinned to bottom */}
+            <div className="pt-2 sm:pt-3 mt-auto border-t border-[#1A1918]/10 shrink-0">
               <a
                 href="#contact"
-                className="w-full flex items-center justify-center gap-2 py-3.5 px-5 rounded-xl bg-[#1A1918] hover:bg-[#C28E5C] text-[#F7F7F4] hover:text-[#1A1918] font-sans text-xs font-bold uppercase tracking-widest transition-all duration-300 shadow-sm"
+                className="w-full flex items-center justify-center gap-2 py-2 px-3 sm:py-3.5 sm:px-5 rounded-xl bg-[#1A1918] hover:bg-[#C28E5C] text-[#F7F7F4] hover:text-[#1A1918] font-sans text-[8px] sm:text-xs font-bold uppercase tracking-widest transition-all duration-300 shadow-sm"
               >
                 <span>NHẬN BÁO GIÁ SẢN PHẨM</span>
                 <span className="text-sm">→</span>

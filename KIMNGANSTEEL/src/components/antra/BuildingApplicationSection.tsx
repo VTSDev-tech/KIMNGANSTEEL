@@ -345,7 +345,7 @@ export function BuildingApplicationSection() {
           </div>
 
           {/* Right Column: Information Panel (5 Cols Desktop, Right Aligned) */}
-          <div className="kn-app-info-panel lg:col-span-5 flex flex-col justify-between bg-white rounded-xl border border-[#1A1918]/10 p-7 md:p-9 shadow-[0_20px_50px_rgba(0,0,0,0.04)] min-h-[480px]">
+          <div className="kn-app-info-panel lg:col-span-5 mx-auto flex w-[calc(100%-2rem)] max-w-[315px] flex-col justify-between rounded-xl border border-[#1A1918]/10 bg-white p-4 shadow-[0_20px_50px_rgba(0,0,0,0.04)] sm:min-h-[440px] sm:w-full sm:max-w-none sm:p-6 md:min-h-[480px] md:p-9">
             
             {/* Accessible Live Region for Screen Readers */}
             <div aria-live="polite" className="sr-only">
@@ -363,40 +363,40 @@ export function BuildingApplicationSection() {
               >
                 <div>
                   {/* Kicker + Component Number */}
-                  <div className="flex items-center justify-between border-b border-[#1A1918]/08 pb-3.5 mb-5">
-                    <span className="text-[11px] font-sans font-bold uppercase tracking-[0.2em] text-[#C28E5C]">
+                  <div className="flex items-center justify-between gap-3 border-b border-[#1A1918]/08 pb-2.5 mb-3 sm:pb-3.5 sm:mb-5">
+                    <span className="text-[9px] sm:text-[11px] font-sans font-bold uppercase tracking-[0.18em] sm:tracking-[0.2em] text-[#C28E5C]">
                       HẠNG MỤC {activeHotspot.number}
                     </span>
-                    <span className="text-xs font-sans font-medium text-[#8E857B]">
+                    <span className="max-w-[120px] text-right text-[10px] sm:max-w-none sm:text-xs font-sans font-medium text-[#8E857B]">
                       {activeHotspot.componentName}
                     </span>
                   </div>
 
                   {/* Component Title & Product Name */}
-                  <h3 className="text-2xl sm:text-3xl font-bold uppercase tracking-tight text-[#1A1918] mb-1.5">
+                  <h3 className="text-lg sm:text-3xl font-bold uppercase tracking-tight text-[#1A1918] mb-1">
                     {activeHotspot.label}
                   </h3>
-                  <p className="text-xs font-sans font-bold text-[#8E857B] uppercase tracking-wider mb-5">
+                  <p className="text-[9px] sm:text-xs font-sans font-bold text-[#8E857B] uppercase tracking-wider mb-2.5 sm:mb-5">
                     {activeHotspot.productName}
                   </p>
 
                   {/* Short Description */}
-                  <p className="text-xs sm:text-sm text-[#524D4A] font-sans leading-relaxed mb-6">
+                  <p className="text-[11px] sm:text-sm text-[#524D4A] font-sans leading-relaxed mb-3 sm:mb-6">
                     {activeHotspot.description}
                   </p>
 
                   {/* Product Thumbnail & Specifications Grid */}
-                  <div className="flex items-start gap-4 p-4 rounded-2xl bg-[#F7F5F0] border border-[#1A1918]/06 mb-6">
-                    <div className="w-16 h-16 rounded-xl bg-white p-1.5 shrink-0 border border-[#1A1918]/08 flex items-center justify-center">
+                  <div className="flex items-start gap-2.5 sm:gap-4 p-2.5 sm:p-4 rounded-xl sm:rounded-2xl bg-[#F7F5F0] border border-[#1A1918]/06 mb-3 sm:mb-6">
+                    <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-xl bg-white p-1.5 shrink-0 border border-[#1A1918]/08 flex items-center justify-center">
                       <img
                         src={activeHotspot.image}
                         alt={activeHotspot.productName}
                         className="w-full h-full object-contain filter contrast-105"
                       />
                     </div>
-                    <div className="flex-1 space-y-1.5 text-xs font-sans">
+                    <div className="flex-1 space-y-1 text-[10px] sm:text-xs font-sans">
                       {activeHotspot.specs.map((s) => (
-                        <div key={s.label} className="flex items-center justify-between text-[11px]">
+                        <div key={s.label} className="flex items-center justify-between gap-2 text-[9px] sm:text-[11px]">
                           <span className="text-[#6B655F] font-medium">{s.label}:</span>
                           <span className="font-bold text-[#1A1918] text-right">{s.value}</span>
                         </div>
@@ -406,10 +406,10 @@ export function BuildingApplicationSection() {
                 </div>
 
                 {/* Action CTA Button */}
-                <div className="pt-2">
+                <div className="pt-1.5 sm:pt-2">
                   <a
                     href="#contact"
-                    className="w-full flex items-center justify-center gap-2 py-3.5 px-5 rounded-2xl bg-[#1A1918] hover:bg-[#C28E5C] text-white font-sans text-xs font-bold uppercase tracking-widest transition-all duration-300 shadow-sm group"
+                    className="w-full flex items-center justify-center gap-2 py-2.5 px-3 sm:py-3.5 sm:px-5 rounded-xl sm:rounded-2xl bg-[#1A1918] hover:bg-[#C28E5C] text-white font-sans text-[9px] sm:text-xs font-bold uppercase tracking-widest transition-all duration-300 shadow-sm group"
                   >
                     <span>XEM CHI TIẾT SẢN PHẨM</span>
                     <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>

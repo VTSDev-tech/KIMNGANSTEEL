@@ -18,10 +18,8 @@ export function ContactFormSection() {
   };
 
   return (
-    <section id="contact" className="py-24 md:py-32 px-6 md:px-14 bg-[#F7F7F4] border-b border-[#1A1918]/10 text-[#1A1918] select-none">
+    <section id="contact" className="py-16 sm:py-20 md:py-32 px-4 sm:px-6 md:px-14 bg-[#F7F7F4] border-b border-[#1A1918]/10 text-[#1A1918] select-none">
       <div className="max-w-[1560px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-        
-        {/* Left Column: Brand Statement & Contact Info */}
         <div className="lg:col-span-5 space-y-8 pt-4">
           <div className="space-y-4">
             <div className="flex items-center gap-3 text-xs font-mono font-bold tracking-[0.25em] text-[#C28E5C] uppercase">
@@ -34,15 +32,14 @@ export function ContactFormSection() {
             </h2>
 
             <p className="text-xs sm:text-sm text-[#524D4A] font-sans leading-relaxed max-w-lg">
-              Vui lòng cung cấp quy cách, độ dày và khối lượng vật tư dự kiến. Đội ngũ tư vấn Kim Ngân Steel sẽ gửi bảng báo giá tối ưu nhất trong vòng 2 giờ làm việc.
+              Vui lòng cung cấp quy cách, độ dày và khối lượng vật tư dự kiến. Đội ngũ kinh doanh Kim Ngân Steel sẽ tiếp nhận yêu cầu và gửi báo giá theo thông tin doanh nghiệp chính thức.
             </p>
           </div>
 
-          {/* Contact Hairline List */}
           <div className="pt-6 border-t border-[#1A1918]/15 space-y-5 text-xs font-sans text-[#524D4A]">
             <div className="space-y-1">
               <p className="font-mono font-bold text-[#C28E5C] uppercase tracking-wider">01 / VĂN PHÒNG &amp; KHO XƯỞNG</p>
-              <p className="text-sm font-bold text-[#1A1918]">262 Đường DT742, KP. 1, P. Vĩnh Tân, TP. HCM</p>
+              <p className="text-sm font-bold text-[#1A1918]">262 Đường DT742, Khu Phố 1, Phường Vĩnh Tân, TP Hồ Chí Minh, Việt Nam</p>
             </div>
 
             <div className="space-y-1 pt-2 border-t border-[#1A1918]/10">
@@ -57,11 +54,9 @@ export function ContactFormSection() {
           </div>
         </div>
 
-        {/* Right Column: Exact Replica Form Card Matching User Screenshot */}
-        <div className="lg:col-span-7 bg-white rounded-2xl border border-black/5 p-8 sm:p-12 shadow-xl relative">
-          
-          <div className="mb-8 border-b border-[#1A1918]/10 pb-6">
-            <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#1A1918] uppercase">
+        <div className="lg:col-span-7 bg-white rounded-xl sm:rounded-2xl border border-black/5 p-5 sm:p-8 md:p-12 shadow-xl relative">
+          <div className="mb-6 sm:mb-8 border-b border-[#1A1918]/10 pb-4 sm:pb-6">
+            <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-tight text-[#1A1918] uppercase leading-tight">
               GỬI YÊU CẦU BÁO GIÁ VẬT TƯ
             </h3>
             <p className="text-xs sm:text-sm text-[#524D4A] font-sans mt-1.5">
@@ -78,7 +73,7 @@ export function ContactFormSection() {
                 GỬI YÊU CẦU THÀNH CÔNG!
               </h4>
               <p className="text-xs sm:text-sm text-[#524D4A] max-w-md mx-auto leading-relaxed">
-                Đội ngũ kỹ thuật Kim Ngân Steel đang chuẩn bị bảng báo giá chi tiết và sẽ liên hệ trực tiếp với bạn ngay lập tức.
+                Đội ngũ Kim Ngân Steel đang chuẩn bị bảng báo giá chi tiết và sẽ liên hệ trực tiếp với bạn trong thời gian sớm nhất.
               </p>
               <button
                 type="button"
@@ -89,17 +84,15 @@ export function ContactFormSection() {
               </button>
             </div>
           ) : (
-            <form className="space-y-8" onSubmit={handleSubmit}>
-              
-              {/* Full Name & Phone Row */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <form className="space-y-6 sm:space-y-8" onSubmit={handleSubmit}>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
                 <div className="space-y-2">
                   <label htmlFor="input_name" className="text-[11px] font-mono font-bold tracking-widest uppercase text-[#6B655F] block">
                     HỌ VÀ TÊN *
                   </label>
-                  <input 
-                    type="text" 
-                    id="input_name" 
+                  <input
+                    type="text"
+                    id="input_name"
                     required
                     value={formData.fullName}
                     onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
@@ -112,9 +105,9 @@ export function ContactFormSection() {
                   <label htmlFor="input_phone" className="text-[11px] font-mono font-bold tracking-widest uppercase text-[#6B655F] block">
                     SỐ ĐIỆN THOẠI *
                   </label>
-                  <input 
-                    type="tel" 
-                    id="input_phone" 
+                  <input
+                    type="tel"
+                    id="input_phone"
                     required
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
@@ -124,14 +117,13 @@ export function ContactFormSection() {
                 </div>
               </div>
 
-              {/* Company / Project Name */}
               <div className="space-y-2">
                 <label htmlFor="input_company" className="text-[11px] font-mono font-bold tracking-widest uppercase text-[#6B655F] block">
                   TÊN DỰ ÁN / CÔNG TY (TÙY CHỌN)
                 </label>
-                <input 
-                  type="text" 
-                  id="input_company" 
+                <input
+                  type="text"
+                  id="input_company"
                   value={formData.company}
                   onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                   className="w-full bg-transparent border-b border-[#1A1918]/20 pb-2 text-sm text-[#1A1918] placeholder:text-[#1A1918]/30 focus:outline-none focus:border-black transition-colors font-medium"
@@ -139,14 +131,13 @@ export function ContactFormSection() {
                 />
               </div>
 
-              {/* Material Specifications & Volume */}
               <div className="space-y-2">
                 <label htmlFor="input_specs" className="text-[11px] font-mono font-bold tracking-widest uppercase text-[#6B655F] block">
                   NHU CẦU QUY CÁCH &amp; KHỐI LƯỢNG VẬT TƯ *
                 </label>
-                <input 
+                <input
                   type="text"
-                  id="input_specs" 
+                  id="input_specs"
                   required
                   value={formData.specs}
                   onChange={(e) => setFormData({ ...formData, specs: e.target.value })}
@@ -155,11 +146,10 @@ export function ContactFormSection() {
                 />
               </div>
 
-              {/* Pill-Rounded Submit Button */}
               <div className="pt-2">
-                <button 
-                  type="submit" 
-                  className="w-full py-4 px-6 rounded-full bg-[#121212] hover:bg-black text-white font-mono text-xs font-bold uppercase tracking-widest transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer group"
+                <button
+                  type="submit"
+                  className="w-full py-3.5 px-5 sm:py-4 sm:px-6 rounded-full bg-[#121212] hover:bg-black text-white font-mono text-[11px] sm:text-xs font-bold uppercase tracking-widest transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer group"
                 >
                   <span>GỬI YÊU CẦU BÁO GIÁ</span>
                   <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
@@ -167,9 +157,7 @@ export function ContactFormSection() {
               </div>
             </form>
           )}
-
         </div>
-
       </div>
     </section>
   );

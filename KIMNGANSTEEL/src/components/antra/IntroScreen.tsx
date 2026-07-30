@@ -1,21 +1,23 @@
-
 "use client";
 
-import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
-import gsap from 'gsap';
-import { heroSequenceFrames } from './heroSequenceManifest';
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import gsap from "gsap";
+import { heroSequenceFrames } from "./heroSequenceManifest";
+import Image from "next/image";
 
 const DEV_SKIP_INTRO = false;
 
 const lockPageScroll = () => {
-  document.documentElement.style.overflow = 'hidden';
-  document.body.style.overflow = 'hidden';
+  document.body.dataset.scrollLock = "true";
+  document.documentElement.style.overflow = "hidden";
+  document.body.style.overflow = "hidden";
 };
 
 const unlockPageScroll = () => {
-  document.documentElement.style.overflow = '';
-  document.body.style.overflow = '';
-  document.body.style.paddingRight = '';
+  delete document.body.dataset.scrollLock;
+  document.documentElement.style.overflow = "";
+  document.body.style.overflow = "";
+  document.body.style.paddingRight = "";
 };
 
 interface IntroScreenProps {
@@ -25,23 +27,17 @@ interface IntroScreenProps {
 export function IntroScreen({ onComplete }: IntroScreenProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const centerpieceRef = useRef<HTMLDivElement>(null);
-  const hudSvgRef = useRef<SVGSVGElement>(null);
-  const hudRef = useRef<HTMLDivElement>(null);
-  const scanLineRef = useRef<HTMLDivElement>(null);
-  const tilesGridRef = useRef<HTMLDivElement>(null);
-  
-  // UI Elements
+  const leftModelRef = useRef<HTMLDivElement>(null);
+  const rightModelRef = useRef<HTMLDivElement>(null);
   const loadingContainerRef = useRef<HTMLDivElement>(null);
-  const lineRef = useRef<HTMLDivElement>(null);
-  const percentageRef = useRef<HTMLDivElement>(null);
-  const textRef = useRef<HTMLDivElement>(null);
-  
+  const ctaRef = useRef<HTMLDivElement>(null);
+  const hudRef = useRef<HTMLDivElement>(null);
+
   const [shouldRender, setShouldRender] = useState(true);
   const [progress, setProgress] = useState(0);
   const [isReady, setIsReady] = useState(false);
   const [isEntering, setIsEntering] = useState(false);
 
-  // Lock scrolling while intro is active
   useLayoutEffect(() => {
     if (DEV_SKIP_INTRO) {
       setShouldRender(false);
@@ -52,146 +48,118 @@ export function IntroScreen({ onComplete }: IntroScreenProps) {
     return () => unlockPageScroll();
   }, [onComplete]);
 
-  // Preload Assets & Smooth Guaranteed Drawing Intro Animation
+  // Progress bar & preload
   useEffect(() => {
     if (!shouldRender || DEV_SKIP_INTRO) return;
 
-    // 1. Asset preloading in background
     heroSequenceFrames.forEach((src) => {
-      const img = new Image();
+      const img = document.createElement("img");
       img.src = src;
     });
 
-    // 2. Guaranteed smooth drawing timeline (1.8 seconds)
     const drawObj = { val: 0 };
-    gsap.to(drawObj, {
+    const tween = gsap.to(drawObj, {
       val: 100,
       duration: 1.8,
       ease: "power2.inOut",
-      onUpdate: () => {
-        const cur = Math.round(drawObj.val);
-        setProgress(cur);
-        
-        // Update SVG stroke dash offsets
-        if (hudSvgRef.current) {
-          const drawables = hudSvgRef.current.querySelectorAll('.cad-draw');
-          drawables.forEach((el) => {
-            const path = el as SVGPathElement;
-            const length = path.getTotalLength ? path.getTotalLength() : 600;
-            path.style.strokeDasharray = `${length}`;
-            path.style.strokeDashoffset = `${length * (1 - cur / 100)}`;
-          });
-        }
-      },
-      onComplete: () => {
-        setIsReady(true);
-      }
+      onUpdate: () => setProgress(Math.round(drawObj.val)),
+      onComplete: () => setIsReady(true),
     });
 
+    return () => { tween.kill(); };
   }, [shouldRender]);
 
-  // Blueprint Completion Sequence
+  // Reveal animation after loading
   useEffect(() => {
     if (!isReady || !shouldRender) return;
 
     const ctx = gsap.context(() => {
       const tl = gsap.timeline();
 
-      // 1. Fade out preloader percentage bar
-      tl.to(loadingContainerRef.current, { opacity: 0, duration: 0.3, ease: "power2.inOut" });
+      // Fade out loading bar
+      tl.to(loadingContainerRef.current, {
+        opacity: 0,
+        y: 6,
+        duration: 0.3,
+        ease: "power2.out",
+      });
 
-      // 2. Light Sweep across the logo
-      tl.fromTo(scanLineRef.current,
-        { left: "-20%", opacity: 0 },
-        { left: "120%", opacity: 0.7, duration: 1.2, ease: "power2.inOut" },
-        "+=0.1"
+      // Reveal centerpiece
+      tl.fromTo(
+        centerpieceRef.current,
+        { opacity: 0, y: 16, scale: 0.97 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.75, ease: "power3.out" },
+        "-=0.1"
       );
 
-      // 3. Reveal HUD elements and Click Instruction
-      tl.to(hudRef.current, { opacity: 1, duration: 0.8, ease: "power2.out" }, "-=0.6");
-      tl.fromTo(textRef.current,
-        { opacity: 0, y: 10, letterSpacing: "0.1em" },
-        { opacity: 1, y: 0, letterSpacing: "0.3em", duration: 0.8, ease: "power3.out" },
-        "-=0.4"
+      // Slide in left model
+      tl.fromTo(
+        leftModelRef.current,
+        { opacity: 0, x: -50 },
+        { opacity: 1, x: 0, duration: 0.85, ease: "power3.out" },
+        "-=0.55"
       );
 
+      // Slide in right model
+      tl.fromTo(
+        rightModelRef.current,
+        { opacity: 0, x: 50 },
+        { opacity: 1, x: 0, duration: 0.85, ease: "power3.out" },
+        "<"
+      );
+
+      // Reveal HUD & CTA
+      tl.fromTo(
+        [hudRef.current, ctaRef.current],
+        { opacity: 0 },
+        { opacity: 1, duration: 0.5, ease: "power2.out" },
+        "-=0.3"
+      );
     }, containerRef);
 
     return () => ctx.revert();
   }, [isReady, shouldRender]);
 
-  // Option 3: 3D Floor Tile Sink Transition Engine
+  const completeIntro = () => {
+    setShouldRender(false);
+    unlockPageScroll();
+    onComplete();
+  };
+
   const handleEnter = () => {
     if (!isReady || isEntering) return;
     setIsEntering(true);
 
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    
-    if (prefersReducedMotion) {
-      gsap.to(containerRef.current, {
-        opacity: 0,
-        duration: 0.3,
-        onComplete: () => {
-          setShouldRender(false);
-          unlockPageScroll();
-          onComplete();
-        }
-      });
-      return;
-    }
-
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        onComplete: () => {
-          setShouldRender(false);
-          unlockPageScroll();
-          onComplete();
-        }
-      });
+      const tl = gsap.timeline({ onComplete: completeIntro });
 
-      // 1. Hide HUD & text instantly
-      tl.to([hudRef.current, textRef.current, loadingContainerRef.current], { opacity: 0, duration: 0.2 }, 0);
-
-      // 2. Scale & fade logo centerpiece
-      tl.to(centerpieceRef.current, {
-        scale: 1.3,
-        opacity: 0,
-        duration: 0.6,
-        ease: "power2.in"
-      }, 0);
-
-      // 3. Option 3: 3D Grid Tiles Staggered Flip & Sink Animation
-      if (tilesGridRef.current) {
-        const tiles = tilesGridRef.current.querySelectorAll('.grid-tile');
-        
-        tl.to(tiles, {
-          rotateX: 90,
-          rotateY: -30,
-          z: -400,
-          opacity: 0,
-          scale: 0.6,
-          duration: 1.2,
-          ease: "power3.inOut",
-          stagger: {
-            grid: [4, 6],
-            from: "center",
-            amount: 0.8
-          }
-        }, 0.1);
-      }
-
-      // 4. Overall container fade out seamless finish
-      tl.to(containerRef.current, {
-        opacity: 0,
-        duration: 0.4,
-        ease: "power2.out"
-      }, "-=0.4");
-
+      tl.to(
+        [leftModelRef.current, rightModelRef.current],
+        { opacity: 0, y: 30, duration: 0.4, ease: "power2.in", stagger: 0.05 },
+        0
+      );
+      tl.to(
+        [hudRef.current, ctaRef.current],
+        { opacity: 0, duration: 0.25, ease: "power2.out" },
+        0
+      );
+      tl.to(
+        centerpieceRef.current,
+        { opacity: 0, y: -20, scale: 0.96, duration: 0.55, ease: "power3.inOut" },
+        0.1
+      );
+      tl.to(
+        containerRef.current,
+        { opacity: 0, duration: 0.4, ease: "power2.out" },
+        "-=0.2"
+      );
     }, containerRef);
+
+    return () => ctx.revert();
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' || e.key === ' ') {
+    if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
       handleEnter();
     }
@@ -199,164 +167,177 @@ export function IntroScreen({ onComplete }: IntroScreenProps) {
 
   if (!shouldRender) return null;
 
-  // Generate 24 Tiles (4 rows x 6 cols) for 3D Tile Sink Effect
-  const tileCount = 24;
-
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-[9999] overflow-hidden bg-[#ECE8DE] text-[#1A1918] [perspective:1200px]"
+      className="fixed inset-0 z-[9999] overflow-hidden bg-white text-[#1A1918]"
     >
-      {/* Option 3: 3D Floor Tiles Layer (4x6 Grid) */}
-      <div 
-        ref={tilesGridRef}
-        className="absolute inset-0 grid grid-cols-6 grid-rows-4 pointer-events-none z-0 [transform-style:preserve-3d]"
-      >
-        {Array.from({ length: tileCount }).map((_, i) => (
-          <div 
-            key={i}
-            className="grid-tile w-full h-full bg-[#ECE8DE] border border-[#1A1918]/10 [transform-style:preserve-3d] origin-center"
-            style={{
-              backgroundImage: `
-                linear-gradient(to right, rgba(26, 25, 24, 0.04) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(26, 25, 24, 0.04) 1px, transparent 1px)
-              `,
-              backgroundSize: '30px 30px'
-            }}
-          />
-        ))}
+      {/* ── Background: bright warm-white center radial ── */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_68%_72%_at_50%_46%,#FFFFFF_0%,#FFFFFF_55%,#F8F7F4_100%)]" />
+
+      {/* ── Very subtle fine grid ── */}
+      <div className="absolute inset-0 opacity-[0.15] [background-image:linear-gradient(to_right,rgba(26,25,24,0.11)_1px,transparent_1px),linear-gradient(to_bottom,rgba(26,25,24,0.11)_1px,transparent_1px)] [background-size:64px_64px] md:[background-size:80px_80px]" />
+
+      {/* ── Full-screen crosshair lines ── */}
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute top-1/2 left-0 right-0 h-px bg-[rgba(26,25,24,0.09)] -translate-y-1/2" />
+        <div className="absolute left-1/2 top-0 bottom-0 w-px bg-[rgba(26,25,24,0.09)]" />
       </div>
 
-      {/* 2. Central Official KIM NGÂN STEEL Logo & CAD Compass Layer */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none p-4 z-10">
-        
-        {/* Technical CAD Compass SVG */}
+      {/* ── Architectural concentric rings ── */}
+      <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
         <svg
-          ref={hudSvgRef}
-          viewBox="0 0 800 800"
-          className="absolute w-[600px] h-[600px] overflow-visible pointer-events-none"
+          viewBox="0 0 700 700"
+          className="h-[620px] w-[620px] md:h-[min(88vw,900px)] md:w-[min(88vw,900px)] opacity-60"
+          fill="none"
         >
-          <g stroke="rgba(26, 25, 24, 0.25)" strokeWidth="1" fill="none">
-            <line className="cad-draw" x1="50" y1="400" x2="750" y2="400" strokeDasharray="4 4" />
-            <line className="cad-draw" x1="400" y1="50" x2="400" y2="750" strokeDasharray="4 4" />
-            <circle className="cad-draw" cx="400" cy="400" r="260" strokeWidth="1.2" />
-            <circle className="cad-draw" cx="400" cy="400" r="280" strokeDasharray="3 6" />
-            <circle className="cad-draw" cx="400" cy="400" r="180" strokeDasharray="6 6" />
-            
-            {/* Axis Degree Markers */}
-            <circle className="cad-draw" cx="400" cy="140" r="3" fill="#1A1918" />
-            <circle className="cad-draw" cx="400" cy="660" r="3" fill="#1A1918" />
-            <circle className="cad-draw" cx="140" cy="400" r="3" fill="#1A1918" />
-            <circle className="cad-draw" cx="660" cy="400" r="3" fill="#1A1918" />
-          </g>
+          {/* Outer ring */}
+          <circle cx="350" cy="350" r="320" stroke="rgba(26,25,24,0.13)" strokeWidth="0.8" />
+          {/* Main ring */}
+          <circle cx="350" cy="350" r="232" stroke="rgba(26,25,24,0.18)" strokeWidth="0.9" />
+          {/* Dashed inner ring */}
+          <circle cx="350" cy="350" r="168" stroke="rgba(26,25,24,0.13)" strokeWidth="0.7" strokeDasharray="5 10" />
+          {/* Innermost ring */}
+          <circle cx="350" cy="350" r="80" stroke="rgba(26,25,24,0.08)" strokeWidth="0.6" />
+          {/* Cross hairs inside ring */}
+          <line x1="50" y1="350" x2="650" y2="350" stroke="rgba(26,25,24,0.10)" strokeWidth="0.7" />
+          <line x1="350" y1="50" x2="350" y2="650" stroke="rgba(26,25,24,0.10)" strokeWidth="0.7" />
+          {/* Accent gold dots */}
+          <circle cx="350" cy="118" r="3" fill="#C28E5C" />
+          <circle cx="350" cy="582" r="3" fill="#C28E5C" />
+          <circle cx="118" cy="350" r="3" fill="#C28E5C" />
+          <circle cx="582" cy="350" r="3" fill="#C28E5C" />
+          {/* Corner crosshair marks */}
+          <line x1="92" y1="92" x2="104" y2="92" stroke="rgba(26,25,24,0.28)" strokeWidth="1.2" />
+          <line x1="98" y1="86" x2="98" y2="98" stroke="rgba(26,25,24,0.28)" strokeWidth="1.2" />
+          <line x1="596" y1="92" x2="608" y2="92" stroke="rgba(26,25,24,0.28)" strokeWidth="1.2" />
+          <line x1="602" y1="86" x2="602" y2="98" stroke="rgba(26,25,24,0.28)" strokeWidth="1.2" />
+          <line x1="92" y1="608" x2="104" y2="608" stroke="rgba(26,25,24,0.28)" strokeWidth="1.2" />
+          <line x1="98" y1="602" x2="98" y2="614" stroke="rgba(26,25,24,0.28)" strokeWidth="1.2" />
+          <line x1="596" y1="608" x2="608" y2="608" stroke="rgba(26,25,24,0.28)" strokeWidth="1.2" />
+          <line x1="602" y1="602" x2="602" y2="614" stroke="rgba(26,25,24,0.28)" strokeWidth="1.2" />
         </svg>
+      </div>
 
-        {/* Official Brand Logo & Name Centerpiece */}
-        <div 
+      {/* ── HUD labels ── */}
+      <div
+        ref={hudRef}
+        className="pointer-events-none absolute inset-0 z-20 font-mono text-[10px] tracking-[0.22em] text-[#1A1918] opacity-0 p-7 md:p-10"
+      >
+        <div className="absolute top-8 left-7 flex items-center gap-2 md:left-10 md:top-10">
+          <span className="h-1.5 w-1.5 rounded-full bg-[#C28E5C]" />
+          <span className="font-bold uppercase">Kim Ngân Steel</span>
+        </div>
+        <div className="absolute top-8 right-7 hidden text-right text-[#8E857B] sm:block md:right-10 md:top-10">
+          Tôn thép&nbsp;&nbsp;|&nbsp;&nbsp;Gia công&nbsp;&nbsp;|&nbsp;&nbsp;Phân phối
+        </div>
+      </div>
+
+      {/* ── Left product model — fades right + top ── */}
+      <div
+        ref={leftModelRef}
+        className="pointer-events-none absolute -bottom-3 -left-12 z-10 hidden opacity-0 sm:block"
+        style={{
+          width: "clamp(330px, 30vw, 520px)",
+          height: "40vh",
+          WebkitMaskImage: "linear-gradient(to top right, black 48%, rgba(0,0,0,.96) 68%, transparent 94%)",
+          maskImage: "linear-gradient(to top right, black 48%, rgba(0,0,0,.96) 68%, transparent 94%)",
+        }}
+      >
+        <img
+          src="/model-intro1.svg"
+          alt="Tôn cuộn và tôn tấm Kim Ngân Steel"
+          className="w-full h-full object-contain drop-shadow-[0_24px_44px_rgba(26,25,24,0.16)]"
+          style={{ objectPosition: "left bottom" }}
+          draggable={false}
+        />
+      </div>
+
+      {/* ── Right product model — fades left + top ── */}
+      <div
+        ref={rightModelRef}
+        className="pointer-events-none absolute bottom-0 right-0 z-10 hidden opacity-0 sm:block"
+        style={{
+          width: "clamp(350px, 33vw, 560px)",
+          height: "40vh",
+          WebkitMaskImage: "linear-gradient(to top left, black 48%, rgba(0,0,0,.96) 68%, transparent 94%)",
+          maskImage: "linear-gradient(to top left, black 48%, rgba(0,0,0,.96) 68%, transparent 94%)",
+        }}
+      >
+        <img
+          src="/model-intro2.svg"
+          alt="Thép hộp, thép hình và tôn cán sóng Kim Ngân Steel"
+          className="w-full h-full object-contain drop-shadow-[0_24px_44px_rgba(26,25,24,0.16)]"
+          style={{ objectPosition: "right bottom" }}
+          draggable={false}
+        />
+      </div>
+
+      {/* ── Centerpiece: Logo + Tagline — TRUE CENTER ── */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div
           ref={centerpieceRef}
-          className="relative flex flex-col items-center text-center z-10 p-8 [transform-style:preserve-3d]"
+          className="relative z-20 flex flex-col items-center text-center opacity-0 px-4"
+          style={{ marginTop: "-2vh" }}
         >
-          {/* Official Logo Image */}
-          <div className="relative w-48 h-48 md:w-56 md:h-56 mb-6 flex items-center justify-center">
-            <img 
-              src="/KIMNGANLOGO.svg" 
-              alt="Kim Ngân Steel Logo" 
-              className="w-full h-full object-contain drop-shadow-[0_4px_20px_rgba(26,25,24,0.08)]"
+          {/* Big 3D Logo */}
+          <div className="mb-1 flex items-center justify-center overflow-visible"
+            style={{ width: "clamp(280px, 35vw, 520px)", height: "clamp(280px, 35vw, 520px)" }}
+          >
+            <img
+              src="/KIMNGANLOGO.svg"
+              alt="Kim Ngân Steel Logo"
+              className="w-full h-full scale-[1.18] object-contain drop-shadow-[0_28px_56px_rgba(26,25,24,0.24)]"
             />
           </div>
 
-          {/* Typography */}
-          <h1 className="text-2xl md:text-3xl font-bold tracking-[0.25em] text-[#1A1918] uppercase mb-2">
-            KIM NGÂN STEEL
-          </h1>
-          <p className="text-[11px] font-mono tracking-[0.3em] text-[#8E857B] uppercase">
-            NHÀ MÁY CÁN TÔN &amp; GIA CÔNG THÉP
+          {/* Tagline */}
+          <p
+            className="font-mono uppercase text-[#7A7165]"
+            style={{ fontSize: "clamp(9px, 0.85vw, 12px)", letterSpacing: "0.28em" }}
+          >
+            Vật liệu bền vững cho công trình hiện đại
           </p>
-
-          {/* Light Sweep Effect */}
-          <div 
-            ref={scanLineRef}
-            className="absolute top-0 bottom-0 w-[100px] bg-gradient-to-r from-transparent via-white/50 to-transparent pointer-events-none transform -skew-x-12 opacity-0"
-          />
         </div>
       </div>
 
-      {/* 3. Architectural Technical HUD Header & Footer */}
-      <div 
-        ref={hudRef}
-        className="absolute inset-0 pointer-events-none z-[20] opacity-0 p-8 md:p-12 font-mono text-[10px] tracking-widest text-[#1A1918]"
-      >
-        {/* Corner Crosshairs */}
-        <div className="absolute top-8 left-8 w-8 h-[1px] bg-[#1A1918]/30" />
-        <div className="absolute top-8 left-8 w-[1px] h-8 bg-[#1A1918]/30" />
-        
-        <div className="absolute top-8 right-8 w-8 h-[1px] bg-[#1A1918]/30" />
-        <div className="absolute top-8 right-8 w-[1px] h-8 bg-[#1A1918]/30" />
-        
-        <div className="absolute bottom-8 left-8 w-8 h-[1px] bg-[#1A1918]/30" />
-        <div className="absolute bottom-8 left-8 w-[1px] h-8 bg-[#1A1918]/30" />
-        
-        <div className="absolute bottom-8 right-8 w-8 h-[1px] bg-[#1A1918]/30" />
-        <div className="absolute bottom-8 right-8 w-[1px] h-8 bg-[#1A1918]/30" />
 
-        {/* Technical Header */}
-        <div className="absolute top-10 left-12 flex items-center gap-2 text-[#1A1918]">
-          <span className="w-2 h-2 rounded-full bg-[#1A1918] animate-pulse" />
-          <span className="font-bold">● ARCHITECTURAL STEEL SOLUTIONS</span>
-        </div>
-
-        <div className="absolute top-10 right-12 text-[#8E857B] text-right">
-          EST. 2024 &nbsp;|&nbsp; HO CHI MINH CITY
-        </div>
-
-        <div className="absolute bottom-10 left-12 text-[#8E857B]">
-          SYSTEM: BRAND CAD GENESIS
-        </div>
-        <div className="absolute bottom-10 right-12 text-[#1A1918] text-right font-bold">
-          STATUS: READY
-        </div>
-      </div>
-
-      {/* 4. Accessible Interactive Layer */}
-      <button
-        onClick={handleEnter}
-        onKeyDown={handleKeyDown}
-        className="absolute inset-0 w-full h-full cursor-pointer opacity-0 z-30"
-        aria-label="Vào trang chủ Kim Ngân Steel"
-        disabled={!isReady || isEntering}
-      />
-
-      {/* 5. Loading & Interaction UI */}
-      <div className="absolute bottom-16 left-1/2 -translate-x-1/2 flex flex-col items-center pointer-events-none z-[25]">
-        
-        {/* Loader Progress Bar */}
+      {/* ── Loading bar + CTA ── */}
+      <div className="pointer-events-none absolute bottom-10 md:bottom-14 left-1/2 z-30 flex -translate-x-1/2 flex-col items-center">
         <div ref={loadingContainerRef} className="flex flex-col items-center font-mono">
-          <div className="relative w-[240px] h-[2px] bg-[#1A1918]/10 overflow-hidden rounded-full">
-            <div 
-              ref={lineRef}
-              className="absolute left-0 top-0 bottom-0 bg-[#1A1918] transition-all duration-200 ease-out"
+          <div className="relative h-[1.5px] w-[180px] overflow-hidden rounded-full bg-[#1A1918]/12">
+            <div
+              className="absolute left-0 top-0 bottom-0 bg-[#1A1918] transition-all duration-150 ease-out"
               style={{ width: `${progress}%` }}
             />
           </div>
-          <div 
-            ref={percentageRef}
-            className="mt-4 text-[#8E857B] text-[9px] tracking-[0.25em]"
-          >
-            INITIALIZING BRAND {progress.toString().padStart(2, '0')}%
+          <div className="mt-3 text-[9px] tracking-[0.24em] text-[#8E857B] font-mono">
+            ĐANG TẢI {progress.toString().padStart(2, "0")}%
           </div>
         </div>
 
-        {/* Ready Instruction */}
-        <div className="absolute top-0 flex h-full items-center justify-center">
-          <div 
-            ref={textRef}
-            className="text-[#1A1918] font-sans text-[11px] font-bold uppercase whitespace-nowrap opacity-0 tracking-[0.3em]"
-          >
+        <div
+          ref={ctaRef}
+          className="absolute -top-1 flex flex-col items-center gap-2.5 opacity-0"
+        >
+          <span className="whitespace-nowrap font-mono text-[11px] font-bold uppercase tracking-[0.34em] text-[#C28E5C]">
             Nhấn để khám phá
-          </div>
+          </span>
+          <span className="block h-px w-44 bg-[#C28E5C]/55" />
+          <svg width="14" height="9" viewBox="0 0 14 9" fill="none" className="animate-bounce text-[#C28E5C]">
+            <path d="M1 1L7 7L13 1" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
         </div>
-
       </div>
+
+      {/* ── Invisible full-screen click ── */}
+      <button
+        onClick={handleEnter}
+        onKeyDown={handleKeyDown}
+        className="absolute inset-0 z-40 h-full w-full cursor-pointer opacity-0"
+        aria-label="Vào trang chủ Kim Ngân Steel"
+        disabled={!isReady || isEntering}
+      />
     </div>
   );
 }
