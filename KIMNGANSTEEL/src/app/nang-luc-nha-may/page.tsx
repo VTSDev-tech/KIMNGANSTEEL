@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
@@ -47,7 +47,7 @@ export const VERIFIED_COMPANY_DATA = {
     "Công ty TNHH Tôn Thép Kim Ngân đầu tư hệ thống máy móc, phương tiện vận tải và trang thiết bị phục vụ hoạt động sản xuất xà gồ, thép ống, tôn và các sản phẩm thép khác. Trong quá trình hoạt động, Kim Ngân đã cung cấp nhiều sản phẩm tôn thép cho các dự án trên thị trường, đồng thời mang đến các giải pháp giúp khách hàng tiết kiệm thời gian và chi phí.",
   categories: [
     "Tôn cuộn",
-    "Tôn lợp",
+    "Tôn lớp",
     "Thép hộp",
     "Thép ống",
     "Thép hình",
@@ -59,11 +59,11 @@ export const VERIFIED_COMPANY_DATA = {
 
 // 0. DISTRIBUTED BRANDS WITH LOGOS
 const VERIFIED_DISTRIBUTED_BRANDS = [
-  { name: "Tôn Đông Á", logo: "/partners/1.svg" },
-  { name: "Thép Việt Nhật", logo: "/partners/2.svg" },
-  { name: "Hòa Phát", logo: "/partners/3.svg" },
-  { name: "Pomina", logo: "/partners/4.svg" },
-  { name: "Tiến Lợi", logo: "/partners/5.svg" },
+  { name: "Tôn Đông Á", logo: "/partners/ton-dong-a.png" },
+  { name: "Thép Việt Nhật", logo: "/partners/thep-viet-nhat.png" },
+  { name: "Hòa Phát", logo: "/partners/hoa-phat.png" },
+  { name: "Pomina", logo: "/partners/pomina.png" },
+  { name: "Tiến Lợi", logo: "/partners/tien-loi-group.png" },
 ];
 
 // 1. OPERATIONAL STRENGTHS DATA (4 NON-NUMERIC CAPABILITY BLOCKS)
@@ -80,7 +80,7 @@ const OPERATIONAL_STRENGTHS = [
   },
   {
     title: "DANH MỤC ĐA DẠNG",
-    desc: "Tôn cuộn, tôn lợp, thép hộp, thép ống, thép hình, thép xây dựng và xà gồ.",
+    desc: "Tôn cuộn, tôn lớp, thép hộp, thép ống, thép hình, thép xây dựng và xà gồ.",
     icon: Layers,
   },
   {
@@ -93,7 +93,7 @@ const OPERATIONAL_STRENGTHS = [
 // 2. PRODUCT CATEGORY SHORTCUTS DATA (EXACTLY 7 VERIFIED CATEGORIES)
 const PRODUCT_CATEGORIES = [
   { name: "Tôn cuộn", icon: Layers },
-  { name: "Tôn lợp", icon: Layers3 },
+  { name: "Tôn lớp", icon: Layers3 },
   { name: "Xà gồ", icon: Cog },
   { name: "Thép hộp", icon: Box },
   { name: "Thép ống", icon: CircleDot },
@@ -160,7 +160,7 @@ const BRAND_COMMITMENTS = [
   },
   {
     title: "SÁNG TẠO",
-    desc: "Liên tục tìm tòi, cải tiến và nâng cao chất lượng sản phẩm cũng như khả năng phục vụ.",
+    desc: "Liên tục tìm tòi, cải tiến và nâng cao chất lượng sản phẩm cùng như khả năng phục vụ.",
     icon: Lightbulb,
   },
 ];
@@ -215,11 +215,11 @@ export default function FactoryPage() {
       {/* =========================================================================
           1. HERO SHOWCASE SECTION (VERIFIED SOURCE OF TRUTH)
          ========================================================================= */}
-      <section className="relative pt-28 sm:pt-36 pb-12 sm:pb-16 px-6 md:px-14 bg-[#FAF9F5] overflow-hidden">
-        <div className="max-w-[1600px] mx-auto space-y-10 sm:space-y-12">
+      <section className="relative pt-20 sm:pt-36 pb-10 sm:pb-16 px-4 sm:px-6 md:px-14 bg-[#FAF9F5] overflow-hidden">
+        <div className="max-w-[1600px] mx-auto space-y-8 sm:space-y-12">
           
           {/* Main Hero Split Container */}
-          <div className="relative grid grid-cols-1 lg:grid-cols-12 items-center min-h-[500px] sm:min-h-[560px]">
+          <div className="relative grid grid-cols-1 lg:grid-cols-12 items-center min-h-[420px] sm:min-h-[560px]">
             
             {/* Left Content Side */}
             <div className="kn-fact-hero-left lg:col-span-6 z-10 py-6 pr-0 lg:pr-8 space-y-5">
@@ -230,7 +230,7 @@ export default function FactoryPage() {
               </div>
 
               {/* Verified Headline */}
-              <h1 className="text-3xl sm:text-5xl lg:text-[3.3rem] font-sans font-bold uppercase tracking-tight text-[#1A1918] leading-[1.12]">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.3rem] font-sans font-bold uppercase tracking-tight text-[#1A1918] leading-[1.12]">
                 NĂNG LỰC GIA CÔNG<br />
                 VÀ PHÂN PHỐI TÔN THÉP
               </h1>
@@ -244,18 +244,18 @@ export default function FactoryPage() {
               <div className="w-14 h-[2px] bg-[#C28E5C]/60 my-3" />
 
               {/* Verified Body Copy */}
-              <p className="text-xs sm:text-sm text-[#524D4A] font-sans leading-relaxed text-justify max-w-xl">
+              <p className="text-xs sm:text-sm text-[#524D4A] font-sans leading-relaxed text-justify max-w-full sm:max-w-xl">
                 {VERIFIED_COMPANY_DATA.statement}
               </p>
 
             </div>
 
             {/* Right Factory Image Side with Soft Gentle Gradient Mask */}
-            <div className="lg:col-span-6 relative w-full h-[360px] sm:h-[460px] lg:h-[540px] rounded-xl overflow-hidden shadow-sm border border-[#E2DDD3]/60">
+            <div className="lg:col-span-6 relative w-full h-[280px] sm:h-[420px] lg:h-[540px] rounded-xl overflow-hidden shadow-sm border border-[#E2DDD3]/60">
               <img
                 src="/model-nangluc.svg"
                 alt="Nhà Máy Tôn Kim Ngân - KIM NGAN STEEL"
-                className="w-full h-full object-cover object-right filter contrast-[1.03]"
+                className="w-full h-full object-cover object-center sm:object-right filter contrast-[1.03]"
               />
               <div className="absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-[#FAF9F5] via-[#FAF9F5]/60 to-transparent pointer-events-none" />
             </div>
@@ -314,7 +314,7 @@ export default function FactoryPage() {
               <span className="h-[1px] bg-[#1A1918]/15 flex-1 max-w-[240px] hidden sm:block" />
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3 sm:gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3 sm:gap-4">
               {PRODUCT_CATEGORIES.map((cat, idx) => {
                 const IconComp = cat.icon;
                 return (
@@ -465,7 +465,7 @@ export default function FactoryPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6">
             {VERIFIED_DISTRIBUTED_BRANDS.map((brand, bIdx) => (
               <div
                 key={bIdx}
@@ -475,7 +475,7 @@ export default function FactoryPage() {
                   <img
                     src={brand.logo}
                     alt={brand.name}
-                    className="max-h-full max-w-[130px] object-contain filter contrast-[1.03] group-hover:scale-105 transition-transform duration-300"
+                    className={`max-h-full object-contain filter contrast-[1.03] group-hover:scale-105 transition-transform duration-300 ${brand.logo.includes("ton-dong-a") || brand.logo.includes("hoa-phat") || brand.logo.includes("pomina") || brand.logo.includes("tien-loi-group") ? "max-w-[150px]" : "max-w-[130px]"}`}
                   />
                 </div>
                 <span className="font-sans font-bold text-xs sm:text-sm text-[#1A1918] group-hover:text-[#C28E5C] transition-colors block pt-1 border-t border-[#1A1918]/08 w-full">

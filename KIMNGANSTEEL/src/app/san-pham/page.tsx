@@ -697,7 +697,7 @@ export default function ProductsPage() {
          ========================================================================= */}
       <AnimatePresence>
         {selectedProduct && (
-          <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 sm:p-6 md:p-10">
+          <div className="fixed inset-0 z-[110] flex items-center justify-center p-2.5 sm:p-6 md:p-10">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -710,72 +710,72 @@ export default function ProductsPage() {
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="relative w-full max-w-[920px] bg-white border border-[#E2DDD3] shadow-2xl rounded-2xl p-6 sm:p-10 z-10 max-h-[90vh] overflow-y-auto font-sans text-[#1A1918]"
+              className="relative w-full max-w-[340px] sm:max-w-[920px] bg-white border border-[#E2DDD3] shadow-2xl rounded-xl sm:rounded-2xl p-3.5 sm:p-10 z-10 max-h-[88vh] sm:max-h-[90vh] overflow-y-auto font-sans text-[#1A1918]"
             >
               <button
                 onClick={() => setSelectedProduct(null)}
-                className="absolute top-6 right-6 w-9 h-9 rounded-full border border-[#1A1918]/15 bg-[#F7F5EE] hover:bg-[#1A1918] hover:text-white transition-colors flex items-center justify-center cursor-pointer"
+                className="absolute top-3 right-3 sm:top-6 sm:right-6 w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-[#1A1918]/15 bg-[#F7F5EE] hover:bg-[#1A1918] hover:text-white transition-colors flex items-center justify-center cursor-pointer z-20"
               >
                 <X size={16} />
               </button>
 
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-8 items-start">
                 
                 {/* Left 3D Stage Image */}
-                <div className="md:col-span-5 space-y-4">
-                  <div className="w-full aspect-square bg-[#F7F5EE] border border-[#E2DDD3] rounded-xl p-6 flex items-center justify-center overflow-hidden">
+                <div className="md:col-span-5 space-y-3 sm:space-y-4">
+                  <div className="w-full h-[178px] sm:h-auto sm:aspect-square bg-[#F7F5EE] border border-[#E2DDD3] rounded-xl p-3 sm:p-6 flex items-center justify-center overflow-hidden">
                     <img
                       src={selectedProduct.image}
                       alt={selectedProduct.name}
-                      className="w-full h-full object-contain filter contrast-[1.05]"
+                      className="w-full h-full max-h-[145px] sm:max-h-none object-contain filter contrast-[1.05]"
                     />
                   </div>
 
-                  <div className="p-4 bg-[#F4F1EA] border border-[#E2DDD3] rounded-xl space-y-1">
-                    <span className="text-[11px] font-mono font-bold text-[#C28E5C] uppercase block">
+                  <div className="p-3 sm:p-4 bg-[#F4F1EA] border border-[#E2DDD3] rounded-xl space-y-1">
+                    <span className="text-[9px] sm:text-[11px] font-mono font-bold text-[#C28E5C] uppercase block tracking-wider">
                       CAM KẾT CHẤT LƯỢNG
                     </span>
-                    <p className="text-xs text-[#1A1918] font-bold">
+                    <p className="text-[10px] sm:text-xs text-[#1A1918] font-bold leading-relaxed">
                       100% Phôi chính hãng · Đầy đủ CO/CQ xuất xưởng
                     </p>
                   </div>
                 </div>
 
                 {/* Right Details */}
-                <div className="md:col-span-7 space-y-5">
+                <div className="md:col-span-7 space-y-3.5 sm:space-y-5">
                   <div>
-                    <span className="text-xs font-mono font-bold tracking-widest text-[#C28E5C] uppercase block mb-1">
+                    <span className="text-[9px] sm:text-xs font-mono font-bold tracking-widest text-[#C28E5C] uppercase block mb-1">
                       {selectedProduct.index} / {selectedProduct.category}
                     </span>
-                    <h3 className="text-3xl font-bold uppercase text-[#1A1918]">
+                    <h3 className="text-2xl sm:text-3xl font-bold uppercase text-[#1A1918] leading-none">
                       {selectedProduct.name}
                     </h3>
-                    <div className="font-mono text-xs font-bold text-[#C28E5C] uppercase tracking-wider pt-1">
+                    <div className="font-mono text-[9px] sm:text-xs font-bold text-[#C28E5C] uppercase tracking-wider pt-1">
                       {selectedProduct.subtags}
                     </div>
                   </div>
 
-                  <p className="text-xs sm:text-sm text-[#524D4A] leading-relaxed">
+                  <p className="text-[11px] sm:text-sm text-[#524D4A] leading-relaxed">
                     {selectedProduct.details}
                   </p>
 
                   {/* Specs Table */}
-                  <div className="space-y-3 pt-3 border-t border-[#1A1918]/10">
-                    <span className="text-xs font-mono font-bold uppercase text-[#1A1918] block">
+                  <div className="space-y-2 sm:space-y-3 pt-2.5 sm:pt-3 border-t border-[#1A1918]/10">
+                    <span className="text-[9px] sm:text-xs font-mono font-bold uppercase text-[#1A1918] block tracking-wider">
                       THÔNG SỐ KỸ THUẬT QUY CÁCH
                     </span>
-                    <div className="space-y-2 bg-[#F7F5EE] p-4 border border-[#E2DDD3] rounded-lg">
+                    <div className="space-y-1.5 sm:space-y-2 bg-[#F7F5EE] p-3 sm:p-4 border border-[#E2DDD3] rounded-lg">
                       {selectedProduct.specs.map((spec, i) => (
-                        <div key={i} className="flex items-center justify-between text-xs font-sans">
+                        <div key={i} className="flex items-center justify-between gap-3 text-[10px] sm:text-xs font-sans">
                           <span className="font-bold text-[#1A1918]">{spec.label}:</span>
-                          <span className="text-[#524D4A] font-mono">{spec.value}</span>
+                          <span className="text-[#524D4A] font-mono text-right">{spec.value}</span>
                         </div>
                       ))}
                     </div>
                   </div>
 
                   {/* Brands */}
-                  <div className="pt-2 border-t border-[#1A1918]/10 flex items-center justify-between">
+                  <div className="pt-2 border-t border-[#1A1918]/10 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                     <div>
                       <span className="text-[11px] font-mono text-[#8E857B] block">THƯƠNG HIỆU CUNG ỨNG</span>
                       <span className="text-xs font-bold uppercase text-[#1A1918]">
@@ -790,7 +790,7 @@ export default function ProductsPage() {
                         setSelectedProduct(null);
                         handleOpenQuote(targetProd);
                       }}
-                      className="px-6 py-2.5 bg-[#C28E5C] text-white font-mono font-bold text-xs uppercase tracking-wider hover:bg-[#A87646] transition-colors rounded-full shadow-sm cursor-pointer"
+                      className="w-full sm:w-auto px-5 sm:px-6 py-2 sm:py-2.5 bg-[#C28E5C] text-white font-mono font-bold text-[10px] sm:text-xs uppercase tracking-wider hover:bg-[#A87646] transition-colors rounded-full shadow-sm cursor-pointer"
                     >
                       Báo Giá Ngay
                     </button>

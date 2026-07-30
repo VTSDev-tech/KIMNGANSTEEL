@@ -116,16 +116,16 @@ export function MaterialsManifestoSection() {
 
         {/* 1. GIANT OVERSIZED BACKGROUND TYPOGRAPHY (MATCHING IMAGE 2 EXACTLY) */}
         <div className="absolute inset-0 z-0 flex flex-col justify-center pl-4 sm:pl-8 md:pl-16 pt-4 pointer-events-none select-none overflow-hidden font-serif">
-          <div className="manifesto-word text-[15vw] sm:text-[13vw] leading-[0.8] font-light text-[#8E877D]/30 uppercase tracking-tight">
+          <div className="manifesto-word text-[12vw] sm:text-[10vw] leading-[0.8] font-light text-[#8E877D]/30 uppercase tracking-tight">
             MATERIALS
           </div>
-          <div className="manifesto-word text-[15vw] sm:text-[13vw] leading-[0.8] font-light text-[#8E877D]/30 uppercase tracking-tight">
+          <div className="manifesto-word text-[12vw] sm:text-[10vw] leading-[0.8] font-light text-[#8E877D]/30 uppercase tracking-tight">
             FOR
           </div>
-          <div className="manifesto-word text-[15vw] sm:text-[13vw] leading-[0.8] font-light text-[#8E877D]/30 uppercase tracking-tight">
+          <div className="manifesto-word text-[12vw] sm:text-[10vw] leading-[0.8] font-light text-[#8E877D]/30 uppercase tracking-tight">
             LASTING
           </div>
-          <div className="manifesto-word text-[15vw] sm:text-[13vw] leading-[0.8] font-light text-[#8E877D]/30 uppercase tracking-tight pl-8 md:pl-[22vw]">
+          <div className="manifesto-word text-[12vw] sm:text-[10vw] leading-[0.8] font-light text-[#8E877D]/30 uppercase tracking-tight pl-8 md:pl-[22vw]">
             STRUCTURES
           </div>
         </div>

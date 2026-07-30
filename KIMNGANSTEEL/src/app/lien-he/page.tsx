@@ -13,31 +13,36 @@ import {
   Route,
 } from "lucide-react";
 
-const OFFICIAL_CONTACT = {
+const companyLocation = {
   company: "Công ty TNHH Tôn Thép Kim Ngân",
   taxCode: "3702871412",
   representative: "Trần Thị Ngọc Hương",
-  address: "262 Đường DT742, Khu Phố 1, Phường Vĩnh Tân, TP Hồ Chí Minh, Việt Nam",
+  address:
+    "262 Đường DT742, Khu Phố 1, Phường Vĩnh Tân, TP Hồ Chí Minh, Việt Nam",
   phone: "0707 079 900",
   phoneHref: "0707079900",
   email: "tonthepkimngan20@gmail.com",
+  mapsUrl:
+    "https://www.google.com/maps/search/?api=1&query=C%C3%B4ng%20Ty%20TNHH%20T%C3%B4n%20Th%C3%A9p%20Kim%20Ng%C3%A2n%2C%20262%20%C4%90%C6%B0%E1%BB%9Dng%20DT742%2C%20Khu%20Ph%E1%BB%91%201%2C%20Ph%C6%B0%E1%BB%9Dng%20V%C4%A9nh%20T%C3%A2n%2C%20TP%20H%E1%BB%93%20Ch%C3%AD%20Minh%2C%20Vi%E1%BB%87t%20Nam",
+  mapsEmbedSrc:
+    "https://maps.google.com/maps?q=C%C3%B4ng%20Ty%20TNHH%20T%C3%B4n%20Th%C3%A9p%20Kim%20Ng%C3%A2n%2C%20262%20%C4%90%C6%B0%E1%BB%9Dng%20DT742%2C%20Ph%C6%B0%E1%BB%9Dng%20V%C4%A9nh%20T%C3%A2n&t=&z=15&ie=UTF8&iwloc=&output=embed",
 };
 
 const CONTACT_INFO = [
   {
     icon: MapPin,
     label: "Địa chỉ",
-    value: OFFICIAL_CONTACT.address,
+    value: companyLocation.address,
   },
   {
     icon: Phone,
     label: "Hotline",
-    value: OFFICIAL_CONTACT.phone,
+    value: companyLocation.phone,
   },
   {
     icon: Mail,
     label: "Email",
-    value: OFFICIAL_CONTACT.email,
+    value: companyLocation.email,
   },
 ];
 
@@ -59,6 +64,7 @@ export default function ContactPage() {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+  const [copied, setCopied] = useState(false);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -93,6 +99,16 @@ export default function ContactPage() {
     }, 600);
   };
 
+  const handleCopyAddress = async () => {
+    try {
+      await navigator.clipboard.writeText(companyLocation.address);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // Clipboard API not available — silently ignore
+    }
+  };
+
   return (
     <main className="min-h-screen bg-[#FAF8F2] text-[#1A1918] pt-24 md:pt-28 pb-12">
       <section className="mx-auto w-full max-w-[1440px] px-5 sm:px-8 lg:px-12 xl:px-16">
@@ -102,7 +118,7 @@ export default function ContactPage() {
               LIÊN HỆ & BÁO GIÁ
             </p>
             <h1 className="mt-5 max-w-3xl font-sans font-bold text-[34px] leading-[1.05] sm:text-[46px] lg:text-[52px] tracking-tight text-[#111]">
-              Liên hệ trực tiếp với Kim Ngân Steel
+              LIÊN HỆ TRỰC TIẾP VỚI KIM NGÂN STEEL
             </h1>
           </div>
 
@@ -117,10 +133,10 @@ export default function ContactPage() {
         <div className="mt-8 grid grid-cols-1 lg:grid-cols-[0.86fr_1fr] gap-8 lg:gap-14 items-start">
           <aside className="pt-1">
             <h2 className="text-xl sm:text-2xl font-black uppercase tracking-[-0.02em]">
-              {OFFICIAL_CONTACT.company}
+              {companyLocation.company}
             </h2>
             <p className="mt-2 font-mono text-xs text-[#625B54]">
-              Mã số thuế: {OFFICIAL_CONTACT.taxCode} · ĐDPL: {OFFICIAL_CONTACT.representative}
+              Mã số thuế: {companyLocation.taxCode} · ĐDPL: {companyLocation.representative}
             </p>
             <div className="mt-4 h-[2px] w-14 bg-[#C28E5C]" />
 
@@ -210,7 +226,7 @@ export default function ContactPage() {
                     required
                     value={formData.phone}
                     onChange={handleInputChange}
-                    placeholder={OFFICIAL_CONTACT.phone}
+                    placeholder={companyLocation.phone}
                   />
                   <Field
                     label="Email"
@@ -265,74 +281,89 @@ export default function ContactPage() {
           </section>
         </div>
 
-        {/* =========================================================================
-            ULTRA-PREMIUM ARCHITECTURAL GOOGLE MAPS SHOWCASE
-           ========================================================================= */}
-        <section className="mt-10 overflow-hidden rounded-2xl border border-[#E2DDD3] bg-white shadow-md transition-all duration-300">
-          
-          {/* Card Header Bar */}
-          <div className="flex flex-col gap-4 border-b border-[#1A1918]/10 bg-[#FAF9F5] p-5 sm:p-7 md:flex-row md:items-center md:justify-between">
-            <div className="space-y-1">
-              <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C28E5C]">
-                BẢN ĐỒ ĐỊNH VỊ CÔNG TY
-              </span>
-              <h3 className="font-sans text-xl font-bold uppercase tracking-tight text-[#1A1918] sm:text-2xl">
-                CÔNG TY TNHH TÔN THÉP KIM NGÂN
-              </h3>
-              <p className="text-xs text-[#524D4A] font-sans">
-                {OFFICIAL_CONTACT.address}
-              </p>
-            </div>
-
-            <a
-              href="https://www.google.com/maps/search/?api=1&query=C%C3%B4ng+Ty+T%C3%B4n+Th%C3%A9p+Kim+Ng%C3%A2n,+262+%C4%90%C6%B0%E1%BB%9Dng+DT742,+Ph%C6%B0%E1%BB%9Dng+V%C4%A9nh+T%C3%A2n"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#1A1918] px-6 py-3 font-mono text-xs font-bold uppercase tracking-wider text-white shadow-sm transition-all hover:bg-[#C28E5C] shrink-0"
-            >
-              <Route size={15} />
-              <span>MỞ CHỈ ĐƯỜNG</span>
-              <ArrowRight size={14} />
-            </a>
-          </div>
-
-          {/* Map Stage with Floating Location Badge */}
-          <div className="relative h-[340px] w-full sm:h-[420px] lg:h-[460px] bg-[#FAF9F5]">
+        {/* ================= BẢN ĐỒ ĐỊNH VỊ ================= */}
+        <section className="relative mt-10 overflow-hidden rounded-[26px] border border-[#171717]/10 bg-[#F5F2EC] shadow-[0_20px_45px_rgba(17,17,17,0.08)]">
+          <div className="relative h-[620px] sm:h-[640px] lg:h-[700px] overflow-hidden">
             <iframe
               title="Bản đồ vị trí Công Ty Tôn Thép Kim Ngân"
-              src="https://maps.google.com/maps?q=C%C3%B4ng%20Ty%20T%C3%B4n%20Th%C3%A9p%20Kim%20Ng%C3%A2n%2C%20262%20%C4%90%C6%B0%E1%BB%9Dng%20DT742%2C%20Ph%C6%B0%E1%BB%9Dng%20V%C4%A9nh%20T%C3%A2n&t=&z=16&ie=UTF8&iwloc=&output=embed"
+              src={companyLocation.mapsEmbedSrc}
               width="100%"
               height="100%"
               style={{ border: 0 }}
               allowFullScreen={false}
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              className="h-full w-full pointer-events-none filter contrast-[1.04] saturate-[0.88] brightness-[0.98]"
+              className="absolute inset-0 h-full w-full object-cover"
             />
-
-            {/* Floating Location Overlay Badge */}
-            <div className="absolute bottom-5 left-5 z-10 hidden sm:flex items-center gap-3 bg-white/95 backdrop-blur-md border border-[#E2DDD3] p-4 rounded-xl shadow-lg max-w-sm">
-              <div className="w-10 h-10 rounded-full bg-[#FAF9F5] border border-[#C28E5C]/30 text-[#C28E5C] flex items-center justify-center shrink-0">
-                <MapPin size={20} strokeWidth={1.8} />
-              </div>
-              <div className="space-y-0.5">
-                <span className="text-[10px] font-mono font-bold tracking-wider text-[#C28E5C] uppercase block">
-                  KIM NGÂN STEEL
-                </span>
-                <p className="text-xs font-bold text-[#1A1918] truncate">
-                  262 Đường DT742, P. Vĩnh Tân
-                </p>
-                <a
-                  href="https://www.google.com/maps/search/?api=1&query=C%C3%B4ng+Ty+T%C3%B4n+Th%C3%A9p+Kim+Ng%C3%A2n,+262+%C4%90%C6%B0%E1%BB%9Dng+DT742,+Ph%C6%B0%E1%BB%9Dng+V%C4%A9nh+T%C3%A2n"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[11px] font-mono text-[#C28E5C] hover:underline inline-flex items-center gap-0.5"
-                >
-                  Xem chi tiết chỉ đường ↗
-                </a>
+            <div className="absolute inset-0 bg-[#000]/20" />
+            <div className="absolute inset-y-0 left-0 hidden w-[42%] bg-gradient-to-r from-[#000]/80 via-[#000]/30 to-transparent lg:block" />
+            <div className="absolute inset-y-0 left-0 hidden h-full w-[42%] lg:flex z-20">
+              <div className="flex h-full items-center px-8 py-10">
+                <div className="max-w-[340px]">
+                  <span className="font-mono text-[11px] font-bold uppercase tracking-[0.32em] text-[#F5F2EC]/90">
+                    VỊ TRÍ NHÀ MÁY
+                  </span>
+                  <h3 className="mt-5 text-4xl font-black uppercase tracking-[-0.03em] leading-[1.02] text-[#F5F2EC] sm:text-5xl">
+                    TÌM ĐẾN
+                    <span className="block text-[#C98F58]">KIM NGÂN STEEL</span>
+                  </h3>
+                  <p className="mt-5 text-sm leading-7 text-[#E4DDD2]">
+                    Địa chỉ nhà máy và văn phòng Kim Ngân Steel tại Đường DT742, Phường Vĩnh Tân, TP Hồ Chí Minh.
+                  </p>
+                  <a
+                    href={companyLocation.mapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-8 inline-flex items-center gap-2 rounded-xl border border-[#C98F58] bg-transparent px-5 py-3 text-sm font-bold uppercase tracking-[0.22em] text-[#F5F2EC] transition hover:bg-[#C98F58] hover:text-[#171717] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C98F58]/30 focus-visible:ring-offset-2 focus-visible:ring-offset-[#F5F2EC]"
+                  >
+                    <MapPin size={16} />
+                    Mở trên Google Maps ↗
+                  </a>
+                </div>
               </div>
             </div>
 
+            <div className="relative z-10 mx-auto flex max-w-[1440px] flex-col px-5 py-6 sm:px-8 lg:px-0">
+              <div className="lg:hidden mb-6 rounded-[22px] border border-[#171717]/10 bg-[#FAF8F4] p-5 shadow-[0_18px_35px_rgba(17,17,17,0.08)]">
+                <span className="font-mono text-[11px] font-bold uppercase tracking-[0.32em] text-[#5F5A54]">
+                  VỊ TRÍ NHÀ MÁY
+                </span>
+                <h3 className="mt-4 text-3xl font-black uppercase tracking-[-0.03em] leading-tight text-[#171717]">
+                  TÌM ĐẾN
+                  <span className="block text-[#C98F58]">KIM NGÂN STEEL</span>
+                </h3>
+                <p className="mt-4 text-sm leading-7 text-[#5F5A54]">
+                  Địa chỉ nhà máy và văn phòng Kim Ngân Steel tại Đường DT742, Phường Vĩnh Tân, TP Hồ Chí Minh.
+                </p>
+                <a
+                  href={companyLocation.mapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-6 inline-flex items-center gap-2 rounded-xl border border-[#C98F58] bg-transparent px-5 py-3 text-sm font-bold uppercase tracking-[0.22em] text-[#171717] transition hover:bg-[#C98F58] hover:text-[#171717] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C98F58]/30 focus-visible:ring-offset-2 focus-visible:ring-offset-[#F5F2EC]"
+                >
+                  <MapPin size={16} />
+                  Mở trên Google Maps ↗
+                </a>
+              </div>
+
+              <div className="relative h-[420px] sm:h-[480px] lg:h-[700px]">
+                <a
+                  href={companyLocation.mapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-3 rounded-[24px] border border-[#171717]/10 bg-[#FAF8F4] px-5 py-4 text-center shadow-[0_18px_36px_rgba(17,17,17,0.14)] transition hover:border-[#C98F58] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C98F58]/30"
+                  aria-label="Mở Google Maps vị trí Kim Ngân Steel"
+                >
+                  <span className="flex h-12 w-12 items-center justify-center rounded-full bg-[#C98F58] text-white shadow-[0_12px_24px_rgba(201,143,88,0.24)]">
+                    <MapPin size={18} strokeWidth={1.8} />
+                  </span>
+                  <span className="text-[11px] font-black uppercase tracking-[0.3em] text-[#171717]">
+                    KIM NGÂN STEEL
+                  </span>
+                  <span className="h-2 w-2 rounded-full bg-[#C98F58] shadow-[0_0_0_4px_rgba(201,143,88,0.16)] motion-safe:animate-pulse" />
+                </a>
+              </div>
+            </div>
           </div>
         </section>
       </section>
