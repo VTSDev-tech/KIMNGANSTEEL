@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
@@ -204,14 +204,14 @@ export function HeroAssembly({ className = "" }: HeroAssemblyProps) {
       <svg ref={modulesRef} className="hero-assembly-modules" viewBox="0 0 1200 760" aria-hidden="true">
         <defs>
           <linearGradient id="heroModuleSteel" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#585753" />
-            <stop offset="22%" stopColor="#ece8df" />
-            <stop offset="46%" stopColor="#7f7b73" />
-            <stop offset="72%" stopColor="#f9f7f1" />
-            <stop offset="100%" stopColor="#5c5a55" />
+            <stop offset="0%" stopColor="#064e3b" />
+            <stop offset="22%" stopColor="#ffffff" />
+            <stop offset="46%" stopColor="#064e3b" />
+            <stop offset="72%" stopColor="#ffffff" />
+            <stop offset="100%" stopColor="#064e3b" />
           </linearGradient>
           <filter id="heroModuleShadow" x="-50%" y="-60%" width="200%" height="220%">
-            <feDropShadow dx="0" dy="20" stdDeviation="18" floodColor="#1a1918" floodOpacity="0.2" />
+            <feDropShadow dx="0" dy="20" stdDeviation="18" floodColor="#064e3b" floodOpacity="0.2" />
           </filter>
         </defs>
         {steelModules.map((module) => (
@@ -247,19 +247,19 @@ export function HeroAssembly({ className = "" }: HeroAssemblyProps) {
       >
         <defs>
           <linearGradient id="heroLogoSteel" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#3d3b38" />
-            <stop offset="17%" stopColor="#f3efe4" />
-            <stop offset="42%" stopColor="#75716a" />
-            <stop offset="63%" stopColor="#fbf8ef" />
-            <stop offset="100%" stopColor="#46443f" />
+            <stop offset="0%" stopColor="#064e3b" />
+            <stop offset="17%" stopColor="#ffffff" />
+            <stop offset="42%" stopColor="#064e3b" />
+            <stop offset="63%" stopColor="#ffffff" />
+            <stop offset="100%" stopColor="#064e3b" />
           </linearGradient>
           <linearGradient id="heroLogoGold" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#8b5f2d" />
-            <stop offset="48%" stopColor="#d6ad63" />
-            <stop offset="100%" stopColor="#7d5227" />
+            <stop offset="0%" stopColor="#ea580c" />
+            <stop offset="48%" stopColor="#ea580c" />
+            <stop offset="100%" stopColor="#ea580c" />
           </linearGradient>
           <filter id="heroLogoShadow" x="-40%" y="-40%" width="180%" height="180%">
-            <feDropShadow dx="0" dy="22" stdDeviation="17" floodColor="#1a1918" floodOpacity="0.22" />
+            <feDropShadow dx="0" dy="22" stdDeviation="17" floodColor="#064e3b" floodOpacity="0.22" />
           </filter>
         </defs>
         <g filter="url(#heroLogoShadow)">

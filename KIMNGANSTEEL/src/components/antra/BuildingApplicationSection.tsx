@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -209,14 +209,14 @@ export function BuildingApplicationSection() {
     <section
       ref={sectionRef}
       id="building-applications"
-      className="relative py-16 md:py-24 bg-[#F7F5F0] border-b border-[#1A1918]/10 text-[#1A1918] select-none overflow-hidden"
+      className="relative py-16 md:py-24 bg-[#ffffff] border-b border-[#064e3b]/10 text-[#064e3b] select-none overflow-hidden"
     >
       {/* Top Subtle Accent Line */}
-      <div className="absolute top-0 left-0 right-0 h-[1px] bg-[#1A1918]/10" />
+      <div className="absolute top-0 left-0 right-0 h-[1px] bg-[#064e3b]/10" />
 
       {/* Massive Editorial Background Chapter Watermark */}
       <div
-        className="kn-app-chapter-bg absolute top-28 sm:top-36 left-1/2 -translate-x-1/2 text-6xl sm:text-7xl md:text-[130px] lg:text-[160px] font-bold text-[#1A1918]/[0.03] tracking-tighter uppercase pointer-events-none whitespace-nowrap z-0 select-none font-sans"
+        className="kn-app-chapter-bg absolute top-28 sm:top-36 left-1/2 -translate-x-1/2 text-6xl sm:text-7xl md:text-[130px] lg:text-[160px] font-bold text-[#064e3b]/[0.03] tracking-tighter uppercase pointer-events-none whitespace-nowrap z-0 select-none font-sans"
         aria-hidden="true"
       >
         APPLICATION IN PROJECTS
@@ -226,15 +226,15 @@ export function BuildingApplicationSection() {
         
         {/* Editorial Top Section Header (Balanced Split Layout) */}
         <div className="kn-app-header mb-8 md:mb-12">
-          <span className="text-xs uppercase tracking-[0.25em] text-[#C28E5C] font-sans font-bold block mb-3">
+          <span className="text-xs uppercase tracking-[0.25em] text-[#ea580c] font-sans font-bold block mb-3">
             CHAPTER 03 — REAL WORLD APPLICATION
           </span>
 
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 border-b border-[#1A1918]/10 pb-10">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold uppercase tracking-tight text-[#1A1918] leading-[1.1] max-w-[680px]">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 border-b border-[#064e3b]/10 pb-10">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold uppercase tracking-tight text-[#064e3b] leading-[1.1] max-w-[680px]">
               ỨNG DỤNG VẬT LIỆU<br />TRONG CÔNG TRÌNH
             </h2>
-            <p className="text-xs sm:text-sm text-[#524D4A] font-sans max-w-[420px] leading-relaxed">
+            <p className="text-xs sm:text-sm text-[#064e3b] font-sans max-w-[420px] leading-relaxed">
               Trải nghiệm thực tế cách sắp xếp và phối hợp các chủng loại vật liệu tôn thép Kim Ngân Steel trong kết cấu nhà xưởng công nghiệp.
             </p>
           </div>
@@ -267,7 +267,7 @@ export function BuildingApplicationSection() {
                         y1={spot.y + "%"}
                         x2={spot.targetX + "%"}
                         y2={spot.targetY + "%"}
-                        stroke={isActive ? "#C28E5C" : "#8A7A6A"}
+                        stroke={isActive ? "#ea580c" : "#064e3b"}
                         strokeWidth={isActive ? "2" : "1.2"}
                         strokeDasharray={isActive ? "none" : "3 3"}
                         strokeOpacity={isActive ? "1" : "0.6"}
@@ -291,8 +291,8 @@ export function BuildingApplicationSection() {
                         className={
                           "rounded-full transition-all duration-300 " +
                           (isActive
-                            ? "w-3.5 h-3.5 bg-[#C28E5C] ring-4 ring-[#C28E5C]/30 shadow-sm"
-                            : "w-2.5 h-2.5 bg-[#8A7A6A]")
+                            ? "w-3.5 h-3.5 bg-[#ea580c] ring-4 ring-[#ea580c]/30 shadow-sm"
+                            : "w-2.5 h-2.5 bg-[#064e3b]")
                         }
                       />
                     </span>
@@ -317,15 +317,15 @@ export function BuildingApplicationSection() {
                       aria-label={"Chọn vị trí " + spot.label + " - " + spot.productName}
                       aria-pressed={isActive}
                       className={
-                        "relative flex items-center justify-center w-8 h-8 rounded-full transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#C28E5C] focus:ring-offset-2 " +
+                        "relative flex items-center justify-center w-8 h-8 rounded-full transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#ea580c] focus:ring-offset-2 " +
                         (isActive
-                          ? "bg-[#C28E5C] text-white shadow-lg scale-110 ring-4 ring-[#C28E5C]/30"
-                          : "bg-white/90 text-[#1A1918] hover:bg-[#C28E5C] hover:text-white border border-[#1A1918]/20 shadow-md hover:scale-110")
+                          ? "bg-[#ea580c] text-white shadow-lg scale-110 ring-4 ring-[#ea580c]/30"
+                          : "bg-white/90 text-[#064e3b] hover:bg-[#ea580c] hover:text-white border border-[#064e3b]/20 shadow-md hover:scale-110")
                       }
                     >
                       {/* Pulse Ring when Active */}
                       {isActive && (
-                        <span className="absolute inset-0 rounded-full bg-[#C28E5C]/40 animate-ping pointer-events-none" />
+                        <span className="absolute inset-0 rounded-full bg-[#ea580c]/40 animate-ping pointer-events-none" />
                       )}
 
                       {/* Hotspot Dot Center Pin */}
@@ -333,7 +333,7 @@ export function BuildingApplicationSection() {
                     </button>
 
                     {/* Tooltip Hover Label */}
-                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1 bg-[#1A1918] text-white text-[11px] font-sans font-semibold rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap shadow-md z-30">
+                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1 bg-[#064e3b] text-white text-[11px] font-sans font-semibold rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap shadow-md z-30">
                       {spot.label}
                     </div>
                   </div>
@@ -345,7 +345,7 @@ export function BuildingApplicationSection() {
           </div>
 
           {/* Right Column: Information Panel (5 Cols Desktop, Right Aligned) */}
-          <div className="kn-app-info-panel lg:col-span-5 mx-auto flex w-[calc(100%-2rem)] max-w-[315px] flex-col justify-between rounded-xl border border-[#1A1918]/10 bg-white p-4 shadow-[0_20px_50px_rgba(0,0,0,0.04)] sm:min-h-[440px] sm:w-full sm:max-w-none sm:p-6 md:min-h-[480px] md:p-9">
+          <div className="kn-app-info-panel lg:col-span-5 mx-auto flex w-[calc(100%-2rem)] max-w-[315px] flex-col justify-between rounded-xl border border-[#064e3b]/10 bg-white p-4 shadow-[0_20px_50px_rgba(0,0,0,0.04)] sm:min-h-[440px] sm:w-full sm:max-w-none sm:p-6 md:min-h-[480px] md:p-9">
             
             {/* Accessible Live Region for Screen Readers */}
             <div aria-live="polite" className="sr-only">
@@ -363,31 +363,31 @@ export function BuildingApplicationSection() {
               >
                 <div>
                   {/* Kicker + Component Number */}
-                  <div className="flex items-center justify-between gap-3 border-b border-[#1A1918]/08 pb-2.5 mb-3 sm:pb-3.5 sm:mb-5">
-                    <span className="text-[9px] sm:text-[11px] font-sans font-bold uppercase tracking-[0.18em] sm:tracking-[0.2em] text-[#C28E5C]">
+                  <div className="flex items-center justify-between gap-3 border-b border-[#064e3b]/08 pb-2.5 mb-3 sm:pb-3.5 sm:mb-5">
+                    <span className="text-[9px] sm:text-[11px] font-sans font-bold uppercase tracking-[0.18em] sm:tracking-[0.2em] text-[#ea580c]">
                       HẠNG MỤC {activeHotspot.number}
                     </span>
-                    <span className="max-w-[120px] text-right text-[10px] sm:max-w-none sm:text-xs font-sans font-medium text-[#8E857B]">
+                    <span className="max-w-[120px] text-right text-[10px] sm:max-w-none sm:text-xs font-sans font-medium text-[#064e3b]">
                       {activeHotspot.componentName}
                     </span>
                   </div>
 
                   {/* Component Title & Product Name */}
-                  <h3 className="text-lg sm:text-3xl font-bold uppercase tracking-tight text-[#1A1918] mb-1">
+                  <h3 className="text-lg sm:text-3xl font-bold uppercase tracking-tight text-[#064e3b] mb-1">
                     {activeHotspot.label}
                   </h3>
-                  <p className="text-[9px] sm:text-xs font-sans font-bold text-[#8E857B] uppercase tracking-wider mb-2.5 sm:mb-5">
+                  <p className="text-[9px] sm:text-xs font-sans font-bold text-[#064e3b] uppercase tracking-wider mb-2.5 sm:mb-5">
                     {activeHotspot.productName}
                   </p>
 
                   {/* Short Description */}
-                  <p className="text-[11px] sm:text-sm text-[#524D4A] font-sans leading-relaxed mb-3 sm:mb-6">
+                  <p className="text-[11px] sm:text-sm text-[#064e3b] font-sans leading-relaxed mb-3 sm:mb-6">
                     {activeHotspot.description}
                   </p>
 
                   {/* Product Thumbnail & Specifications Grid */}
-                  <div className="flex items-start gap-2.5 sm:gap-4 p-2.5 sm:p-4 rounded-xl sm:rounded-2xl bg-[#F7F5F0] border border-[#1A1918]/06 mb-3 sm:mb-6">
-                    <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-xl bg-white p-1.5 shrink-0 border border-[#1A1918]/08 flex items-center justify-center">
+                  <div className="flex items-start gap-2.5 sm:gap-4 p-2.5 sm:p-4 rounded-xl sm:rounded-2xl bg-[#ffffff] border border-[#064e3b]/06 mb-3 sm:mb-6">
+                    <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-xl bg-white p-1.5 shrink-0 border border-[#064e3b]/08 flex items-center justify-center">
                       <img
                         src={activeHotspot.image}
                         alt={activeHotspot.productName}
@@ -397,8 +397,8 @@ export function BuildingApplicationSection() {
                     <div className="flex-1 space-y-1 text-[10px] sm:text-xs font-sans">
                       {activeHotspot.specs.map((s) => (
                         <div key={s.label} className="flex items-center justify-between gap-2 text-[9px] sm:text-[11px]">
-                          <span className="text-[#6B655F] font-medium">{s.label}:</span>
-                          <span className="font-bold text-[#1A1918] text-right">{s.value}</span>
+                          <span className="text-[#064e3b] font-medium">{s.label}:</span>
+                          <span className="font-bold text-[#064e3b] text-right">{s.value}</span>
                         </div>
                       ))}
                     </div>
@@ -409,7 +409,7 @@ export function BuildingApplicationSection() {
                 <div className="pt-1.5 sm:pt-2">
                   <a
                     href="#contact"
-                    className="w-full flex items-center justify-center gap-2 py-2.5 px-3 sm:py-3.5 sm:px-5 rounded-xl sm:rounded-2xl bg-[#1A1918] hover:bg-[#C28E5C] text-white font-sans text-[9px] sm:text-xs font-bold uppercase tracking-widest transition-all duration-300 shadow-sm group"
+                    className="w-full flex items-center justify-center gap-2 py-2.5 px-3 sm:py-3.5 sm:px-5 rounded-xl sm:rounded-2xl bg-[#064e3b] hover:bg-[#ea580c] text-white font-sans text-[9px] sm:text-xs font-bold uppercase tracking-widest transition-all duration-300 shadow-sm group"
                   >
                     <span>XEM CHI TIẾT SẢN PHẨM</span>
                     <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>

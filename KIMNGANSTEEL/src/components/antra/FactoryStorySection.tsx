@@ -303,17 +303,17 @@ export function FactoryStorySection() {
     <section
       ref={containerRef}
       id="factory-story"
-      className="relative bg-[#1A1918] text-[#F7F5F0] select-none"
+      className="relative bg-[#064e3b] text-[#ffffff] select-none"
     >
       {/* =========================================================================
           DESKTOP / TABLET: ONE SINGLE STICKY FRAME PINNED VIA GSAP
          ========================================================================= */}
-      <div className="block relative w-full">
+      <div className="hidden md:block relative w-full">
         
         {/* ONE Sticky Viewport Frame (Pin-spacer target) */}
         <div
           id="factory-sticky-frame"
-          className="relative h-svh w-full overflow-hidden bg-[#1A1918]"
+          className="relative h-svh w-full overflow-hidden bg-[#064e3b]"
         >
           
           {/* Layered Images (Positioned at exact same 100vw x 100vh frame) */}
@@ -341,15 +341,15 @@ export function FactoryStorySection() {
           ))}
 
           {/* Top-Right Minimal Progress Counter & Thin Line */}
-          <div className="absolute top-8 right-8 lg:top-12 lg:right-12 z-30 flex flex-col items-end gap-2 font-mono text-xs text-[#F7F5F0] pointer-events-none">
+          <div className="absolute top-8 right-8 lg:top-12 lg:right-12 z-30 flex flex-col items-end gap-2 font-mono text-xs text-[#ffffff] pointer-events-none">
             <div className="flex items-center gap-2">
-              <span className="font-bold text-[#C28E5C] text-sm">{activeNum}</span>
+              <span className="font-bold text-[#ea580c] text-sm">{activeNum}</span>
               <span className="opacity-30">/</span>
               <span className="opacity-50">06</span>
             </div>
             <div className="w-24 h-[1px] bg-white/20 rounded-full overflow-hidden">
               <div
-                className="h-full bg-[#C28E5C] transition-all duration-300"
+                className="h-full bg-[#ea580c] transition-all duration-300"
                 style={{ width: `${Math.min(100, Math.max(0, progressPercent * 100))}%` }}
               />
             </div>
@@ -360,10 +360,10 @@ export function FactoryStorySection() {
             id="factory-intro-text"
             className="absolute inset-0 flex flex-col items-center justify-center text-center max-w-[860px] mx-auto px-6 z-20 space-y-4 pointer-events-none"
           >
-            <span className="text-xs uppercase tracking-[0.3em] text-[#C28E5C] font-sans font-bold block">
+            <span className="text-xs uppercase tracking-[0.3em] text-[#ea580c] font-bold block">
               FACTORY STORY
             </span>
-            <h2 className="text-4xl sm:text-5xl lg:text-7xl font-bold uppercase tracking-tight text-[#F7F5F0] leading-[1.08] font-sans">
+            <h2 className={`text-[clamp(28px,6vw,64px)] font-bold uppercase tracking-tight text-[#ffffff] leading-[1.12] `}>
               BEHIND EVERY PRODUCT<br />
               IS A CONTROLLED PROCESS.
             </h2>
@@ -374,20 +374,20 @@ export function FactoryStorySection() {
             <div
               key={`text-${scene.num}`}
               id={`factory-txt-${idx + 1}`}
-              className="absolute inset-0 flex flex-col items-center justify-center text-center max-w-[780px] mx-auto px-6 z-20 opacity-0 pointer-events-none space-y-4 font-sans"
+              className="absolute inset-0 flex flex-col items-center justify-center text-center max-w-[780px] mx-auto px-6 z-20 opacity-0 pointer-events-none space-y-4"
               style={{ willChange: "opacity, transform, filter" }}
             >
-              <div className="flex items-center justify-center gap-3 font-mono text-xs text-[#C28E5C] font-semibold tracking-widest">
+              <div className="flex items-center justify-center gap-3 font-mono text-xs text-[#ea580c] font-semibold tracking-widest">
                 <span>{scene.num} / 06</span>
                 <span className="opacity-30">·</span>
                 <span className="uppercase tracking-[0.25em]">{scene.label}</span>
               </div>
 
-              <h3 className="text-3xl sm:text-5xl lg:text-6xl font-bold uppercase tracking-tight text-[#F7F5F0] leading-[1.1] whitespace-pre-line">
+              <h3 className={`text-[clamp(28px,6vw,56px)] font-bold uppercase tracking-tight text-[#ffffff] leading-[1.18] whitespace-pre-line break-words`}>
                 {scene.title}
               </h3>
 
-              <p className="text-xs sm:text-sm text-[#D1CCC5] font-sans leading-relaxed max-w-[540px]">
+              <p className="text-xs sm:text-sm text-[#ffffff] leading-relaxed max-w-[540px]">
                 {scene.paragraph}
               </p>
             </div>
@@ -400,14 +400,14 @@ export function FactoryStorySection() {
       {/* =========================================================================
           MOBILE VIEWPORT (max-width: 767px): CLEAN VERTICAL DOCUMENT FLOW
          ========================================================================= */}
-      <div className="hidden py-16 px-6 space-y-16">
+      <div className="block md:hidden py-16 px-6 space-y-16">
         
         {/* Mobile Intro Header */}
         <div className="space-y-3 pb-8 border-b border-white/10 text-center">
-          <span className="text-xs uppercase tracking-[0.25em] text-[#C28E5C] font-sans font-bold block">
+          <span className="text-xs uppercase tracking-[0.25em] text-[#ea580c] font-bold block">
             FACTORY STORY
           </span>
-          <h2 className="text-3xl font-bold uppercase tracking-tight text-[#F7F5F0] leading-tight">
+          <h2 className={`text-3xl font-bold uppercase tracking-tight text-[#ffffff] leading-tight `}>
             BEHIND EVERY PRODUCT IS A CONTROLLED PROCESS.
           </h2>
         </div>
@@ -417,7 +417,7 @@ export function FactoryStorySection() {
           {SCENES.map((scene) => (
             <div key={scene.num} className="space-y-4 text-center">
               {/* Mobile Image (Aspect 4/5, object-cover) */}
-              <div className="w-full aspect-[4/5] relative overflow-hidden bg-[#242321]">
+              <div className="w-full aspect-[4/5] relative overflow-hidden bg-[#064e3b]">
                 <img
                   src={scene.image}
                   alt={scene.label}
@@ -427,17 +427,17 @@ export function FactoryStorySection() {
 
               {/* Mobile Text Block */}
               <div className="space-y-2 pt-2 flex flex-col items-center">
-                <div className="flex items-center gap-2 text-[11px] font-mono text-[#C28E5C] font-bold tracking-widest">
+                <div className="flex items-center gap-2 text-[11px] font-mono text-[#ea580c] font-bold tracking-widest">
                   <span>{scene.num} / 06</span>
                   <span className="opacity-40">·</span>
                   <span className="uppercase tracking-wider">{scene.label}</span>
                 </div>
 
-                <h3 className="text-2xl font-bold uppercase tracking-tight text-[#F7F5F0] leading-tight whitespace-pre-line">
+                <h3 className={`text-2xl font-bold uppercase tracking-tight text-[#ffffff] leading-tight whitespace-pre-line `}>
                   {scene.title}
                 </h3>
 
-                <p className="text-xs text-[#A39D97] leading-relaxed max-w-[420px]">
+                <p className="text-xs text-[#064e3b] leading-relaxed max-w-[420px]">
                   {scene.paragraph}
                 </p>
               </div>

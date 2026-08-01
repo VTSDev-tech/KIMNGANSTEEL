@@ -13,7 +13,7 @@ import { MaterialsManifestoSection } from "./MaterialsManifestoSection";
 import { MaterialExplorerSection } from "./MaterialExplorerSection";
 import { BuildingApplicationSection } from "./BuildingApplicationSection";
 import { EditorialScrollFlow } from "./EditorialScrollFlow";
-import { PortfolioSection } from "./PortfolioSection";
+
 import { FactoryStorySection } from "./FactoryStorySection";
 import { CoreValuesSection } from "./CoreValuesSection";
 import { PartnersSection } from "./PartnersSection";
@@ -136,7 +136,7 @@ export function AntraClone() {
   return (
     <>
       {!gateOpen && <IntroScreen onComplete={handleIntroComplete} />}
-      <div ref={rootRef} className="antra-theme min-h-screen bg-[#ECE8DE] text-[#1A1918] selection:bg-[#1A1918] selection:text-[#ECE8DE]">
+      <div ref={rootRef} className="antra-theme min-h-screen bg-[#ffffff] text-[#064e3b] selection:bg-[#064e3b] selection:text-[#ffffff]">
         <main className="relative z-10">
         <HeroSection />
         <PrecisionStackSection />
@@ -145,7 +145,7 @@ export function AntraClone() {
         <MaterialsManifestoSection />
         <MaterialExplorerSection />
         <BuildingApplicationSection />
-        <PortfolioSection projects={projects} />
+
         <FactoryStorySection />
         <PartnersSection />
         <ContactFormSection />

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
@@ -79,12 +79,12 @@ export function PartnersSection() {
   const duplicatedLogos = [...PARTNER_LOGOS, ...PARTNER_LOGOS];
 
   return (
-    <section className="py-24 bg-white text-[#1A1918] overflow-hidden border-b border-[#1A1918]/10">
+    <section className="py-24 bg-white text-[#064e3b] overflow-hidden border-b border-[#064e3b]/10">
       <div className="max-w-[1600px] mx-auto px-6 md:px-14 mb-16 text-center">
-        <span className="text-xs font-mono font-bold tracking-[0.25em] text-[#C28E5C] uppercase block mb-3">
+        <span className="text-xs font-mono font-bold tracking-[0.25em] text-[#ea580c] uppercase block mb-3">
           STRATEGIC PARTNERS
         </span>
-        <h2 className="text-3xl sm:text-5xl font-bold uppercase tracking-tight text-[#1A1918]">
+        <h2 className="text-3xl sm:text-5xl font-bold uppercase tracking-tight text-[#064e3b]">
           CÁC ĐỐI TÁC TIÊU BIỂU
         </h2>
       </div>

@@ -2,40 +2,69 @@
 
 import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export function PageTransition() {
   const pathname = usePathname();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
 
   return (
     <motion.div
       key={pathname}
-      className="fixed inset-0 z-[9998] pointer-events-none overflow-hidden bg-[#080808]"
-      initial={{ y: "0%", opacity: 1 }}
-      animate={{ y: "-100%", opacity: 1 }}
-      transition={{ duration: 0.82, ease: [0.76, 0, 0.24, 1], delay: 0.08 }}
+      className="fixed inset-0 z-[10000] pointer-events-none flex flex-col justify-center items-center bg-[#043326] overflow-hidden"
+      initial={{ y: "0%" }}
+      animate={{ y: "-100%" }}
+      transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1], delay: 0.4 }}
     >
-      <div className="absolute inset-0 bg-[repeating-linear-gradient(90deg,rgba(255,255,255,0.06)_0_1px,transparent_1px_150px)]" />
-      <motion.div
-        className="absolute left-0 top-0 h-1 w-full origin-left bg-[#C2BAB0]"
-        initial={{ scaleX: 0 }}
-        animate={{ scaleX: 1 }}
-        transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1] }}
-      />
-      <div className="absolute inset-x-6 top-1/2 flex -translate-y-1/2 flex-col items-center gap-5 text-center">
-        <motion.p
-          className="text-[10px] font-black uppercase tracking-[0.48em] text-[#B4A28A]"
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+      {/* Background Pattern */}
+      <div className="absolute inset-0 bg-[repeating-linear-gradient(90deg,rgba(255,255,255,0.03)_0_1px,transparent_1px_150px)]" />
+      
+      {/* Huge Typography */}
+      <div className="relative z-10 overflow-hidden">
+        <motion.h1 
+          className="text-6xl md:text-[9rem] font-black text-white uppercase tracking-tighter leading-none"
+          initial={{ y: "100%" }}
+          animate={{ y: "0%" }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
         >
-          Kim Ngân Steel
-        </motion.p>
-        <motion.div
-          className="h-px w-[min(420px,70vw)] bg-[#C2BAB0]/45"
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: 1 }}
-          transition={{ duration: 0.46, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
-        />
+          KIM NGÂN
+        </motion.h1>
+      </div>
+      <div className="relative z-10 overflow-hidden -mt-1 md:-mt-4">
+        <motion.h1 
+          className="text-6xl md:text-[9rem] font-black text-[#ea580c] uppercase tracking-tighter leading-none"
+          initial={{ y: "100%" }}
+          animate={{ y: "0%" }}
+          transition={{ duration: 0.5, ease: "easeOut", delay: 0.05 }}
+        >
+          STEEL
+        </motion.h1>
+      </div>
+
+      {/* Modern Progress Line */}
+      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4">
+        <motion.span 
+          className="font-mono text-[10px] text-white/50 tracking-[0.3em] uppercase"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3 }}
+        >
+          Khởi tạo không gian
+        </motion.span>
+        <div className="w-[40vw] max-w-[240px] h-[2px] bg-white/10 rounded-full overflow-hidden">
+          <motion.div 
+            className="h-full bg-[#ea580c]"
+            initial={{ scaleX: 0, originX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 0.6, ease: "easeInOut" }}
+          />
+        </div>
       </div>
     </motion.div>
   );

@@ -1,4 +1,4 @@
-import type { ProcessStep } from "@/types/antra";
+﻿import type { ProcessStep } from "@/types/antra";
 
 type ProcessSectionProps = {
   steps: ProcessStep[];
@@ -6,10 +6,10 @@ type ProcessSectionProps = {
 
 export function ProcessSection({ steps }: ProcessSectionProps) {
   return (
-    <section id="process" className="py-24 bg-[#080808] border-b border-white/10 text-white">
+    <section id="process" className="py-24 bg-[#064e3b] border-b border-white/10 text-white">
       <div className="max-w-[1440px] mx-auto px-6 md:px-12">
         <div className="mb-16">
-          <span className="text-xs uppercase tracking-[0.25em] text-[#C2BAB0] font-medium block mb-3">
+          <span className="text-xs uppercase tracking-[0.25em] text-[#ea580c] font-medium block mb-3">
             QUY TRÌNH NĂNG LỰC NHÀ MÁY
           </span>
           <h2 className="text-3xl md:text-5xl font-extrabold uppercase tracking-tight text-white">
@@ -24,10 +24,10 @@ export function ProcessSection({ steps }: ProcessSectionProps) {
           {steps.map((step, index) => (
             <div
               key={step.title}
-              className="group bg-[#0d0d0d] p-8 flex flex-col justify-between min-h-[300px] hover:bg-[#141414] transition-colors relative"
+              className="group bg-[#064e3b] p-8 flex flex-col justify-between min-h-[300px] hover:bg-[#064e3b] transition-colors relative"
             >
               <div>
-                <span className="text-4xl font-extrabold font-mono text-[#C2BAB0]/30 group-hover:text-[#C2BAB0] transition-colors block mb-6">
+                <span className="text-4xl font-extrabold font-mono text-[#ea580c]/30 group-hover:text-[#ea580c] transition-colors block mb-6">
                   0{index + 1}
                 </span>
                 <h3 className="text-base font-bold uppercase tracking-wider text-white mb-3">
@@ -36,7 +36,7 @@ export function ProcessSection({ steps }: ProcessSectionProps) {
                 <p className="text-xs text-white/60 font-light leading-relaxed">{step.description}</p>
               </div>
 
-              <div className="pt-4 mt-6 border-t border-white/5 text-[10px] font-mono text-[#C2BAB0]/60 uppercase tracking-widest">
+              <div className="pt-4 mt-6 border-t border-white/5 text-[10px] font-mono text-[#ea580c]/60 uppercase tracking-widest">
                 Bước {index + 1} / {steps.length}
               </div>
             </div>

@@ -110,11 +110,11 @@ export default function ContactPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#FAF8F2] text-[#1A1918] pt-24 md:pt-28 pb-12">
+    <main className="min-h-screen bg-[#ffffff] text-[#064e3b] pt-24 md:pt-28 pb-12">
       <section className="mx-auto w-full max-w-[1440px] px-5 sm:px-8 lg:px-12 xl:px-16">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_0.06fr_0.78fr] gap-7 lg:gap-10 items-start">
           <div>
-            <p className="font-mono text-xs md:text-sm font-bold uppercase tracking-[0.22em] text-[#C28E5C]">
+            <p className="font-mono text-xs md:text-sm font-bold uppercase tracking-[0.22em] text-[#ea580c]">
               LIÊN HỆ & BÁO GIÁ
             </p>
             <h1 className="mt-5 max-w-3xl font-sans font-bold text-[34px] leading-[1.05] sm:text-[46px] lg:text-[52px] tracking-tight text-[#111]">
@@ -122,9 +122,9 @@ export default function ContactPage() {
             </h1>
           </div>
 
-          <div className="hidden lg:block h-16 w-px bg-[#C28E5C]/45 mt-7" />
+          <div className="hidden lg:block h-16 w-px bg-[#ea580c]/45 mt-7" />
 
-          <p className="max-w-xl pt-1 lg:pt-9 text-sm md:text-base leading-relaxed text-[#3F3A36]">
+          <p className="max-w-xl pt-1 lg:pt-9 text-sm md:text-base leading-relaxed text-[#064e3b]">
             Đội ngũ kinh doanh Kim Ngân Steel tiếp nhận yêu cầu vật tư, tư vấn
             thông số kỹ thuật và gửi báo giá theo thông tin doanh nghiệp chính thức.
           </p>
@@ -135,24 +135,21 @@ export default function ContactPage() {
             <h2 className="text-xl sm:text-2xl font-black uppercase tracking-[-0.02em]">
               {companyLocation.company}
             </h2>
-            <p className="mt-2 font-mono text-xs text-[#625B54]">
-              Mã số thuế: {companyLocation.taxCode} · ĐDPL: {companyLocation.representative}
-            </p>
-            <div className="mt-4 h-[2px] w-14 bg-[#C28E5C]" />
+            <div className="mt-4 h-[2px] w-14 bg-[#ea580c]" />
 
             <div className="mt-6 space-y-5">
               {CONTACT_INFO.map((item) => {
                 const Icon = item.icon;
                 return (
                   <div key={item.label} className="flex gap-4">
-                    <span className="mt-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-[#C28E5C]/45 text-[#C28E5C]">
+                    <span className="mt-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-[#ea580c]/45 text-[#ea580c]">
                       <Icon size={16} strokeWidth={1.8} />
                     </span>
                     <div>
                       <p className="text-xs font-black uppercase tracking-wide">
                         {item.label}
                       </p>
-                      <p className="mt-1 max-w-lg text-sm leading-relaxed text-[#2D2925]">
+                      <p className="mt-1 max-w-lg text-sm leading-relaxed text-[#064e3b]">
                         {item.value}
                       </p>
                     </div>
@@ -161,12 +158,12 @@ export default function ContactPage() {
               })}
             </div>
 
-            <div className="my-7 h-px w-full bg-[#1A1918]/12" />
+            <div className="my-7 h-px w-full bg-[#064e3b]/12" />
 
             <div className="space-y-3">
               {PROMISES.map((item) => (
-                <div key={item} className="flex items-center gap-3 text-sm text-[#2F2B27]">
-                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#C9A36C] text-white">
+                <div key={item} className="flex items-center gap-3 text-sm text-[#064e3b]">
+                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#ea580c] text-white">
                     <Check size={13} strokeWidth={2.4} />
                   </span>
                   <span>{item}</span>
@@ -175,14 +172,14 @@ export default function ContactPage() {
             </div>
           </aside>
 
-          <section className="rounded-2xl border border-[#1A1918]/10 bg-white/88 p-5 shadow-[0_18px_55px_rgba(33,28,22,0.08)] backdrop-blur sm:p-6">
+          <section className="rounded-2xl border border-[#064e3b]/10 bg-white/88 p-5 shadow-[0_18px_55px_rgba(33,28,22,0.08)] backdrop-blur sm:p-6">
             {submitted ? (
               <div className="flex min-h-[250px] flex-col items-center justify-center text-center">
-                <CheckCircle2 className="text-[#C28E5C]" size={38} strokeWidth={1.8} />
+                <CheckCircle2 className="text-[#ea580c]" size={38} strokeWidth={1.8} />
                 <h3 className="mt-4 text-xl font-black uppercase tracking-tight">
                   Đã ghi nhận yêu cầu
                 </h3>
-                <p className="mt-2 max-w-md text-sm leading-relaxed text-[#625B54]">
+                <p className="mt-2 max-w-md text-sm leading-relaxed text-[#064e3b]">
                   Kim Ngân Steel sẽ liên hệ lại để tư vấn kỹ thuật và gửi báo giá.
                 </p>
                 <button
@@ -197,7 +194,7 @@ export default function ContactPage() {
                       content: "",
                     });
                   }}
-                  className="mt-6 rounded-md border border-[#1A1918]/15 px-5 py-3 font-mono text-xs font-bold uppercase tracking-[0.16em] transition hover:border-[#C28E5C] hover:text-[#C28E5C]"
+                  className="mt-6 rounded-md border border-[#064e3b]/15 px-5 py-3 font-mono text-xs font-bold uppercase tracking-[0.16em] transition hover:border-[#ea580c] hover:text-[#ea580c]"
                 >
                   Gửi yêu cầu khác
                 </button>
@@ -246,8 +243,8 @@ export default function ContactPage() {
                 </div>
 
                 <label className="block">
-                  <span className="text-xs font-bold text-[#2A2622]">
-                    Nội dung yêu cầu <span className="text-[#C28E5C]">*</span>
+                  <span className="text-xs font-bold text-[#064e3b]">
+                    Nội dung yêu cầu <span className="text-[#ea580c]">*</span>
                   </span>
                   <textarea
                     name="content"
@@ -255,14 +252,14 @@ export default function ContactPage() {
                     value={formData.content}
                     onChange={handleInputChange}
                     placeholder="Nhập nội dung yêu cầu, quy cách, số lượng, thời gian giao hàng,..."
-                    className="mt-2 w-full resize-y rounded-md border border-[#1A1918]/12 bg-white px-3 py-3 text-sm outline-none transition placeholder:text-[#1A1918]/35 focus:border-[#C28E5C] focus:ring-2 focus:ring-[#C28E5C]/15"
+                    className="mt-2 w-full resize-y rounded-md border border-[#064e3b]/12 bg-white px-3 py-3 text-sm outline-none transition placeholder:text-[#064e3b]/35 focus:border-[#ea580c] focus:ring-2 focus:ring-[#ea580c]/15"
                   />
                 </label>
 
                 <button
                   type="submit"
                   disabled={loading}
-                  className="group flex w-full items-center justify-center gap-3 rounded-md bg-[#111] px-5 py-3.5 font-mono text-xs font-black uppercase tracking-[0.13em] text-white transition hover:bg-[#C28E5C] disabled:opacity-60"
+                  className="group flex w-full items-center justify-center gap-3 rounded-md bg-[#111] px-5 py-3.5 font-mono text-xs font-black uppercase tracking-[0.13em] text-white transition hover:bg-[#ea580c] disabled:opacity-60"
                 >
                   {loading ? (
                     <>
@@ -282,7 +279,7 @@ export default function ContactPage() {
         </div>
 
         {/* ================= BẢN ĐỒ ĐỊNH VỊ ================= */}
-        <section className="relative mt-10 overflow-hidden rounded-[26px] border border-[#171717]/10 bg-[#F5F2EC] shadow-[0_20px_45px_rgba(17,17,17,0.08)]">
+        <section className="relative mt-10 overflow-hidden rounded-lg border border-[#064e3b]/10 bg-[#ffffff] shadow-[0_20px_45px_rgba(17,17,17,0.08)]">
           <div className="relative h-[620px] sm:h-[640px] lg:h-[700px] overflow-hidden">
             <iframe
               title="Bản đồ vị trí Công Ty Tôn Thép Kim Ngân"
@@ -293,28 +290,28 @@ export default function ContactPage() {
               allowFullScreen={false}
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              className="absolute inset-0 h-full w-full object-cover"
+              className="absolute inset-0 h-full w-full object-cover pointer-events-none"
             />
-            <div className="absolute inset-0 bg-[#000]/20" />
-            <div className="absolute inset-y-0 left-0 hidden w-[42%] bg-gradient-to-r from-[#000]/80 via-[#000]/30 to-transparent lg:block" />
+            <div className="absolute inset-0 bg-[#000]/30 pointer-events-none" />
+            <div className="absolute inset-y-0 left-0 hidden w-[42%] bg-gradient-to-r from-[#000]/92 via-[#000]/48 to-transparent lg:block" />
             <div className="absolute inset-y-0 left-0 hidden h-full w-[42%] lg:flex z-20">
-              <div className="flex h-full items-center px-8 py-10">
+              <div className="flex h-full items-start px-8 py-6 lg:py-10">
                 <div className="max-w-[340px]">
-                  <span className="font-mono text-[11px] font-bold uppercase tracking-[0.32em] text-[#F5F2EC]/90">
+                  <span className="font-mono text-[11px] font-bold uppercase tracking-[0.32em] text-[#ffffff]/90">
                     VỊ TRÍ NHÀ MÁY
                   </span>
-                  <h3 className="mt-5 text-4xl font-black uppercase tracking-[-0.03em] leading-[1.02] text-[#F5F2EC] sm:text-5xl">
+                  <h3 className="mt-5 text-4xl font-bold tracking-[-0.03em] leading-[1.02] text-[#ffffff] sm:text-5xl antialiased drop-shadow-2xl">
                     TÌM ĐẾN
-                    <span className="block text-[#C98F58]">KIM NGÂN STEEL</span>
+                    <span className="block text-[#ea580c]">KIM NGÂN STEEL</span>
                   </h3>
-                  <p className="mt-5 text-sm leading-7 text-[#E4DDD2]">
+                  <p className="mt-5 text-sm leading-7 text-white font-medium">
                     Địa chỉ nhà máy và văn phòng Kim Ngân Steel tại Đường DT742, Phường Vĩnh Tân, TP Hồ Chí Minh.
                   </p>
                   <a
                     href={companyLocation.mapsUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-8 inline-flex items-center gap-2 rounded-xl border border-[#C98F58] bg-transparent px-5 py-3 text-sm font-bold uppercase tracking-[0.22em] text-[#F5F2EC] transition hover:bg-[#C98F58] hover:text-[#171717] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C98F58]/30 focus-visible:ring-offset-2 focus-visible:ring-offset-[#F5F2EC]"
+                    className="mt-6 inline-flex items-center gap-2 rounded-xl border border-[#ea580c] bg-transparent px-5 py-3 text-sm font-bold uppercase tracking-[0.22em] text-[#ffffff] transition hover:bg-[#c2410c] hover:text-[#064e3b] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ea580c]/30 focus-visible:ring-offset-2 focus-visible:ring-offset-[#ffffff]"
                   >
                     <MapPin size={16} />
                     Mở trên Google Maps ↗
@@ -324,22 +321,22 @@ export default function ContactPage() {
             </div>
 
             <div className="relative z-10 mx-auto flex max-w-[1440px] flex-col px-5 py-6 sm:px-8 lg:px-0">
-              <div className="lg:hidden mb-6 rounded-[22px] border border-[#171717]/10 bg-[#FAF8F4] p-5 shadow-[0_18px_35px_rgba(17,17,17,0.08)]">
-                <span className="font-mono text-[11px] font-bold uppercase tracking-[0.32em] text-[#5F5A54]">
+              <div className="lg:hidden mb-6 rounded-[22px] border border-[#064e3b]/10 bg-[#ffffff] p-5 shadow-[0_18px_35px_rgba(17,17,17,0.08)]">
+                <span className="font-mono text-[11px] font-bold uppercase tracking-[0.32em] text-[#064e3b]">
                   VỊ TRÍ NHÀ MÁY
                 </span>
-                <h3 className="mt-4 text-3xl font-black uppercase tracking-[-0.03em] leading-tight text-[#171717]">
+                <h3 className="mt-4 text-3xl font-bold tracking-[-0.03em] leading-tight text-[#064e3b]">
                   TÌM ĐẾN
-                  <span className="block text-[#C98F58]">KIM NGÂN STEEL</span>
+                  <span className="block text-[#ea580c]">KIM NGÂN STEEL</span>
                 </h3>
-                <p className="mt-4 text-sm leading-7 text-[#5F5A54]">
+                <p className="mt-4 text-sm leading-7 text-[#064e3b]">
                   Địa chỉ nhà máy và văn phòng Kim Ngân Steel tại Đường DT742, Phường Vĩnh Tân, TP Hồ Chí Minh.
                 </p>
                 <a
                   href={companyLocation.mapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-6 inline-flex items-center gap-2 rounded-xl border border-[#C98F58] bg-transparent px-5 py-3 text-sm font-bold uppercase tracking-[0.22em] text-[#171717] transition hover:bg-[#C98F58] hover:text-[#171717] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C98F58]/30 focus-visible:ring-offset-2 focus-visible:ring-offset-[#F5F2EC]"
+                  className="mt-6 inline-flex items-center gap-2 rounded-xl border border-[#ea580c] bg-transparent px-5 py-3 text-sm font-bold uppercase tracking-[0.22em] text-[#064e3b] transition hover:bg-[#c2410c] hover:text-[#064e3b] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ea580c]/30 focus-visible:ring-offset-2 focus-visible:ring-offset-[#ffffff]"
                 >
                   <MapPin size={16} />
                   Mở trên Google Maps ↗
@@ -351,16 +348,16 @@ export default function ContactPage() {
                   href={companyLocation.mapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-3 rounded-[24px] border border-[#171717]/10 bg-[#FAF8F4] px-5 py-4 text-center shadow-[0_18px_36px_rgba(17,17,17,0.14)] transition hover:border-[#C98F58] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C98F58]/30"
+                  className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-3 rounded-[24px] border border-[#064e3b]/10 bg-[#ffffff] px-5 py-4 text-center shadow-[0_18px_36px_rgba(17,17,17,0.14)] transition hover:border-[#ea580c] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ea580c]/30"
                   aria-label="Mở Google Maps vị trí Kim Ngân Steel"
                 >
-                  <span className="flex h-12 w-12 items-center justify-center rounded-full bg-[#C98F58] text-white shadow-[0_12px_24px_rgba(201,143,88,0.24)]">
+                  <span className="flex h-12 w-12 items-center justify-center rounded-full bg-[#ea580c] text-white shadow-[0_12px_24px_rgba(201,143,88,0.24)]">
                     <MapPin size={18} strokeWidth={1.8} />
                   </span>
-                  <span className="text-[11px] font-black uppercase tracking-[0.3em] text-[#171717]">
+                  <span className="text-[11px] font-black uppercase tracking-[0.3em] text-[#064e3b]">
                     KIM NGÂN STEEL
                   </span>
-                  <span className="h-2 w-2 rounded-full bg-[#C98F58] shadow-[0_0_0_4px_rgba(201,143,88,0.16)] motion-safe:animate-pulse" />
+                  <span className="h-2 w-2 rounded-full bg-[#ea580c] shadow-[0_0_0_4px_rgba(201,143,88,0.16)] motion-safe:animate-pulse" />
                 </a>
               </div>
             </div>
@@ -390,8 +387,8 @@ function Field({
 }) {
   return (
     <label className="block">
-      <span className="text-xs font-bold text-[#2A2622]">
-        {label} {required && <span className="text-[#C28E5C]">*</span>}
+      <span className="text-xs font-bold text-[#064e3b]">
+        {label} {required && <span className="text-[#ea580c]">*</span>}
       </span>
       <input
         type={type}
@@ -399,7 +396,7 @@ function Field({
         value={value}
         onChange={onChange}
         placeholder={placeholder}
-        className="mt-2 h-10 w-full rounded-md border border-[#1A1918]/12 bg-white px-3 text-sm outline-none transition placeholder:text-[#1A1918]/35 focus:border-[#C28E5C] focus:ring-2 focus:ring-[#C28E5C]/15"
+        className="mt-2 h-10 w-full rounded-md border border-[#064e3b]/12 bg-white px-3 text-sm outline-none transition placeholder:text-[#064e3b]/35 focus:border-[#ea580c] focus:ring-2 focus:ring-[#ea580c]/15"
       />
     </label>
   );

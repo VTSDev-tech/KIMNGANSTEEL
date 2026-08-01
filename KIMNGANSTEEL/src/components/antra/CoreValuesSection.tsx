@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useRef, useEffect } from "react";
 import gsap from "gsap";
@@ -57,19 +57,19 @@ export function CoreValuesSection() {
   }, []);
 
   return (
-    <section ref={containerRef} className="py-20 md:py-28 px-6 md:px-14 bg-[#F7F7F4] border-b border-[#1A1918]/10 text-[#1A1918]">
+    <section ref={containerRef} className="py-20 md:py-28 px-6 md:px-14 bg-[#ffffff] border-b border-[#064e3b]/10 text-[#064e3b]">
       <div className="max-w-[1600px] mx-auto space-y-16">
         
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
           <div>
-            <span className="text-xs font-mono font-bold tracking-[0.25em] text-[#C28E5C] uppercase block mb-4">
+            <span className="text-xs font-mono font-bold tracking-[0.25em] text-[#ea580c] uppercase block mb-4">
               CORE VALUES
             </span>
             <h2 className="text-4xl sm:text-6xl font-bold uppercase tracking-tight leading-[1.05] max-w-2xl">
               CHẤT LƯỢNG THƯỚC ĐO HÀNG ĐẦU CHO SỰ PHÁT TRIỂN
             </h2>
           </div>
-          <p className="text-sm text-[#524D4A] max-w-md leading-relaxed font-sans border-l border-[#C28E5C]/30 pl-6">
+          <p className="text-sm text-[#064e3b] max-w-md leading-relaxed font-sans border-l border-[#ea580c]/30 pl-6">
             Bốn nền tảng cốt lõi định hình văn hóa và phương châm hoạt động của Kim Ngân Steel, hướng tới sự đồng hành bền vững cùng đối tác.
           </p>
         </div>
@@ -78,9 +78,9 @@ export function CoreValuesSection() {
           {CORE_VALUES.map((val, idx) => (
             <div 
               key={idx} 
-              className="kn-value-card group p-8 bg-white border border-[#1A1918]/10 hover:border-[#C28E5C] transition-colors duration-300 flex flex-col justify-between space-y-8 min-h-[320px]"
+              className="kn-value-card group p-8 bg-white border border-[#064e3b]/10 hover:border-[#ea580c] transition-colors duration-300 flex flex-col justify-between space-y-8 min-h-[320px]"
             >
-              <div className="w-14 h-14 bg-[#ECE8DE] rounded-none flex items-center justify-center text-[#1A1918] group-hover:bg-[#C28E5C] group-hover:text-white transition-colors duration-300">
+              <div className="w-14 h-14 bg-[#ffffff] rounded-none flex items-center justify-center text-[#064e3b] group-hover:bg-[#ea580c] group-hover:text-white transition-colors duration-300">
                 <val.icon strokeWidth={1.5} size={28} />
               </div>
               
@@ -88,7 +88,7 @@ export function CoreValuesSection() {
                 <h3 className="text-xl font-bold uppercase tracking-tight">
                   {val.title}
                 </h3>
-                <p className="text-xs text-[#524D4A] leading-relaxed font-sans text-justify">
+                <p className="text-xs text-[#064e3b] leading-relaxed font-sans text-justify">
                   {val.desc}
                 </p>
               </div>

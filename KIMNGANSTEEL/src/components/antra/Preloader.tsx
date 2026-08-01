@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -32,14 +32,14 @@ export function Preloader() {
             initial={{ y: "0%" }}
             exit={{ y: "-100%" }}
             transition={{ duration: 0.75, ease: [0.77, 0, 0.175, 1], delay: 0.25 }}
-            className="absolute top-0 left-0 right-0 h-1/2 bg-[#0E0E0D] border-b border-[#C28E5C]/30 flex flex-col justify-between p-8 md:p-14 z-20"
+            className="absolute top-0 left-0 right-0 h-1/2 bg-[#064e3b] border-b border-[#ea580c]/30 flex flex-col justify-between p-8 md:p-14 z-20"
           >
-            <div className="flex items-center justify-between font-mono text-[11px] text-[#C28E5C] font-bold tracking-[0.3em] uppercase">
+            <div className="flex items-center justify-between font-mono text-[11px] text-[#ea580c] font-bold tracking-[0.3em] uppercase">
               <span className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#C28E5C] animate-pulse" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#ea580c] animate-pulse" />
                 KIM NGÂN STEEL
               </span>
-              <span className="hidden sm:inline-block text-[#D1CCC5]">ARCHITECTURAL LUXURY</span>
+              <span className="hidden sm:inline-block text-[#ffffff]">ARCHITECTURAL LUXURY</span>
             </div>
 
             {/* Top Half Branding Text */}
@@ -48,7 +48,7 @@ export function Preloader() {
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, ease: "easeOut" }}
-                className="text-4xl sm:text-6xl md:text-8xl font-bold uppercase tracking-tight text-[#F7F5F0]"
+                className="text-4xl sm:text-6xl md:text-8xl font-bold uppercase tracking-tight text-[#ffffff]"
               >
                 KIM NGÂN
               </motion.h1>
@@ -60,7 +60,7 @@ export function Preloader() {
             initial={{ y: "0%" }}
             exit={{ y: "100%" }}
             transition={{ duration: 0.75, ease: [0.77, 0, 0.175, 1], delay: 0.25 }}
-            className="absolute bottom-0 left-0 right-0 h-1/2 bg-[#0E0E0D] border-t border-[#C28E5C]/30 flex flex-col justify-between p-8 md:p-14 z-20"
+            className="absolute bottom-0 left-0 right-0 h-1/2 bg-[#064e3b] border-t border-[#ea580c]/30 flex flex-col justify-between p-8 md:p-14 z-20"
           >
             {/* Bottom Half Branding Text */}
             <div className="flex items-start justify-center h-full pt-3">
@@ -68,15 +68,15 @@ export function Preloader() {
                 initial={{ opacity: 0, y: -15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, ease: "easeOut" }}
-                className="text-4xl sm:text-6xl md:text-8xl font-bold uppercase tracking-tight text-[#C28E5C]"
+                className="text-4xl sm:text-6xl md:text-8xl font-bold uppercase tracking-tight text-[#ea580c]"
               >
                 STEEL
               </motion.h1>
             </div>
 
-            <div className="flex items-center justify-between font-mono text-[11px] text-[#D1CCC5] tracking-[0.25em] uppercase">
+            <div className="flex items-center justify-between font-mono text-[11px] text-[#ffffff] tracking-[0.25em] uppercase">
               <span>EST. 2011 · VIETNAM</span>
-              <span className="text-[#C28E5C] font-bold">SCENE 01 / OPENING</span>
+              <span className="text-[#ea580c] font-bold">SCENE 01 / OPENING</span>
             </div>
           </motion.div>
 
@@ -87,7 +87,7 @@ export function Preloader() {
             transition={{ duration: 0.6, ease: "easeOut" }}
             className="absolute inset-0 z-30 flex items-center justify-center pointer-events-none"
           >
-            <div className="w-48 h-48 md:w-96 md:h-96 rounded-full bg-[#C28E5C]/20 blur-3xl" />
+            <div className="w-48 h-48 md:w-96 md:h-96 rounded-full bg-[#ea580c]/20 blur-3xl" />
           </motion.div>
 
         </div>

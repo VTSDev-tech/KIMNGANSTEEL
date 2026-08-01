@@ -27,8 +27,11 @@ export function PrecisionStackSection() {
 
     const ctx = gsap.context(() => {
       const lines = gsap.utils.toArray<HTMLElement>(".precision-statement span", section);
+      const containers = gsap.utils.toArray<HTMLElement>(".precision-statement", section);
 
       if (reduceMotion) {
+        gsap.set(containers, { position: "relative", inset: "auto", height: "auto", padding: "1rem 0" });
+        gsap.set(".precision-statements", { position: "relative", inset: "auto", height: "auto", display: "flex", flexDirection: "column" });
         gsap.set(lines, { opacity: 1, xPercent: 0 });
         return;
       }
@@ -73,14 +76,14 @@ export function PrecisionStackSection() {
   return (
     <section
       ref={sectionRef}
-      className="precision-stack-section relative z-30 overflow-hidden bg-[#F7F7F4] text-[#1A1918] select-none"
+      className="precision-stack-section relative z-30 overflow-hidden bg-[#064e3b] text-[#ffffff] select-none"
       aria-label="Kim Ngan Steel precision capabilities"
     >
-      <div className="precision-stage relative flex h-screen min-h-[640px] w-full items-center justify-center bg-[#F7F7F4]">
+      <div className="precision-stage relative flex h-screen min-h-[640px] w-full items-center justify-center">
         <div className="precision-statements absolute inset-0 flex items-center justify-center pointer-events-none">
           {statements.map((statement) => (
             <div className="precision-statement absolute inset-0 flex items-center justify-center pointer-events-none" key={statement}>
-              <span className="!max-w-full px-4 md:px-8 text-center uppercase tracking-wider font-bold whitespace-normal sm:whitespace-nowrap !text-[clamp(1.15rem,4.2vw,4.2rem)] text-[#1A1918]">
+              <span className="!max-w-full px-4 md:px-8 text-center uppercase tracking-wider font-bold whitespace-normal sm:whitespace-nowrap !text-[clamp(1.15rem,4.2vw,4.2rem)] text-[#ffffff]">
                 {statement}
               </span>
             </div>

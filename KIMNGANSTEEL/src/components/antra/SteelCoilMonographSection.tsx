@@ -1,23 +1,23 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 
 export function SteelCoilMonographSection() {
   return (
-    <section id="monograph" className="relative flex flex-col justify-between min-h-screen py-24 px-6 md:px-12 lg:px-20 bg-[#EBE5DC] border-b border-[#1A1918]/10 text-[#1A1918] overflow-hidden select-none">
+    <section id="monograph" className="relative flex flex-col justify-between min-h-screen py-24 px-6 md:px-12 lg:px-20 bg-[#ffffff] border-b border-[#064e3b]/10 text-[#064e3b] overflow-hidden select-none">
       
       {/* Huge High-Contrast Editorial Serif Watermark Typography matching Image 2 1:1 */}
       <div className="absolute inset-0 flex flex-col justify-center items-start pl-6 md:pl-16 pointer-events-none opacity-[0.35] overflow-hidden select-none z-0">
-        <span className="text-[16vw] lg:text-[13.5vw] font-serif font-extralight uppercase tracking-tight leading-[0.82] text-[#8E877D]">
+        <span className="text-[16vw] lg:text-[13.5vw] font-serif font-extralight uppercase tracking-tight leading-[0.82] text-[#064e3b]">
           MATERIALS
         </span>
-        <span className="text-[16vw] lg:text-[13.5vw] font-serif font-extralight uppercase tracking-tight leading-[0.82] text-[#8E877D]">
+        <span className="text-[16vw] lg:text-[13.5vw] font-serif font-extralight uppercase tracking-tight leading-[0.82] text-[#064e3b]">
           FOR
         </span>
-        <span className="text-[16vw] lg:text-[13.5vw] font-serif font-extralight uppercase tracking-tight leading-[0.82] text-[#8E877D]">
+        <span className="text-[16vw] lg:text-[13.5vw] font-serif font-extralight uppercase tracking-tight leading-[0.82] text-[#064e3b]">
           LASTING
         </span>
-        <span className="text-[16vw] lg:text-[13.5vw] font-serif font-extralight uppercase tracking-tight leading-[0.82] text-[#8E877D] ml-[14vw]">
+        <span className="text-[16vw] lg:text-[13.5vw] font-serif font-extralight uppercase tracking-tight leading-[0.82] text-[#064e3b] ml-[14vw]">
           STRUCTURES
         </span>
       </div>
@@ -31,7 +31,7 @@ export function SteelCoilMonographSection() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-sm md:text-base text-[#4A4540] font-mono font-medium leading-relaxed max-w-md mb-12 uppercase tracking-wide"
+            className="text-sm md:text-base text-[#064e3b] font-mono font-medium leading-relaxed max-w-md mb-12 uppercase tracking-wide"
           >
             CHÚNG TÔI CUNG CẤP GIẢI PHÁP VẬT LIỆU THÉP CHẤT LƯỢNG CAO CHO MỌI CÔNG TRÌNH. BỀN VỮNG HÔM NAY, VỮNG CHẮC TƯƠNG LAI.
           </motion.p>
@@ -42,7 +42,7 @@ export function SteelCoilMonographSection() {
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
             href="#products" 
-            className="editorial-link text-xs uppercase tracking-[0.25em] text-[#1A1918] font-mono pb-1 border-b border-[#1A1918]"
+            className="editorial-link text-xs uppercase tracking-[0.25em] text-[#064e3b] font-mono pb-1 border-b border-[#064e3b]"
           >
             KHÁM PHÁ →
           </motion.a>
@@ -69,24 +69,24 @@ export function SteelCoilMonographSection() {
       </div>
 
       {/* Bottom Bar: HUD indicators matching Image 2 1:1 (SCROLL •, CHẤT LƯỢNG | UY TÍN | BỀN VỮNG, 01 / 05) */}
-      <div className="relative z-10 max-w-[1560px] w-full mx-auto flex items-center justify-between pt-8 border-t border-[#1A1918]/10 text-xs font-mono text-[#6B655F]">
+      <div className="relative z-10 max-w-[1560px] w-full mx-auto flex items-center justify-between pt-8 border-t border-[#064e3b]/10 text-xs font-mono text-[#064e3b]">
         <div className="flex items-center gap-4">
-          <div className="w-[1px] h-8 bg-[#1A1918]/30 -translate-y-2" />
-          <span className="uppercase tracking-widest text-[#1A1918] font-medium">SCROLL •</span>
+          <div className="w-[1px] h-8 bg-[#064e3b]/30 -translate-y-2" />
+          <span className="uppercase tracking-widest text-[#064e3b] font-medium">SCROLL •</span>
         </div>
 
-        <div className="hidden sm:flex items-center gap-6 uppercase tracking-widest text-[#4A4540] font-mono text-xs">
+        <div className="hidden sm:flex items-center gap-6 uppercase tracking-widest text-[#064e3b] font-mono text-xs">
           <span>CHẤT LƯỢNG</span>
-          <span className="text-[#1A1918]/30">|</span>
+          <span className="text-[#064e3b]/30">|</span>
           <span>UY TÍN</span>
-          <span className="text-[#1A1918]/30">|</span>
+          <span className="text-[#064e3b]/30">|</span>
           <span>BỀN VỮNG</span>
         </div>
 
         <div className="flex items-center gap-3">
-          <span className="font-bold text-[#1A1918] text-sm">01</span>
-          <span className="text-[#6B655F]">/ 05</span>
-          <div className="w-16 h-[1px] bg-[#1A1918]" />
+          <span className="font-bold text-[#064e3b] text-sm">01</span>
+          <span className="text-[#064e3b]">/ 05</span>
+          <div className="w-16 h-[1px] bg-[#064e3b]" />
         </div>
       </div>
 

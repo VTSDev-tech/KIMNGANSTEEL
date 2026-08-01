@@ -106,19 +106,24 @@ export function BuildStatementSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="build-statement-section relative z-20 w-full h-[220vh] sm:h-[280vh] md:h-[420vh] bg-[#F7F7F4] text-[#1A1918] select-none" aria-label="Giá trị cốt lõi của Kim Ngân Steel">
-      <div className="build-stage sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-[#F7F7F4]">
+    <section ref={sectionRef} className="build-statement-section relative z-20 w-full h-[220vh] sm:h-[280vh] md:h-[420vh] text-[#ffffff] select-none" aria-label="Giá trị cốt lõi của Kim Ngân Steel">
+      <div className="build-stage sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-[#c2410c]">
         
-        <p className="build-kicker absolute top-12 left-8 md:left-16 text-xs font-mono font-bold tracking-[0.25em] text-[#C28E5C] uppercase z-30">
+        {/* Original Orange Background */}
+        <div className="absolute inset-0 z-0 bg-[#ea580c]" />
+        {/* Lớp đen vừa phải (20%) để vừa giảm chói vừa giữ độ sáng của màu cam */}
+        <div className="absolute inset-0 z-[5] bg-black/20" />
+        
+        <p className="build-kicker absolute top-12 left-8 md:left-16 text-xs font-mono font-bold tracking-[0.25em] text-[#ffffff] uppercase z-30">
           GIÁ TRỊ CỐT LÕI
         </p>
 
         {/* Chữ Giá Trị - Cốt Lõi khổng lồ */}
         <div className="build-words relative flex items-center justify-center gap-4 sm:gap-8 text-center z-10 pointer-events-none" aria-hidden="true">
-          <span className="build-word build-word-left text-4xl sm:text-7xl lg:text-[7.5rem] font-bold uppercase tracking-tight text-[#1A1918] whitespace-nowrap">
+          <span className="build-word build-word-left text-4xl sm:text-7xl lg:text-[7.5rem] font-bold uppercase tracking-tight text-[#ffffff] whitespace-nowrap">
             GIÁ TRỊ
           </span>
-          <span className="build-word build-word-right text-4xl sm:text-7xl lg:text-[7.5rem] font-bold uppercase tracking-tight text-[#1A1918] whitespace-nowrap">
+          <span className="build-word build-word-right text-4xl sm:text-7xl lg:text-[7.5rem] font-bold uppercase tracking-tight text-[#ffffff] whitespace-nowrap">
             CỐT LÕI
           </span>
         </div>
@@ -127,7 +132,7 @@ export function BuildStatementSection() {
         <div className="build-lines absolute inset-0 flex flex-col items-center justify-center gap-1.5 sm:gap-3 z-20 pointer-events-none" aria-label="Các giá trị cốt lõi">
           {categories.map((item) => (
             <div className="build-line h-[clamp(2.2rem,4vw,4.5rem)] overflow-visible flex items-center justify-center py-1" key={item}>
-              <span className="text-[clamp(1.4rem,2.8vw,3.2rem)] font-bold text-[#1A1918] uppercase leading-[1.25] px-3">
+              <span className="text-[clamp(1.4rem,2.8vw,3.2rem)] font-bold text-[#ffffff] uppercase leading-[1.25] px-3">
                 {item}
               </span>
             </div>

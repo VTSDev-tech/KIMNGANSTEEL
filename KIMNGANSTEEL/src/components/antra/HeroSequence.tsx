@@ -140,7 +140,7 @@ export function HeroSequence({ className = "" }: HeroSequenceProps) {
       context.setTransform(1, 0, 0, 1, 0, 0);
       context.imageSmoothingEnabled = true;
       context.imageSmoothingQuality = "high";
-      context.fillStyle = "#f7f7f5";
+      context.fillStyle = "#ffffff";
       context.fillRect(0, 0, width, height);
 
       const framePosition = gsap.utils.clamp(0, images.length - 1, progress * (images.length - 1));
@@ -286,7 +286,7 @@ export function HeroSequence({ className = "" }: HeroSequenceProps) {
   return (
     <div
       ref={containerRef}
-      className={`relative h-full min-h-svh w-full overflow-hidden bg-[#f7f7f5] ${className}`}
+      className={`relative h-full min-h-svh w-full overflow-hidden bg-[#ffffff] ${className}`}
     >
       <canvas ref={canvasRef} className="h-full w-full" aria-hidden="true" />
       {!isReady ? (
@@ -304,13 +304,13 @@ export function HeroSequence({ className = "" }: HeroSequenceProps) {
           {/* Defs for arrow markers */}
           <defs>
             <marker id="arrow" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto-start-reverse">
-              <path d="M 0 0 L 6 3 L 0 6 z" fill="#1A1918" />
+              <path d="M 0 0 L 6 3 L 0 6 z" fill="#064e3b" />
             </marker>
             <marker id="dot" markerWidth="4" markerHeight="4" refX="2" refY="2">
-              <circle cx="2" cy="2" r="2" fill="#1A1918" />
+              <circle cx="2" cy="2" r="2" fill="#064e3b" />
             </marker>
             <marker id="crosshair" markerWidth="10" markerHeight="10" refX="5" refY="5">
-              <path d="M 5 0 L 5 10 M 0 5 L 10 5" stroke="#C28E5C" strokeWidth="0.5" fill="none" />
+              <path d="M 5 0 L 5 10 M 0 5 L 10 5" stroke="#ea580c" strokeWidth="0.5" fill="none" />
             </marker>
           </defs>
 
@@ -319,14 +319,14 @@ export function HeroSequence({ className = "" }: HeroSequenceProps) {
             <path
               ref={path4Ref}
               d="M 200 200 L 250 200 L 250 250"
-              stroke="#1A1918"
+              stroke="#064e3b"
               strokeWidth="1"
               fill="none"
               strokeDasharray="2 2"
               markerStart="url(#crosshair)"
               markerEnd="url(#crosshair)"
             />
-            <text x="210" y="190" fill="#1A1918" fontSize="10" fontFamily="monospace" letterSpacing="1">ANGLE: 90°</text>
+            <text x="210" y="190" fill="#064e3b" fontSize="10" fontFamily="monospace" letterSpacing="1">ANGLE: 90Â°</text>
           </g>
 
           {/* Path 1: Base width dimension (bottom) */}
@@ -334,14 +334,14 @@ export function HeroSequence({ className = "" }: HeroSequenceProps) {
             <path
               ref={path1Ref}
               d="M 500 850 L 1400 850"
-              stroke="#1A1918"
+              stroke="#064e3b"
               strokeWidth="1"
               fill="none"
               strokeDasharray="4 4"
               markerStart="url(#arrow)"
               markerEnd="url(#arrow)"
             />
-            <text x="950" y="840" fill="#1A1918" fontSize="11" fontFamily="monospace" textAnchor="middle" letterSpacing="2">DIMENSION: 15,000m²</text>
+            <text x="950" y="840" fill="#064e3b" fontSize="11" fontFamily="monospace" textAnchor="middle" letterSpacing="2">DIMENSION: 15,000mÂ²</text>
           </g>
 
           {/* Path 2: Pillar height dimension (left) */}
@@ -349,14 +349,14 @@ export function HeroSequence({ className = "" }: HeroSequenceProps) {
             <path
               ref={path2Ref}
               d="M 450 750 L 450 350"
-              stroke="#1A1918"
+              stroke="#064e3b"
               strokeWidth="1"
               fill="none"
               strokeDasharray="4 4"
               markerStart="url(#arrow)"
               markerEnd="url(#arrow)"
             />
-            <text x="435" y="550" fill="#1A1918" fontSize="11" fontFamily="monospace" textAnchor="middle" letterSpacing="2" transform="rotate(-90 435 550)">ELEVATION: + 12.5M</text>
+            <text x="435" y="550" fill="#064e3b" fontSize="11" fontFamily="monospace" textAnchor="middle" letterSpacing="2" transform="rotate(-90 435 550)">ELEVATION: + 12.5M</text>
           </g>
 
           {/* Path 3: Roof span dimension (top angle) */}
@@ -364,51 +364,65 @@ export function HeroSequence({ className = "" }: HeroSequenceProps) {
             <path
               ref={path3Ref}
               d="M 600 250 L 1300 250"
-              stroke="#C28E5C"
+              stroke="#ea580c"
               strokeWidth="1"
               fill="none"
               strokeDasharray="2 4"
               markerStart="url(#dot)"
               markerEnd="url(#dot)"
             />
-            <path d="M 950 250 L 950 220" stroke="#C28E5C" strokeWidth="1" strokeDasharray="2 2" />
-            <text x="950" y="210" fill="#C28E5C" fontSize="11" fontFamily="monospace" textAnchor="middle" letterSpacing="1">MATERIAL: AZ150 SPAN</text>
+            <path d="M 950 250 L 950 220" stroke="#ea580c" strokeWidth="1" strokeDasharray="2 2" />
+            <text x="950" y="210" fill="#ea580c" fontSize="11" fontFamily="monospace" textAnchor="middle" letterSpacing="1">MATERIAL: AZ150 SPAN</text>
           </g>
           
-          {/* Static minimal architectural elements (Crosshairs) */}
-          <circle cx="200" cy="850" r="10" stroke="#1A1918" strokeWidth="0.5" fill="none" />
-          <path d="M 195 850 L 205 850 M 200 845 L 200 855" stroke="#1A1918" strokeWidth="0.5" />
+          {/* Corner Frames */}
+          <path d="M 60 120 L 60 60 L 120 60" stroke="#ea580c" strokeWidth="1.5" fill="none" opacity="0.3" />
+          <path d="M 1860 120 L 1860 60 L 1800 60" stroke="#ea580c" strokeWidth="1.5" fill="none" opacity="0.3" />
+          <path d="M 60 960 L 60 1020 L 120 1020" stroke="#ea580c" strokeWidth="1.5" fill="none" opacity="0.3" />
+          <path d="M 1860 960 L 1860 1020 L 1800 1020" stroke="#ea580c" strokeWidth="1.5" fill="none" opacity="0.3" />
           
-          <circle cx="1600" cy="200" r="10" stroke="#1A1918" strokeWidth="0.5" fill="none" />
-          <path d="M 1595 200 L 1605 200 M 1600 195 L 1600 205" stroke="#1A1918" strokeWidth="0.5" />
+          {/* Subtle Outer Frame */}
+          <rect x="60" y="60" width="1800" height="960" stroke="#064e3b" strokeWidth="0.5" fill="none" strokeDasharray="10 5" opacity="0.3" />
+
+          {/* Static minimal architectural elements (Crosshairs) */}
+          <circle cx="200" cy="850" r="10" stroke="#064e3b" strokeWidth="0.5" fill="none" />
+          <path d="M 195 850 L 205 850 M 200 845 L 200 855" stroke="#064e3b" strokeWidth="0.5" />
+          
+          <circle cx="1600" cy="200" r="10" stroke="#064e3b" strokeWidth="0.5" fill="none" />
+          <path d="M 1595 200 L 1605 200 M 1600 195 L 1600 205" stroke="#064e3b" strokeWidth="0.5" />
         </svg>
       </div>
+
+      {/* Subtle Tint Overlay to soften the background and colors */}
+      <div className="absolute inset-0 z-[5] pointer-events-none mix-blend-multiply bg-[radial-gradient(circle_at_top_right,rgba(234,88,12,0.05),transparent_60%),radial-gradient(circle_at_bottom_left,rgba(6,78,59,0.05),transparent_60%)]" />
 
       {/* INITIAL OPENING TITLE & SCROLL CUE (Fades out on scroll) */}
       <div
         ref={introRef}
         className="absolute inset-0 z-20 flex flex-col justify-center px-6 md:px-14 max-w-[1600px] mx-auto pointer-events-none"
       >
-        <div className="max-w-2xl space-y-6 pt-12">
-          <div className="flex items-center gap-3 text-xs font-mono font-bold tracking-[0.3em] text-[#C28E5C]">
-            <span className="w-2 h-2 rounded-full bg-[#C28E5C] animate-pulse" />
+        {/* Subtle background wash for text readability */}
+        <div className="absolute inset-y-0 left-[calc(50%-50vw)] w-[100vw] md:w-[65vw] bg-gradient-to-r from-white/95 via-white/70 to-transparent -z-10 pointer-events-none" />
+        <div className="max-w-2xl space-y-6">
+          <div className="flex items-center gap-3 text-xs font-mono font-bold tracking-[0.3em] text-[#ea580c]">
+            <span className="w-2 h-2 rounded-full bg-[#ea580c] animate-pulse" />
             <span className="uppercase">01 / QUY MÔ NHÀ MÁY</span>
           </div>
           <div className="space-y-1 font-sans">
-            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-[4.5rem] font-bold tracking-tight text-[#1A1918] leading-[0.98] uppercase drop-shadow-sm">
+            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-[3.8rem] font-bold tracking-tight text-[#064e3b] leading-[1.02] uppercase drop-shadow-sm">
               NHÀ MÁY CÁN TÔN
             </h1>
-            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-[4.5rem] font-bold tracking-tight text-[#1A1918] leading-[0.98] uppercase drop-shadow-sm">
+            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-[3.8rem] font-bold tracking-tight text-[#064e3b] leading-[1.02] uppercase drop-shadow-sm">
               GIA CÔNG THÉP TRỰC TIẾP
             </h1>
           </div>
           
           <div className="pt-8">
-            <div className="inline-flex items-center gap-4 px-6 py-3 rounded-full bg-[#1A1918]/5 border border-[#1A1918]/10 backdrop-blur-sm shadow-sm animate-bounce">
-              <span className="text-[10px] md:text-xs font-mono font-bold tracking-widest text-[#1A1918] uppercase">
+            <div className="inline-flex items-center gap-4 px-6 py-3 rounded-full bg-[#064e3b]/5 border border-[#064e3b]/10 backdrop-blur-sm shadow-sm animate-bounce">
+              <span className="text-[10px] md:text-xs font-mono font-bold tracking-widest text-[#064e3b] uppercase">
                 SCROLL TO INITIALIZE
               </span>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#1A1918]">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#064e3b]">
                 <path d="M12 5v14M19 12l-7 7-7-7"/>
               </svg>
             </div>
@@ -421,35 +435,37 @@ export function HeroSequence({ className = "" }: HeroSequenceProps) {
         ref={brandRef}
         className="absolute inset-0 z-30 flex flex-col justify-center px-6 md:px-14 max-w-[1600px] mx-auto pointer-events-none opacity-0"
       >
-        <div className="max-w-2xl space-y-6 pointer-events-auto pt-12">
-          <div className="flex items-center gap-3 text-xs font-mono font-bold tracking-[0.3em] text-[#C28E5C]">
-            <span className="w-2 h-2 rounded-full bg-[#C28E5C]" />
+        {/* Subtle background wash for text readability */}
+        <div className="absolute inset-y-0 left-[calc(50%-50vw)] w-[100vw] md:w-[65vw] bg-gradient-to-r from-white/95 via-white/70 to-transparent -z-10 pointer-events-none" />
+        <div className="max-w-2xl space-y-6 pointer-events-auto">
+          <div className="flex items-center gap-3 text-xs font-mono font-bold tracking-[0.3em] text-[#ea580c]">
+            <span className="w-2 h-2 rounded-full bg-[#ea580c]" />
             <span className="uppercase">KIM NGÂN STEEL</span>
           </div>
 
           <div className="space-y-1 font-sans">
-            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-[4.5rem] font-bold tracking-tight text-[#1A1918] leading-[0.98] uppercase">
+            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-[3.8rem] font-bold tracking-tight text-[#064e3b] leading-[1.02] uppercase drop-shadow-sm">
               Vật liệu vững chắc
             </h1>
-            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-[4.5rem] font-bold tracking-tight text-[#1A1918] leading-[0.98] uppercase">
+            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-[3.8rem] font-bold tracking-tight text-[#064e3b] leading-[1.02] uppercase drop-shadow-sm">
               Kiến tạo công trình bền vững
             </h1>
           </div>
 
-          <p className="text-xs sm:text-sm text-[#524D4A] font-sans leading-relaxed max-w-md">
+          <p className="text-xs sm:text-sm text-[#064e3b] font-sans leading-relaxed max-w-md">
             Nhà máy cán tôn trực tiếp. Giá cạnh tranh. Giao hàng nhanh 24h.
           </p>
 
           <div className="flex flex-wrap items-center gap-4 pt-2">
             <a
               href="#materials-showcase"
-              className="px-7 py-3.5 rounded-full bg-[#1A1918] text-[#F7F7F4] font-bold text-xs uppercase tracking-widest hover:bg-[#C28E5C] hover:text-[#1A1918] transition-colors duration-300 shadow-md"
+              className="px-7 py-3.5 rounded-full bg-[#064e3b] text-[#ffffff] font-bold text-xs uppercase tracking-widest hover:bg-[#ea580c] hover:text-[#064e3b] transition-colors duration-300 shadow-md"
             >
               Khám phá sản phẩm
             </a>
             <a
               href="#contact"
-              className="px-7 py-3.5 rounded-full border border-[#1A1918]/30 bg-white/60 backdrop-blur-md text-[#1A1918] font-bold text-xs uppercase tracking-widest hover:bg-[#1A1918] hover:text-[#F7F7F4] transition-colors duration-300"
+              className="px-7 py-3.5 rounded-full border border-[#064e3b]/30 bg-white/60 backdrop-blur-md text-[#064e3b] font-bold text-xs uppercase tracking-widest hover:bg-[#064e3b] hover:text-[#ffffff] transition-colors duration-300"
             >
               Nhận báo giá
             </a>
@@ -459,3 +475,4 @@ export function HeroSequence({ className = "" }: HeroSequenceProps) {
     </div>
   );
 }
+

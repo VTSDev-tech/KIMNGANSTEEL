@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
@@ -170,10 +170,10 @@ export function IntroScreen({ onComplete }: IntroScreenProps) {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-[9999] overflow-hidden bg-white text-[#1A1918]"
+      className="fixed inset-0 z-[9999] overflow-hidden bg-white text-[#064e3b]"
     >
       {/* ── Background: bright warm-white center radial ── */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_68%_72%_at_50%_46%,#FFFFFF_0%,#FFFFFF_55%,#F8F7F4_100%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_68%_72%_at_50%_46%,#FFFFFF_0%,#FFFFFF_55%,#ffffff_100%)]" />
 
       {/* ── Very subtle fine grid ── */}
       <div className="absolute inset-0 opacity-[0.15] [background-image:linear-gradient(to_right,rgba(26,25,24,0.11)_1px,transparent_1px),linear-gradient(to_bottom,rgba(26,25,24,0.11)_1px,transparent_1px)] [background-size:64px_64px] md:[background-size:80px_80px]" />
@@ -203,10 +203,10 @@ export function IntroScreen({ onComplete }: IntroScreenProps) {
           <line x1="50" y1="350" x2="650" y2="350" stroke="rgba(26,25,24,0.10)" strokeWidth="0.7" />
           <line x1="350" y1="50" x2="350" y2="650" stroke="rgba(26,25,24,0.10)" strokeWidth="0.7" />
           {/* Accent gold dots */}
-          <circle cx="350" cy="118" r="3" fill="#C28E5C" />
-          <circle cx="350" cy="582" r="3" fill="#C28E5C" />
-          <circle cx="118" cy="350" r="3" fill="#C28E5C" />
-          <circle cx="582" cy="350" r="3" fill="#C28E5C" />
+          <circle cx="350" cy="118" r="3" fill="#ea580c" />
+          <circle cx="350" cy="582" r="3" fill="#ea580c" />
+          <circle cx="118" cy="350" r="3" fill="#ea580c" />
+          <circle cx="582" cy="350" r="3" fill="#ea580c" />
           {/* Corner crosshair marks */}
           <line x1="92" y1="92" x2="104" y2="92" stroke="rgba(26,25,24,0.28)" strokeWidth="1.2" />
           <line x1="98" y1="86" x2="98" y2="98" stroke="rgba(26,25,24,0.28)" strokeWidth="1.2" />
@@ -222,13 +222,13 @@ export function IntroScreen({ onComplete }: IntroScreenProps) {
       {/* ── HUD labels ── */}
       <div
         ref={hudRef}
-        className="pointer-events-none absolute inset-0 z-20 font-mono text-[10px] tracking-[0.22em] text-[#1A1918] opacity-0 p-7 md:p-10"
+        className="pointer-events-none absolute inset-0 z-20 font-mono text-[10px] tracking-[0.22em] text-[#064e3b] opacity-0 p-7 md:p-10"
       >
         <div className="absolute top-8 left-7 flex items-center gap-2 md:left-10 md:top-10">
-          <span className="h-1.5 w-1.5 rounded-full bg-[#C28E5C]" />
+          <span className="h-1.5 w-1.5 rounded-full bg-[#ea580c]" />
           <span className="font-bold uppercase">Kim Ngân Steel</span>
         </div>
-        <div className="absolute top-8 right-7 hidden text-right text-[#8E857B] sm:block md:right-10 md:top-10">
+        <div className="absolute top-8 right-7 hidden text-right text-[#064e3b] sm:block md:right-10 md:top-10">
           Tôn thép&nbsp;&nbsp;|&nbsp;&nbsp;Gia công&nbsp;&nbsp;|&nbsp;&nbsp;Phân phối
         </div>
       </div>
@@ -285,7 +285,7 @@ export function IntroScreen({ onComplete }: IntroScreenProps) {
             style={{ width: "clamp(280px, 35vw, 520px)", height: "clamp(280px, 35vw, 520px)" }}
           >
             <img
-              src="/KIMNGANLOGO.svg"
+              src="/partners/logo.svg"
               alt="Kim Ngân Steel Logo"
               className="w-full h-full scale-[1.18] object-contain drop-shadow-[0_28px_56px_rgba(26,25,24,0.24)]"
             />
@@ -293,7 +293,7 @@ export function IntroScreen({ onComplete }: IntroScreenProps) {
 
           {/* Tagline */}
           <p
-            className="font-mono uppercase text-[#7A7165]"
+            className="font-mono uppercase text-[#064e3b]"
             style={{ fontSize: "clamp(9px, 0.85vw, 12px)", letterSpacing: "0.28em" }}
           >
             Vật liệu bền vững cho công trình hiện đại
@@ -305,13 +305,13 @@ export function IntroScreen({ onComplete }: IntroScreenProps) {
       {/* ── Loading bar + CTA ── */}
       <div className="pointer-events-none absolute bottom-10 md:bottom-14 left-1/2 z-30 flex -translate-x-1/2 flex-col items-center">
         <div ref={loadingContainerRef} className="flex flex-col items-center font-mono">
-          <div className="relative h-[1.5px] w-[180px] overflow-hidden rounded-full bg-[#1A1918]/12">
+          <div className="relative h-[1.5px] w-[180px] overflow-hidden rounded-full bg-[#064e3b]/12">
             <div
-              className="absolute left-0 top-0 bottom-0 bg-[#1A1918] transition-all duration-150 ease-out"
+              className="absolute left-0 top-0 bottom-0 bg-[#064e3b] transition-all duration-150 ease-out"
               style={{ width: `${progress}%` }}
             />
           </div>
-          <div className="mt-3 text-[9px] tracking-[0.24em] text-[#8E857B] font-mono">
+          <div className="mt-3 text-[9px] tracking-[0.24em] text-[#064e3b] font-mono">
             ĐANG TẢI {progress.toString().padStart(2, "0")}%
           </div>
         </div>
@@ -320,11 +320,11 @@ export function IntroScreen({ onComplete }: IntroScreenProps) {
           ref={ctaRef}
           className="absolute -top-1 flex flex-col items-center gap-2.5 opacity-0"
         >
-          <span className="whitespace-nowrap font-mono text-[11px] font-bold uppercase tracking-[0.34em] text-[#C28E5C]">
+          <span className="whitespace-nowrap font-mono text-[11px] font-bold uppercase tracking-[0.34em] text-[#ea580c]">
             Nhấn để khám phá
           </span>
-          <span className="block h-px w-44 bg-[#C28E5C]/55" />
-          <svg width="14" height="9" viewBox="0 0 14 9" fill="none" className="animate-bounce text-[#C28E5C]">
+          <span className="block h-px w-44 bg-[#ea580c]/55" />
+          <svg width="14" height="9" viewBox="0 0 14 9" fill="none" className="animate-bounce text-[#ea580c]">
             <path d="M1 1L7 7L13 1" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </div>

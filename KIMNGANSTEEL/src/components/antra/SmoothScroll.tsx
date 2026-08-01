@@ -16,6 +16,19 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
       history.scrollRestoration = "manual";
     }
 
+    // ALWAYS forcefully unlock scroll on any route change
+    // because no modal or menu should stay open across page navigations.
+    const forceUnlockScroll = () => {
+      const body = document.body;
+      delete body.dataset.scrollLock;
+      body.classList.remove("menu-open", "search-open");
+      document.documentElement.style.overflow = "";
+      body.style.overflow = "";
+      body.style.paddingRight = "";
+    };
+
+    forceUnlockScroll();
+
     const unlockStaleScrollLock = () => {
       const body = document.body;
       const hasActiveOverlay =
