@@ -300,7 +300,6 @@ const TRANSLATIONS: Record<string, string> = {
     "Lasting materials for modern structures",
   "Nhấn để khám phá": "Enter to Explore",
   "Đang tải": "Loading",
-  "Khám phá": "Explore",
   "Khám phá sản phẩm": "Explore Products",
   "Nhận báo giá": "Request a Quote",
   "Nhận báo giá sản phẩm": "Request Product Quote",
