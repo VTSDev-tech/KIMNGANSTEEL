@@ -7,8 +7,6 @@ import { ContactFormSection } from "./ContactFormSection";
 
 import { HeroSection } from "./HeroSection";
 import { IntroScreen } from './IntroScreen';
-import { PrecisionStackSection } from "./PrecisionStackSection";
-import { BuildStatementSection } from "./BuildStatementSection";
 import { MaterialsManifestoSection } from "./MaterialsManifestoSection";
 import { MaterialExplorerSection } from "./MaterialExplorerSection";
 import { BuildingApplicationSection } from "./BuildingApplicationSection";
@@ -129,6 +127,7 @@ export function AntraClone() {
       sessionStorage.setItem("kn_has_seen_intro", "true");
       unlockPageScroll();
       window.requestAnimationFrame(() => ScrollTrigger.refresh());
+      window.dispatchEvent(new Event('introComplete'));
     }
     setGateOpen(true);
   };
@@ -139,8 +138,6 @@ export function AntraClone() {
       <div ref={rootRef} className="antra-theme min-h-screen bg-[#ffffff] text-[#064e3b] selection:bg-[#064e3b] selection:text-[#ffffff]">
         <main className="relative z-10">
         <HeroSection />
-        <PrecisionStackSection />
-        <BuildStatementSection />
 
         <MaterialsManifestoSection />
         <MaterialExplorerSection />

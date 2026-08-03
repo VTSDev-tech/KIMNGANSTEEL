@@ -4,15 +4,33 @@ import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
+let isInitialLoad = true;
+
 export function PageTransition() {
   const pathname = usePathname();
-  const [mounted, setMounted] = useState(false);
+  const [shouldShow, setShouldShow] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
-  }, []);
+    // 1. Nếu là lần đầu tiên load web (F5), không hiện PageTransition
+    if (isInitialLoad) {
+      isInitialLoad = false;
+      setShouldShow(false);
+      return;
+    }
 
-  if (!mounted) return null;
+    // 2. Nếu chuyển hướng về trang chủ và chưa từng xem IntroScreen -> IntroScreen sẽ hiện
+    // => Không hiện PageTransition để tránh bị đụng 2 màn hình liên tiếp
+    const hasSeenIntro = sessionStorage.getItem("kn_has_seen_intro");
+    if (pathname === "/" && !hasSeenIntro) {
+      setShouldShow(false);
+      return;
+    }
+    
+    // Các trường hợp chuyển trang bình thường khác -> Hiện PageTransition
+    setShouldShow(true);
+  }, [pathname]);
+
+  if (!shouldShow) return null;
 
   return (
     <motion.div
@@ -25,26 +43,43 @@ export function PageTransition() {
       {/* Background Pattern */}
       <div className="absolute inset-0 bg-[repeating-linear-gradient(90deg,rgba(255,255,255,0.03)_0_1px,transparent_1px_150px)]" />
       
-      {/* Huge Typography */}
-      <div className="relative z-10 overflow-hidden">
-        <motion.h1 
-          className="text-6xl md:text-[9rem] font-black text-white uppercase tracking-tighter leading-none"
-          initial={{ y: "100%" }}
-          animate={{ y: "0%" }}
+      {/* Logo & Typography */}
+      <div className="relative z-10 flex flex-col items-center">
+        {/* Logo Wrapper */}
+        <motion.div 
+          className="relative w-32 h-32 md:w-48 md:h-48 mb-4 flex justify-center items-center"
+          initial={{ y: "50%", opacity: 0 }}
+          animate={{ y: "0%", opacity: 1 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
         >
-          KIM NGÂN
-        </motion.h1>
-      </div>
-      <div className="relative z-10 overflow-hidden -mt-1 md:-mt-4">
-        <motion.h1 
-          className="text-6xl md:text-[9rem] font-black text-[#ea580c] uppercase tracking-tighter leading-none"
-          initial={{ y: "100%" }}
-          animate={{ y: "0%" }}
-          transition={{ duration: 0.5, ease: "easeOut", delay: 0.05 }}
-        >
-          STEEL
-        </motion.h1>
+          {/* Sử dụng hình logo sạch và đã tách nền từ thư mục tải xuống */}
+          <img 
+            src="/logomoi.svg" 
+            alt="Kim Ngân Steel Logo" 
+            className="w-full h-full object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.5)]"
+          />
+        </motion.div>
+
+        <div className="overflow-hidden pb-2">
+          <motion.h1 
+            className="text-5xl md:text-[5rem] font-black text-white uppercase tracking-tighter leading-none"
+            initial={{ y: "100%" }}
+            animate={{ y: "0%" }}
+            transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 }}
+          >
+            KIM NGÂN
+          </motion.h1>
+        </div>
+        <div className="overflow-hidden pb-4 -mt-1 md:-mt-2">
+          <motion.h1 
+            className="text-5xl md:text-[5rem] font-black text-[#ea580c] uppercase tracking-tighter leading-none"
+            initial={{ y: "100%" }}
+            animate={{ y: "0%" }}
+            transition={{ duration: 0.5, ease: "easeOut", delay: 0.15 }}
+          >
+            STEEL
+          </motion.h1>
+        </div>
       </div>
 
       {/* Modern Progress Line */}

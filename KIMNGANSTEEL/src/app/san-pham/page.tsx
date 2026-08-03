@@ -285,7 +285,7 @@ export default function ProductsPage() {
                 <span>01 / DANH MỤC SẢN PHẨM</span>
               </div>
 
-              <h1 className="text-4xl sm:text-6xl lg:text-[4.2rem] font-bold uppercase tracking-tight text-[#064e3b] leading-[1.02]">
+              <h1 className="text-4xl sm:text-6xl lg:text-[4.2rem] font-bold uppercase tracking-tight text-[#064e3b] leading-[1.25]">
                 VẬT LIỆU THÉP<br />
                 CHO MỌI QUY MÔ<br />
                 CÔNG TRÌNH

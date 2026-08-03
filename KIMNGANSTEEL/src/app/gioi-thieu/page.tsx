@@ -320,7 +320,7 @@ export default function AboutPage() {
             </div>
 
             {/* Headline */}
-            <h1 className="kn-about-opening-el text-4xl sm:text-5xl lg:text-[3.2rem] xl:text-[3.9rem] font-bold uppercase tracking-tight text-[#064e3b] leading-[1.04]">
+            <h1 className="kn-about-opening-el text-4xl sm:text-5xl lg:text-[3.2rem] xl:text-[3.9rem] font-bold uppercase tracking-tight text-[#064e3b] leading-[1.25]">
               MỘT DẤU ẤN<br />
               ĐƯỢC XÂY BẰNG<br />
               SỰ TIN CẬY.

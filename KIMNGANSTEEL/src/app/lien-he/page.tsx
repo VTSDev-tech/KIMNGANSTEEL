@@ -117,7 +117,7 @@ export default function ContactPage() {
             <p className="font-mono text-xs md:text-sm font-bold uppercase tracking-[0.22em] text-[#ea580c]">
               LIÊN HỆ & BÁO GIÁ
             </p>
-            <h1 className="mt-5 max-w-3xl font-sans font-bold text-[34px] leading-[1.05] sm:text-[46px] lg:text-[52px] tracking-tight text-[#111]">
+            <h1 className="mt-5 max-w-3xl font-sans font-bold text-[34px] leading-[1.25] sm:text-[46px] lg:text-[52px] tracking-tight text-[#064e3b]">
               LIÊN HỆ TRỰC TIẾP VỚI KIM NGÂN STEEL
             </h1>
           </div>

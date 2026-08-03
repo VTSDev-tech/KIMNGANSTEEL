@@ -244,7 +244,7 @@ export default function FactoryPage() {
               </div>
 
               {/* Verified Headline */}
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.3rem] font-sans font-bold uppercase tracking-tight text-[#064e3b] leading-[1.12]">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.3rem] font-sans font-bold uppercase tracking-tight text-[#064e3b] leading-[1.25]">
                 NĂNG LỰC GIA CÔNG<br />
                 VÀ PHÂN PHỐI TÔN THÉP
               </h1>

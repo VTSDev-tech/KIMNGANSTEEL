@@ -199,21 +199,6 @@ export function Header({ navItems }: HeaderProps) {
             <span className="tracking-wide">0707 079 900</span>
           </a>
 
-          <label className="hidden lg:flex items-center gap-2 text-[#064e3b]">
-            <Languages size={15} className="text-[#ea580c]" />
-            <span className="sr-only">Language</span>
-            <select
-              value={language}
-              onChange={(event) =>
-                setLanguage(event.target.value as "vi" | "en")
-              }
-              className="cursor-pointer bg-transparent font-sans text-xs font-bold uppercase tracking-widest outline-none"
-              aria-label="Select language"
-            >
-              <option value="vi">VI</option>
-              <option value="en">EN</option>
-            </select>
-          </label>
 
           {/* CTA Quote Button */}
           <a
@@ -255,7 +240,7 @@ export function Header({ navItems }: HeaderProps) {
             <div className="flex items-center justify-between max-w-[1440px] mx-auto w-full border-b border-[#064e3b]/10 pb-6">
               <Link className="flex items-center gap-3" href="/" onClick={() => setIsMenuOpen(false)}>
                 <Image
-                  src="/logo-generated.png"
+                  src="/logomoi.svg"
                   alt="Kim Ngân Steel"
                   width={64}
                   height={64}
@@ -276,28 +261,6 @@ export function Header({ navItems }: HeaderProps) {
               </button>
             </div>
 
-            <div className="flex items-center justify-end gap-3 border-b border-[#064e3b]/10 py-4 lg:hidden">
-              <Languages size={16} className="text-[#ea580c]" />
-              <button
-                type="button"
-                onClick={() => setLanguage("vi")}
-                className={`min-h-10 px-3 font-mono text-xs font-bold tracking-widest ${
-                  language === "vi" ? "text-[#064e3b]" : "text-[#064e3b]/40"
-                }`}
-              >
-                VI
-              </button>
-              <span className="text-[#064e3b]/20">/</span>
-              <button
-                type="button"
-                onClick={() => setLanguage("en")}
-                className={`min-h-10 px-3 font-mono text-xs font-bold tracking-widest ${
-                  language === "en" ? "text-[#064e3b]" : "text-[#064e3b]/40"
-                }`}
-              >
-                EN
-              </button>
-            </div>
 
             {/* Overlay Content */}
             <div className="max-w-[1440px] mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center flex-1 py-10">
