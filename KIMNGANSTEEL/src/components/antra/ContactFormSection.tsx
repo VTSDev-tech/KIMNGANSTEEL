@@ -5,6 +5,8 @@ import { ArrowRight, CheckCircle2 } from "lucide-react";
 
 export function ContactFormSection() {
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState("");
   const [formData, setFormData] = useState({
     fullName: "",
     phone: "",
@@ -12,9 +14,30 @@ export function ContactFormSection() {
     specs: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setIsSubmitting(true);
+    setError("");
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+        setFormData({ fullName: "", phone: "", company: "", specs: "" });
+      } else {
+        const errorData = await response.json();
+        setError(errorData.error || "Đã có lỗi xảy ra. Vui lòng thử lại sau.");
+      }
+    } catch (err) {
+      setError("Không thể kết nối đến máy chủ. Vui lòng kiểm tra lại mạng.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -147,12 +170,18 @@ export function ContactFormSection() {
               </div>
 
               <div className="pt-2">
+                {error && (
+                  <p className="text-red-600 text-xs font-mono font-bold mb-4 bg-red-50 p-3 rounded-md border border-red-100">
+                    LỖI: {error}
+                  </p>
+                )}
                 <button
                   type="submit"
-                  className="w-full py-3.5 px-5 sm:py-4 sm:px-6 rounded-full bg-[#064e3b] hover:bg-black text-white font-mono text-[11px] sm:text-xs font-bold uppercase tracking-widest transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer group"
+                  disabled={isSubmitting}
+                  className="w-full py-3.5 px-5 sm:py-4 sm:px-6 rounded-full bg-[#064e3b] hover:bg-black text-white font-mono text-[11px] sm:text-xs font-bold uppercase tracking-widest transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer group disabled:opacity-70 disabled:cursor-not-allowed"
                 >
-                  <span>GỬI YÊU CẦU BÁO GIÁ</span>
-                  <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                  <span>{isSubmitting ? "ĐANG GỬI YÊU CẦU..." : "GỬI YÊU CẦU BÁO GIÁ"}</span>
+                  {!isSubmitting && <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />}
                 </button>
               </div>
             </form>

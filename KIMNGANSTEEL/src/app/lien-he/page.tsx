@@ -74,7 +74,7 @@ export default function ContactPage() {
     if (errorMsg) setErrorMsg("");
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!formData.fullName.trim()) {
@@ -93,10 +93,32 @@ export default function ContactPage() {
     setLoading(true);
     setErrorMsg("");
 
-    setTimeout(() => {
-      setLoading(false);
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          fullName: formData.fullName,
+          phone: formData.phone,
+          email: formData.email,
+          company: formData.company,
+          content: formData.content,
+        }),
+      });
+
+      const result = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        setErrorMsg(result.error || "Không thể gửi yêu cầu. Vui lòng thử lại sau.");
+        return;
+      }
+
       setSubmitted(true);
-    }, 600);
+    } catch {
+      setErrorMsg("Không thể kết nối máy chủ. Vui lòng kiểm tra mạng và thử lại.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleCopyAddress = async () => {
