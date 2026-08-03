@@ -18,43 +18,43 @@ const SCENES: SceneData[] = [
   {
     num: "01",
     image: "/factory_story/1.svg",
-    label: "FACTORY EXTERIOR",
-    title: "NƠI MỌI SẢN PHẨM\nBẮT ĐẦU",
+    label: "TOÀN CẢNH NHÀ MÁY",
+    title: "NƠI MỌI SẢN\u00A0PHẨM\nBẮT ĐẦU",
     paragraph: "Nhà máy và kho vật liệu được tổ chức để chủ động từ nguyên liệu đầu vào đến thành phẩm.",
   },
   {
     num: "02",
     image: "/factory_story/2.svg",
-    label: "RAW MATERIALS",
+    label: "NGUYÊN VẬT LIỆU",
     title: "NGUYÊN LIỆU\nĐƯỢC LỰA CHỌN",
     paragraph: "Nguồn thép phù hợp được lựa chọn theo độ dày, lớp mạ và yêu cầu của từng công trình.",
   },
   {
     num: "03",
     image: "/factory_story/3.svg",
-    label: "ROLL FORMING",
+    label: "GIA CÔNG CÁN TÔN",
     title: "GIA CÔNG\nVỚI ĐỘ CHÍNH XÁC CAO",
     paragraph: "Dây chuyền cán tôn được thiết lập theo đúng biên dạng, kích thước và số lượng yêu cầu.",
   },
   {
     num: "04",
     image: "/factory_story/4.svg",
-    label: "QUALITY CONTROL",
+    label: "KIỂM SOÁT CHẤT LƯỢNG",
     title: "KIỂM SOÁT\nTRƯỚC KHI XUẤT XƯỞNG",
     paragraph: "Độ dày, biên dạng và bề mặt sản phẩm được kiểm tra trước khi bàn giao.",
   },
   {
     num: "05",
     image: "/factory_story/5.svg",
-    label: "LOGISTICS",
+    label: "VẬN CHUYỂN & GIAO HÀNG",
     title: "ĐÚNG SỐ LƯỢNG.\nĐÚNG TIẾN ĐỘ.",
     paragraph: "Thành phẩm được đóng gói và vận chuyển an toàn đến công trình.",
   },
   {
     num: "06",
     image: "/factory_story/6.svg",
-    label: "REAL-WORLD APPLICATION",
-    title: "FROM FACTORY\nTO STRUCTURE.",
+    label: "ỨNG DỤNG THỰC TẾ",
+    title: "TỪ NHÀ MÁY\nĐẾN CÔNG TRÌNH.",
     paragraph: "Vật liệu hoàn thiện trở thành một phần của những công trình thực tế.",
   },
 ];
@@ -361,11 +361,11 @@ export function FactoryStorySection() {
             className="absolute inset-0 flex flex-col items-center justify-center text-center max-w-[860px] mx-auto px-6 z-20 space-y-4 pointer-events-none"
           >
             <span className="text-xs uppercase tracking-[0.3em] text-[#ea580c] font-bold block">
-              FACTORY STORY
+              CÂU CHUYỆN NHÀ MÁY
             </span>
-            <h2 className={`text-[clamp(28px,6vw,64px)] font-bold uppercase tracking-tight text-[#ffffff] leading-[1.12] `}>
-              BEHIND EVERY PRODUCT<br />
-              IS A CONTROLLED PROCESS.
+            <h2 className={`text-[clamp(28px,6vw,64px)] font-bold uppercase tracking-tight text-[#ffffff] leading-[1.4] `}>
+              ĐẰNG SAU MỖI SẢN&nbsp;PHẨM<br />
+              LÀ MỘT QUY TRÌNH KIỂM SOÁT KHẮT KHE.
             </h2>
           </div>
 
@@ -383,7 +383,7 @@ export function FactoryStorySection() {
                 <span className="uppercase tracking-[0.25em]">{scene.label}</span>
               </div>
 
-              <h3 className={`text-[clamp(28px,6vw,56px)] font-bold uppercase tracking-tight text-[#ffffff] leading-[1.18] whitespace-pre-line break-words`}>
+              <h3 className={`text-[clamp(28px,6vw,56px)] font-bold uppercase tracking-tight text-[#ffffff] leading-[1.4] whitespace-pre-line break-words`}>
                 {scene.title}
               </h3>
 
@@ -405,10 +405,10 @@ export function FactoryStorySection() {
         {/* Mobile Intro Header */}
         <div className="space-y-3 pb-8 border-b border-white/10 text-center">
           <span className="text-xs uppercase tracking-[0.25em] text-[#ea580c] font-bold block">
-            FACTORY STORY
+            CÂU CHUYỆN NHÀ MÁY
           </span>
-          <h2 className={`text-3xl font-bold uppercase tracking-tight text-[#ffffff] leading-tight `}>
-            BEHIND EVERY PRODUCT IS A CONTROLLED PROCESS.
+          <h2 className={`text-3xl font-bold uppercase tracking-tight text-[#ffffff] leading-[1.4] `}>
+            ĐẰNG SAU MỖI SẢN&nbsp;PHẨM LÀ MỘT QUY TRÌNH KIỂM SOÁT KHẮT KHE.
           </h2>
         </div>
 
@@ -433,11 +433,11 @@ export function FactoryStorySection() {
                   <span className="uppercase tracking-wider">{scene.label}</span>
                 </div>
 
-                <h3 className={`text-2xl font-bold uppercase tracking-tight text-[#ffffff] leading-tight whitespace-pre-line `}>
+                <h3 className={`text-2xl font-bold uppercase tracking-tight text-[#ffffff] leading-[1.4] whitespace-pre-line `}>
                   {scene.title}
                 </h3>
 
-                <p className="text-xs text-[#064e3b] leading-relaxed max-w-[420px]">
+                <p className="text-xs text-white/80 leading-relaxed max-w-[420px]">
                   {scene.paragraph}
                 </p>
               </div>
