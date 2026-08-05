@@ -173,8 +173,8 @@ export function OrderProcessSequence() {
 
           {/* End CTA Panel */}
           <div className="w-[100vw] lg:w-[45vw] shrink-0 flex flex-col justify-center items-start pl-12 lg:pl-24 pr-12 relative z-10 space-y-6">
-            <div className="w-16 h-1.5 bg-[#ea580c] mb-2" />
-            <h2 className="text-4xl lg:text-5xl font-bold uppercase tracking-tight text-[#064e3b] leading-tight">
+            <div className="w-16 h-1.5 bg-[#ea580c] mb-4" />
+            <h2 className="text-4xl lg:text-5xl font-bold uppercase tracking-tight text-[#064e3b] leading-[1.4]">
               SẴN SÀNG CHO<br/>DỰ ÁN CỦA BẠN?
             </h2>
             <p className="text-base text-[#064e3b]/80 max-w-sm leading-relaxed text-justify">
@@ -241,8 +241,8 @@ export function OrderProcessSequence() {
 
         {/* Mobile End CTA */}
         <div className="pt-8 border-t border-[#064e3b]/10 flex flex-col space-y-5">
-          <div className="w-12 h-1 bg-[#ea580c]" />
-          <h2 className="text-3xl font-bold uppercase tracking-tight text-[#064e3b] leading-tight">
+          <div className="w-12 h-1 bg-[#ea580c] mb-2" />
+          <h2 className="text-3xl font-bold uppercase tracking-tight text-[#064e3b] leading-[1.4]">
             SẴN SÀNG CHO<br/>DỰ ÁN?
           </h2>
           <p className="text-sm text-[#064e3b]/80 leading-relaxed text-justify">

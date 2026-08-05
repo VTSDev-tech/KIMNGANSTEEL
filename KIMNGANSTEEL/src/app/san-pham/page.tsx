@@ -428,7 +428,7 @@ export default function ProductsPage() {
                 <div className="lg:col-span-6 flex items-center justify-center p-0 sm:p-4">
                   <div className="relative w-full max-w-[180px] sm:max-w-[500px] aspect-[16/9] sm:aspect-[4/3] flex items-center justify-center">
                     <img
-                      src="/ton_lanh.svg"
+                      src={PRODUCTS[0].image}
                       alt={PRODUCTS[0].name}
                       className="w-full h-full object-contain filter contrast-[1.05] group-hover:scale-105 transition-transform duration-500"
                     />
