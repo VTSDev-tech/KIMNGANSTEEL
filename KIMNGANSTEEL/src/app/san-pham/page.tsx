@@ -62,7 +62,7 @@ const PRODUCTS: Product[] = [
       { label: "Ứng dụng", value: "Cán tôn, mái và vách công nghiệp" },
     ],
     details: "Tôn cuộn Kim Ngân Steel nhập khẩu chính hãng từ Tôn Đông Á, Pomina, Tiến Lợi. Bề mặt phủ mạ kẽm/nhôm kẽm AZ50–AZ150 đạt độ bền màu 20 năm, không dột rét hay ăn mòn khí hậu biển.",
-    brands: ["Tôn Đông Á", "Tôn Pomina", "Tôn Tiến Lợi"],
+    brands: ["Tôn Đông Á", "Tôn Pomina", "Tôn Tiến Lợi", "Tôn Hòa Phát", "Tôn Nam Kim", "Tôn Việt Nhật", "Tôn Tây Nam"],
     applications: ["Cán tôn lợp mái 5 sóng / 9 sóng", "Sản xuất xà gồ nhẹ & Panel", "Gia công cơ khí & Đồ gia dụng"],
   },
   {
@@ -94,7 +94,7 @@ const PRODUCTS: Product[] = [
       { label: "Ứng dụng", value: "Kết cấu, khung, cơ khí, nội thất" },
     ],
     details: "Thép hộp mạ kẽm thương hiệu Hòa Phát, Việt Nhật cung ứng trực tiếp từ nhà máy. Lớp mạ kẽm nhúng nóng bề mặt giữ tuổi thọ công trình lên tới 30 năm.",
-    brands: ["Thép Hòa Phát", "Thép Việt Nhật"],
+    brands: ["Thép Hòa Phát", "Thép Việt Nhật", "Sắt Đông Á", "Thép Nam Kim", "Thép Nam Hưng", "Ống Thép Đức Việt", "Ống Thép Sài Gòn"],
     applications: ["Khung kèo giàn mái nhà xưởng", "Cột chịu tải kết cấu thép", "Cơ khí chế tạo & Khung nội thất"],
   },
   {
@@ -110,7 +110,7 @@ const PRODUCTS: Product[] = [
       { label: "Ứng dụng", value: "Cơ khí, kết cấu, dẫn nước" },
     ],
     details: "Ống thép tròn mạ kẽm chịu áp suất cao, độ giãn dài tối ưu. Cung ứng đầy đủ CO/CQ xuất xưởng theo lô hàng.",
-    brands: ["Thép Hòa Phát", "Thép Việt Nhật"],
+    brands: ["Thép Hòa Phát", "Thép Việt Nhật", "Sắt Đông Á", "Thép Nam Kim", "Thép Nam Hưng", "Ống Thép Đức Việt", "Ống Thép Sài Gòn"],
     applications: ["Hệ thống đường ống PCCC", "Khung kết cấu vòm tròn", "Trụ bảng quảng cáo & Cột điện lực"],
   },
   {
@@ -142,7 +142,7 @@ const PRODUCTS: Product[] = [
       { label: "Ứng dụng", value: "Xây dựng dân dụng & công nghiệp" },
     ],
     details: "Thép xây dựng Hòa Phát chính hãng cung cấp trực tiếp cho các nhà thầu lớn. Đáp ứng đầy đủ tiêu chuẩn TCVN 1651 & JIS G3112.",
-    brands: ["Thép Hòa Phát"],
+    brands: ["Thép Hòa Phát", "Thép Pomina"],
     applications: ["Đổ móng & Dầm cột bê tông cốt thép", "Công trình cao tầng & Hạ tầng giao thông", "Nhà dân dụng & Khung đúc"],
   },
 
@@ -696,13 +696,22 @@ export default function ProductsPage() {
                     </div>
                   </div>
 
-                  {/* Brands */}
-                  <div className="pt-2 border-t border-[#064e3b]/10 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                    <div>
-                      <span className="text-[11px] font-mono text-[#064e3b] block">THƯƠNG HIỆU CUNG ỨNG</span>
-                      <span className="text-xs font-bold uppercase text-[#064e3b]">
-                        {selectedProduct.brands.join(" · ")}
+                  {/* Brands & Action */}
+                  <div className="pt-3 sm:pt-4 border-t border-[#064e3b]/10 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                    <div className="flex-1">
+                      <span className="text-[10px] sm:text-[11px] font-mono font-bold uppercase text-[#064e3b] block tracking-wider mb-2">
+                        THƯƠNG HIỆU CUNG ỨNG
                       </span>
+                      <div className="flex flex-wrap gap-1.5 sm:gap-2 pr-0 sm:pr-4">
+                        {selectedProduct.brands.map((brand, bIdx) => (
+                          <span
+                            key={bIdx}
+                            className="inline-block px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-md border border-[#064e3b]/15 bg-white text-[9px] sm:text-[10px] font-bold text-[#064e3b] uppercase shadow-sm"
+                          >
+                            {brand}
+                          </span>
+                        ))}
+                      </div>
                     </div>
 
                     <button
@@ -712,7 +721,7 @@ export default function ProductsPage() {
                         setSelectedProduct(null);
                         handleOpenQuote(targetProd);
                       }}
-                      className="w-full sm:w-auto px-5 sm:px-6 py-2 sm:py-2.5 bg-[#ea580c] text-white font-mono font-bold text-[10px] sm:text-xs uppercase tracking-wider hover:bg-[#c2410c] transition-colors rounded-full shadow-sm cursor-pointer"
+                      className="shrink-0 w-full sm:w-auto px-5 sm:px-6 py-2.5 sm:py-3 bg-[#ea580c] text-white font-mono font-bold text-[10px] sm:text-xs uppercase tracking-wider hover:bg-[#c2410c] transition-colors rounded-full shadow-sm cursor-pointer whitespace-nowrap"
                     >
                       Báo Giá Ngay
                     </button>

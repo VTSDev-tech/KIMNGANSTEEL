@@ -47,41 +47,6 @@ const BRAND_STORY_CHAPTERS = [
   },
 ];
 
-// 5. TIMELINE MILESTONES DATA
-const MILESTONES = [
-  {
-    year: "2011",
-    title: "Khởi đầu",
-    subtitle: "Cung ứng vật liệu tôn thép thương mại",
-    desc: "Thành lập đơn vị cung ứng vật liệu tôn mạ kẽm chính hãng cho các nhà thầu dân dụng và xưởng cơ khí.",
-    image: "/images/timeline/timeline_2011_1785571506575.jpg",
-    tag: "KHỞI TẠO UY TÍN",
-  },
-  {
-    year: "2018",
-    title: "Mở rộng năng lực",
-    subtitle: "Đầu tư nhà máy cán tôn CNC tự động",
-    desc: "Trang bị dây chuyền máy cán tôn sóng vuông, sóng tròn và máy chấn xà gồ C/Z tự động hiện đại.",
-    image: "/images/timeline/timeline_2018_1785571516184.jpg",
-    tag: "ĐẦU TƯ CÔNG NGHỆ",
-  },
-  {
-    year: "2022",
-    title: "Đối tác chiến lược",
-    subtitle: "Ủy quyền Đại lý cấp 1 chính thức",
-    desc: "Chính thức ký kết trở thành Đại lý cấp 1 ủy quyền phân phối tôn thép từ Tập đoàn Tôn Đông Á, Hoa Sen, Hòa Phát.",
-    image: "/images/timeline/timeline_2022_1785571525048.jpg",
-    tag: "ĐẠI LÝ CHÍNH THỨC",
-  },
-  {
-    year: "2026",
-    title: "Tự động hóa và số hóa",
-    subtitle: "Chuẩn hóa ISO 9001:2015 & Giao vận 24h",
-    desc: "Số hóa quy trình đặt hàng, quản trị kho vận tự động và cam kết giao hàng trong 24h tới tận chân công trình.",
-    image: "/images/timeline/timeline_2026_1785571534081.jpg",
-    tag: "SỐ HÓA & GIAO VẬN 24H",
-  },
-];
 
 // 6. LEGAL AND CERTIFICATIONS DATA (Section 5)
 const CERTIFICATES = [
@@ -125,7 +90,7 @@ export default function AboutPage() {
   
   // Interactive States
   const [activeStoryIndex, setActiveStoryIndex] = useState(0);
-  const [activeMilestoneIndex, setActiveMilestoneIndex] = useState(0);
+
   const [activeCertIndex, setActiveCertIndex] = useState(0);
   const [activeCertPageIndex, setActiveCertPageIndex] = useState(0);
   const [selectedCertModal, setSelectedCertModal] = useState<{ title: string; images: string[] } | null>(null);
@@ -238,10 +203,9 @@ export default function AboutPage() {
             trigger: ".kn-brand-system-pin",
             start: "top top",
             end: "+=120%",
-            scrub: 0.5,
+            scrub: 1.2, // Tăng scrub để animation mượt hơn (catch-up delay)
             pin: ".kn-brand-system-pin",
             pinSpacing: true,
-            anticipatePin: 0.6,
             fastScrollEnd: false,
             invalidateOnRefresh: true,
           },
@@ -580,112 +544,6 @@ export default function AboutPage() {
 
 
 
-      {/* =========================================================================
-          5. MILESTONES — TRUE HORIZONTAL INTERACTIVE TIMELINE
-         ========================================================================= */}
-      <section className="kn-about-section py-16 md:py-22 px-5 md:px-10 bg-[#ffffff] border-b border-[#064e3b]/10">
-        <div className="max-w-[1500px] mx-auto space-y-10">
-          
-          <div className="flex items-center justify-between border-b border-[#064e3b]/12 pb-4">
-            <span className="text-xs font-mono font-bold tracking-[0.25em] text-[#ea580c] uppercase">
-              04 / CỘT MỐC PHÁT TRIỂN
-            </span>
-            <span className="text-xs font-mono text-[#064e3b] tracking-wider uppercase hidden sm:inline-block">
-              HORIZONTAL TIMELINE
-            </span>
-          </div>
-
-          {/* Desktop Horizontal Interactive Timeline Track */}
-          <div className="hidden md:block space-y-12">
-            
-            {/* Continuous Axis Line with Stops */}
-            <div className="relative w-full border-b-2 border-[#064e3b]/15 pb-8 flex items-center justify-between">
-              {MILESTONES.map((m, idx) => {
-                const isActive = activeMilestoneIndex === idx;
-                return (
-                  <button
-                    key={m.year}
-                    onClick={() => setActiveMilestoneIndex(idx)}
-                    onMouseEnter={() => setActiveMilestoneIndex(idx)}
-                    className="relative group text-left flex flex-col items-center cursor-pointer focus:outline-none"
-                  >
-                    <span
-                      className={`text-2xl lg:text-3xl font-mono font-bold transition-all duration-300 ${
-                        isActive ? "text-[#ea580c] scale-110" : "text-[#064e3b]/50 group-hover:text-[#064e3b]"
-                      }`}
-                    >
-                      {m.year}
-                    </span>
-                    <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#064e3b] mt-1">
-                      {m.title}
-                    </span>
-
-                    {/* Timeline Node Point */}
-                    <span
-                      className={`absolute -bottom-[41px] w-4 h-4 rounded-full border-2 transition-all duration-300 ${
-                        isActive
-                          ? "bg-[#ea580c] border-[#064e3b] scale-125 shadow-md"
-                          : "bg-[#ffffff] border-[#064e3b]/30 group-hover:border-[#064e3b]"
-                      }`}
-                    />
-                  </button>
-                );
-              })}
-            </div>
-
-            {/* Active Milestone Detailed Showcase Panel */}
-            <div className="p-8 lg:p-12 rounded-none border border-[#064e3b]/15 bg-[#ffffff] grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-              <div className="lg:col-span-7 space-y-4">
-                <span className="text-xs font-mono font-bold tracking-[0.2em] text-[#ea580c] uppercase block">
-                  {MILESTONES[activeMilestoneIndex].tag}
-                </span>
-                <h3 className="text-2xl lg:text-3xl font-bold uppercase text-[#064e3b]">
-                  {MILESTONES[activeMilestoneIndex].year} · {MILESTONES[activeMilestoneIndex].title}
-                </h3>
-                <p className="text-sm font-mono text-[#ea580c] font-semibold">
-                  {MILESTONES[activeMilestoneIndex].subtitle}
-                </p>
-                <p className="text-sm lg:text-base text-[#064e3b] font-sans leading-relaxed pt-1">
-                  {MILESTONES[activeMilestoneIndex].desc}
-                </p>
-              </div>
-
-              <div className="lg:col-span-5">
-                <div className="relative aspect-[16/10] overflow-hidden border border-[#064e3b]/15 shadow-sm bg-white">
-                  <img
-                    src={MILESTONES[activeMilestoneIndex].image}
-                    alt={MILESTONES[activeMilestoneIndex].title}
-                    className="w-full h-full object-cover filter contrast-[1.03]"
-                  />
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          {/* Mobile Vertical Timeline Track */}
-          <div className="block md:hidden space-y-8 border-l-2 border-[#064e3b]/15 pl-6 ml-2">
-            {MILESTONES.map((m, idx) => (
-              <div key={m.year} className="relative space-y-2">
-                <span className="absolute -left-[31px] top-1 w-3.5 h-3.5 rounded-full bg-[#ea580c] border-2 border-[#ffffff]" />
-                <span className="text-xl font-mono font-bold text-[#ea580c] block">
-                  {m.year}
-                </span>
-                <h3 className="text-lg font-bold text-[#064e3b] uppercase">
-                  {m.title}
-                </h3>
-                <p className="text-xs font-mono font-semibold text-[#064e3b]">
-                  {m.subtitle}
-                </p>
-                <p className="text-xs text-[#064e3b] leading-relaxed pt-1">
-                  {m.desc}
-                </p>
-              </div>
-            ))}
-          </div>
-
-        </div>
-      </section>
 
       {/* =========================================================================
           6. LEGAL AND CERTIFICATIONS — 1-TO-1 FIGMA MOCKUP SHOWCASE
@@ -696,7 +554,7 @@ export default function AboutPage() {
           {/* Section Header Bar */}
           <div className="flex items-center justify-between border-b border-[#064e3b]/12 pb-4">
             <span className="text-xs font-mono font-bold tracking-[0.25em] text-[#ea580c] uppercase">
-              05 / HỒ SƠ PHÁP LÝ &amp; CHỨNG NHẬN CHÍNH THỨC
+              04 / HỒ SƠ PHÁP LÝ &amp; CHỨNG NHẬN CHÍNH THỨC
             </span>
             <div className="hidden sm:flex items-center gap-2 text-xs font-mono text-[#064e3b] tracking-wider uppercase">
               <span>VERIFIED DOCUMENTS</span>
