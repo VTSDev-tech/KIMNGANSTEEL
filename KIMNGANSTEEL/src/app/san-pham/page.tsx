@@ -57,7 +57,7 @@ const PRODUCTS: Product[] = [
     desc: "Nguồn nguyên liệu chất lượng cao, bề mặt đồng đều, độ bền vượt trội, đáp ứng đa dạng nhu cầu sản xuất.",
     image: "/ton_ma_kem_1.svg",
     specs: [
-      { label: "Độ dày", value: "0,30 – 1,20 mm" },
+      { label: "Độ dày", value: "0,25 – 0,60 mm" },
       { label: "Bề mặt", value: "Mạ kẽm, mạ nhôm kẽm, mạ màu" },
       { label: "Ứng dụng", value: "Cán tôn, mái và vách công nghiệp" },
     ],
@@ -145,6 +145,38 @@ const PRODUCTS: Product[] = [
     brands: ["Thép Hòa Phát", "Thép Pomina"],
     applications: ["Đổ móng & Dầm cột bê tông cốt thép", "Công trình cao tầng & Hạ tầng giao thông", "Nhà dân dụng & Khung đúc"],
   },
+  {
+    id: "panel-thong-tin",
+    index: "07",
+    name: "PANEL CÁCH NHIỆT",
+    subtags: "PANEL EPS  ·  PANEL PU  ·  PANEL PIR",
+    category: "Panel Cách Nhiệt",
+    desc: "Tấm panel cách nhiệt gồm hai lớp tôn mạ bên ngoài và lõi cách nhiệt ở giữa. Sản phẩm cách nhiệt, cách âm, thi công nhanh và phù hợp nhà xưởng, kho lạnh, phòng sạch và công trình lắp ghép.",
+    image: "/thiet-ke-chua-co-ten-4.svg",
+    specs: [
+      { label: "Độ dày", value: "Gia công theo nhu cầu và loại lõi" },
+      { label: "Bề mặt", value: "Tôn mạ kẽm, tôn mạ màu" },
+    ],
+    details: "Panel cách nhiệt Kim Ngân Steel đúng quy cách, hỗ trợ tư vấn loại lõi phù hợp và gia công theo yêu cầu khách hàng.",
+    brands: ["Kim Ngân Steel", "Panel EPS", "Panel PU", "Panel PIR"],
+    applications: ["Vách ngăn", "Mái", "Trần", "Kho lạnh", "Nhà lắp ghép"],
+  },
+  {
+    id: "ton-pu",
+    index: "08",
+    name: "TÔN PU CÁCH NHIỆT",
+    subtags: "TÔN LẠNH PU  ·  TÔN MÀU PU  ·  TÔN 3 LỚP",
+    category: "Tôn PU",
+    desc: "Tôn PU là dòng tôn lợp cách nhiệt nhiều lớp, gồm lớp tôn bề mặt, lõi foam Polyurethane và lớp lót bảo vệ phía dưới. Hạn chế truyền nhiệt, giảm tiếng ồn khi mưa và phù hợp mái nhà ở, nhà xưởng, kho bãi, công trình dân dụng.",
+    image: "/ton-pu.svg",
+    specs: [
+      { label: "Cấu tạo", value: "Tôn bề mặt · Lõi foam PU · Lớp lót bạc/PVC" },
+      { label: "Ứng dụng", value: "Mái nhà, nhà xưởng, kho bãi, mái che" },
+    ],
+    details: "Tôn PU Kim Ngân có cấu tạo nhiều lớp, lớp foam PU ở giữa giúp cách nhiệt và giảm ồn, trong khi lớp tôn mạ bên ngoài bảo vệ và tạo thẩm mỹ. Thông số lõi được gia công theo yêu cầu khách hàng, không ghi cố định một con số.",
+    brands: ["Kim Ngân Steel", "Tôn PU cách nhiệt"],
+    applications: ["Mái nhà", "Nhà xưởng", "Kho bãi", "Công trình lắp ghép"],
+  },
 
 ];
 
@@ -155,6 +187,7 @@ const CATEGORIES = [
   "THÉP HỘP & ỐNG",
   "XÀ GỒ",
   "THÉP XÂY DỰNG",
+  "PANEL THÔNG TIN",
 
 ];
 
