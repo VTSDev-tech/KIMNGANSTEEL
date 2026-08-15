@@ -108,37 +108,37 @@ const ORDER_PROCESS_STEPS = [
     num: "01",
     title: "TIẾP NHẬN NHU CẦU",
     desc: "Tiếp nhận chủng loại sản phẩm, quy cách, số lượng và yêu cầu giao hàng từ khách hàng.",
-    img: "/factory_story/1.svg",
+    img: "/images/tiep_nhan_nhu_cau.svg",
   },
   {
     num: "02",
     title: "TƯ VẤN SẢN PHẨM",
     desc: "Tư vấn lựa chọn tôn, thép và xà gồ phù hợp với nhu cầu sử dụng và ngân sách.",
-    img: "/factory_story/2.svg",
+    img: "/images/tu_van_san_pham.svg",
   },
   {
     num: "03",
     title: "CHUẨN BỊ NGUỒN HÀNG",
     desc: "Kiểm tra nguồn sản phẩm, chủng loại và khả năng đáp ứng đơn hàng.",
-    img: "/factory_story/3.svg",
+    img: "/images/chuan_bi_nguon_hang.svg",
   },
   {
     num: "04",
     title: "GIA CÔNG THEO YÊU CẦU",
     desc: "Thực hiện gia công các sản phẩm phù hợp với quy cách và nhu cầu thực tế của khách hàng.",
-    img: "/factory_story/4.svg",
+    img: "/images/gia_cong_theo_yeu_cau.svg",
   },
   {
     num: "05",
     title: "KIỂM TRA TRƯỚC GIAO HÀNG",
     desc: "Kiểm tra số lượng, chủng loại và tình trạng sản phẩm trước khi bàn giao.",
-    img: "/factory_story/5.svg",
+    img: "/images/kiem_tra_truoc_giao_hang.svg",
   },
   {
     num: "06",
     title: "VẬN CHUYỂN VÀ BÀN GIAO",
     desc: "Tổ chức giao nhận hàng hóa tới địa điểm theo thỏa thuận với khách hàng.",
-    img: "/factory_story/6.svg",
+    img: "/images/van_chuyen_va_ban_giao.svg",
   },
 ];
 
