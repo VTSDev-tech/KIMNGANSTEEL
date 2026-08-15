@@ -146,36 +146,36 @@ const PRODUCTS: Product[] = [
     applications: ["Đổ móng & Dầm cột bê tông cốt thép", "Công trình cao tầng & Hạ tầng giao thông", "Nhà dân dụng & Khung đúc"],
   },
   {
-    id: "panel-thong-tin",
-    index: "07",
-    name: "PANEL CÁCH NHIỆT",
-    subtags: "PANEL EPS  ·  PANEL PU  ·  PANEL PIR",
-    category: "Panel Cách Nhiệt",
-    desc: "Tấm panel cách nhiệt gồm hai lớp tôn mạ bên ngoài và lõi cách nhiệt ở giữa. Sản phẩm cách nhiệt, cách âm, thi công nhanh và phù hợp nhà xưởng, kho lạnh, phòng sạch và công trình lắp ghép.",
-    image: "/thiet-ke-chua-co-ten-4.svg",
-    specs: [
-      { label: "Độ dày", value: "Gia công theo nhu cầu và loại lõi" },
-      { label: "Bề mặt", value: "Tôn mạ kẽm, tôn mạ màu" },
-    ],
-    details: "Panel cách nhiệt Kim Ngân Steel đúng quy cách, hỗ trợ tư vấn loại lõi phù hợp và gia công theo yêu cầu khách hàng.",
-    brands: ["Kim Ngân Steel", "Panel EPS", "Panel PU", "Panel PIR"],
-    applications: ["Vách ngăn", "Mái", "Trần", "Kho lạnh", "Nhà lắp ghép"],
-  },
+  id: "panel-eps",
+  index: "07",
+  name: "PANEL EPS CÁCH NHIỆT",
+  subtags: "PANEL VÁCH · PANEL TRẦN",
+  category: "Panel Cách Nhiệt",
+  desc: "Panel EPS vách/trần dùng lõi xốp tỷ trọng 8 (±2) kg/m³, có các độ dày 5 cm, 7.5 cm và 10 cm. Khổ hữu dụng 1.15 m, chiều dài cắt theo yêu cầu.",
+  image: "/thiet-ke-chua-co-ten-4.svg",
+  specs: [
+    { label: "Độ dày", value: "5 cm · 7.5 cm · 10 cm" },
+    { label: "Khổ hữu dụng", value: "1.15 m" },
+  ],
+  details: "Panel EPS có 2 ngàm tăng cứng, dán màng chống trầy 2 mặt và chiều dài cắt theo yêu cầu.",
+  brands: ["5 CM", "7.5 CM", "10 CM"],
+  applications: ["Vách ngăn", "Trần", "Nhà xưởng", "Kho", "Công trình lắp ghép"],
+},
   {
     id: "ton-pu",
     index: "08",
     name: "TÔN PU CÁCH NHIỆT",
-    subtags: "TÔN LẠNH PU  ·  TÔN MÀU PU  ·  TÔN 3 LỚP",
+    subtags: "TÔN PU 5 SÓNG · TÔN PU 9 SÓNG",
     category: "Tôn PU",
-    desc: "Tôn PU là dòng tôn lợp cách nhiệt nhiều lớp, gồm lớp tôn bề mặt, lõi foam Polyurethane và lớp lót bảo vệ phía dưới. Hạn chế truyền nhiệt, giảm tiếng ồn khi mưa và phù hợp mái nhà ở, nhà xưởng, kho bãi, công trình dân dụng.",
+    desc: "Tôn PU cách nhiệt có lớp foam PU dày 16–17 mm, hỗ trợ cán 5 sóng và 9 sóng theo nhu cầu công trình.",
     image: "/ton-pu.svg",
     specs: [
-      { label: "Cấu tạo", value: "Tôn bề mặt · Lõi foam PU · Lớp lót bạc/PVC" },
-      { label: "Ứng dụng", value: "Mái nhà, nhà xưởng, kho bãi, mái che" },
+      { label: "Độ dày PU", value: "16–17 mm" },
+      { label: "Kiểu cán", value: "5 sóng · 9 sóng" },
     ],
-    details: "Tôn PU Kim Ngân có cấu tạo nhiều lớp, lớp foam PU ở giữa giúp cách nhiệt và giảm ồn, trong khi lớp tôn mạ bên ngoài bảo vệ và tạo thẩm mỹ. Thông số lõi được gia công theo yêu cầu khách hàng, không ghi cố định một con số.",
-    brands: ["Kim Ngân Steel", "Tôn PU cách nhiệt"],
-    applications: ["Mái nhà", "Nhà xưởng", "Kho bãi", "Công trình lắp ghép"],
+    details: "Tôn PU hỗ trợ cách nhiệt, giảm nóng và được cán 5 sóng hoặc 9 sóng theo yêu cầu.",
+    brands: [],
+    applications: ["Mái nhà", "Nhà xưởng", "Kho bãi", "Mái che"],
   },
 
 ];
@@ -729,23 +729,24 @@ export default function ProductsPage() {
                     </div>
                   </div>
 
-                  {/* Brands & Action */}
                   <div className="pt-3 sm:pt-4 border-t border-[#064e3b]/10 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-                    <div className="flex-1">
-                      <span className="text-[10px] sm:text-[11px] font-mono font-bold uppercase text-[#064e3b] block tracking-wider mb-2">
-                        THƯƠNG HIỆU CUNG ỨNG
-                      </span>
-                      <div className="flex flex-wrap gap-1.5 sm:gap-2 pr-0 sm:pr-4">
-                        {selectedProduct.brands.map((brand, bIdx) => (
-                          <span
-                            key={bIdx}
-                            className="inline-block px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-md border border-[#064e3b]/15 bg-white text-[9px] sm:text-[10px] font-bold text-[#064e3b] uppercase shadow-sm"
-                          >
-                            {brand}
-                          </span>
-                        ))}
+                    {selectedProduct.id !== "panel-eps" && (
+                      <div className="flex-1">
+                        <span className="text-[10px] sm:text-[11px] font-mono font-bold uppercase text-[#064e3b] block tracking-wider mb-2">
+                          THƯƠNG HIỆU CUNG ỨNG
+                        </span>
+                        <div className="flex flex-wrap gap-1.5 sm:gap-2 pr-0 sm:pr-4">
+                          {selectedProduct.brands.map((brand, bIdx) => (
+                            <span
+                              key={bIdx}
+                              className="inline-block px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-md border border-[#064e3b]/15 bg-white text-[9px] sm:text-[10px] font-bold text-[#064e3b] uppercase shadow-sm"
+                            >
+                              {brand}
+                            </span>
+                          ))}
+                        </div>
                       </div>
-                    </div>
+                    )}
 
                     <button
                       type="button"
@@ -754,7 +755,7 @@ export default function ProductsPage() {
                         setSelectedProduct(null);
                         handleOpenQuote(targetProd);
                       }}
-                      className="shrink-0 w-full sm:w-auto px-5 sm:px-6 py-2.5 sm:py-3 bg-[#ea580c] text-white font-mono font-bold text-[10px] sm:text-xs uppercase tracking-wider hover:bg-[#c2410c] transition-colors rounded-full shadow-sm cursor-pointer whitespace-nowrap"
+                      className="w-full sm:w-auto px-5 sm:px-6 py-2.5 sm:py-3 bg-[#ea580c] text-white font-mono font-bold text-[10px] sm:text-xs uppercase tracking-wider hover:bg-[#c2410c] transition-colors rounded-full shadow-sm cursor-pointer whitespace-nowrap"
                     >
                       Báo Giá Ngay
                     </button>
