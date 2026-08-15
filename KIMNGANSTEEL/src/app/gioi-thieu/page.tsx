@@ -203,9 +203,10 @@ export default function AboutPage() {
             trigger: ".kn-brand-system-pin",
             start: "top top",
             end: "+=120%",
-            scrub: 1.2, // Tăng scrub để animation mượt hơn (catch-up delay)
+            scrub: 1.2,
             pin: ".kn-brand-system-pin",
             pinSpacing: true,
+            pinType: "transform", // Sử dụng transform thay vì position: fixed để chống giật
             fastScrollEnd: false,
             invalidateOnRefresh: true,
           },
